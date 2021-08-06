@@ -1,0 +1,171 @@
+% !TEX root = ../cours.tex
+
+\chapter{Calcul des prédicats}
+
+Le \og \textit{calcul des prédicats} \fg{}, parfois appelé \og logique du premier-ordre \fg{}, est une extension du calcul des propositions afin de manipuler non seulement des propositions, mais aussi des \textit{objets} d'un \textit{univers}.
+Une brève introduction est donnée dans ce chapitre dans le but de vous familiariser avec la syntaxe et les concepts de ce système formel qui seront utilisés tout au long du cours.
+Le sujet est vaste (et extrêmement intéressant!), et nous allons simplement l'aborder de manière superficielle dans le cadre ce cours.
+
+Le calcul des prédicats est une extension au calcul des propositions et hérite de toutes ses constructions syntaxiques.
+Le calcul des prédicats compte donc les propositions constantes ($\top$ et $\bot$), les connecteurs propositionnels (tels que $\implies$, $\wedge$, $\vee$, $\neg$, $\iff$), ainsi que les variables propositionnelles (sous la forme de prédicats d'arité $0$).
+En plus de cela, le calcul des prédicats incorpore des constructions syntaxiques en rapport aux \textit{objets}.
+
+\section{Univers}
+
+Lorsque l'on discute le calcul des prédicats, l'on a généralement en tête un \og \textit{univers} \fg{} pour les objets.
+L'univers que l'on considère peut être, par exemple, les nombres entiers, les ensembles, ou encore les participants au programme GymInf.
+On requiert généralement de l'univers qu'il contienne au moins un objet.
+
+\section{Syntaxe}
+
+Contrairement à la logique propositionnelle, qui ne comptait qu'une seule catégorie syntaxique (celle des propositions, ou formules), la logique de premier-ordre compte une catégorie syntaxique distincte additionnelle: les \og \textit{termes} \fg{}.
+Alors que l'évaluation d'une formule résulte en $1$ (\og \textit{vrai} \fg{}) ou $0$ (\og \textit{faux} \fg{}), l'évaluation d'un terme résulte en un objet de l'univers.
+
+\subsection{Metavariables}
+
+Comme dans le précédent chapitre, nous allons utiliser des métavariables dans la présentation du calcul des prédicats.
+Ces métavariables ne font pas partie du formalisme et sont simplement un moyen de parler de termes et formules arbitraires.
+
+Dans ce chapitre, nous utiliserons $A$, $B$, $C$ pour les métavariables associées à des formules et $X$, $Y$, $Z$ pour les métavariables associées à des termes.
+
+\subsection{Objets constants}
+
+Un objet constant réfère à un objet de l'univers. Par convention, on note les objets constant par un nom en minuscule.
+
+\subsection{Fonctions entres objets}
+
+Les fonctions prennent en arguments uniquement des termes, et retournent un terme.
+On note $f(X, Y)$ l'application d'une fonction $f$ à deux expressions $X$ et $Y$.
+Le nombres d'arguments qu'accepte une fonction est appelé son '\og arité \fg{}.
+On considère que les fonctions ont une arité fixe.
+
+\subsection{Prédicats sur les objets}
+
+Les prédicats prennent en arguments uniquement des objets, et retournent une proposition.
+Comme les fonctions, les prédicats ont aussi une arité qui dénote le nombre d'argument que le prédicat accepte.
+
+\subsection{Égalité entre objets}
+
+On incorpore un prédicat binaire (d'arité 2) distinct, que l'on note ${=}$, pour l'égalité.
+Le prédicat jouit de plusieurs règles d'inférence:
+
+\[
+\infer[({=}\text{-trans})]{X = Z}{X = Y & Y = Z}
+\]
+
+\[
+\infer[({=}\text{-sym})]{X = X}{}
+\]
+
+\[
+\infer[({=}\text{-com})]{Y = X}{X = Y}
+\]
+
+\[
+\infer[({=}\text{-fun})]{F(X) = F(Y)}{X = Y}
+\]
+
+\[
+\infer[({=}\text{-pre})]{P(Y)}{X = Y & P(X)}
+\]
+
+\subsection{Quantificateurs \& variables}
+
+Le calcul des prédicats incorpore des \og \textit{quantificateurs} \fg{} afin de pouvoir exprimer des propositions tels que \og \textit{Pour tout $x$, $x^2 \geq 0$.} \fg{} ou encore \og \textit{Il existe un homme qui rase tous les hommes qui ne se rasent pas eux-mêmes.} \fg{}.
+
+\subsubsection{Variables}
+
+Le calcul des prédicats incorpore des \og \textit{variables} \fg{} dont le domaine est les objets de l'univers considéré.
+Contrairement aux métavariables, une variable est un terme du formalisme.
+On dit d'une variable qu'elle est \og \textit{liée} \fg{} si elle se trouve dans une formule quantifiée indexée par le même nom.
+Une variable est dite \og \textit{libre} \fg{} si elle n'est pas liée.
+
+\subsubsection{Substitution}
+
+Une opération de \og \textit{substitution} \fg{} permet de remplacer les variables libres d'un certain nom dans un terme ou une formule par un autre terme.
+
+\begin{align*}
+x[X / x] &\eqdef X \\
+y[X / x] &\eqdef y \hspace{2em} (x \text{ est différent de } y)\\
+f(Y_1, \dots, Y_n)[X / x] &\eqdef f(Y_1[X / x], \dots, Y_n[X / x])\\
+P(Y_1, \dots, Y_n)[X / x] &\eqdef P(Y_1[X / x], \dots, Y_n[X / x])\\
+(\forall x. A)[X / x] &\eqdef \forall x. A\\
+(\forall y. A)[X / x] &\eqdef \forall y. A[X / x] \hspace{2em} (x \text{ est différent de } y \text{ et $y$ n'est pas libre dans $X$})\\
+(\exists x. A)[X / x] &\eqdef \exists x. A\\
+(\exists y. A)[X / x] &\eqdef \exists y. A[X / x] \hspace{2em} (x \text{ est différent de } y \text{ et $y$ n'est pas libre dans $X$})
+\end{align*}
+
+Dans le but d'éviter un effet de \textit{capture} de variable non-désiré, on restreint les règles de substitution liées aux quantificateurs:
+La variable introduite par le quantificateur ne peut pas apparaître libre dans le terme de substitution.
+Pour contourner cette restriction, il est possible de renommer les variables problématiques.
+
+\subsubsection{Quantificateur d'universalité}
+
+Un note $\forall x. A$ le proposition qui postule que \og \textit{Pour tout objet $x$, la proposition $A$ est vraie} \fg{}.
+À noter que la proposition $A$ dans ce cas fait généralement référence à la variable $x$, mais ce n'est pas une obligation.
+Le quantificateur d'universalité $\forall$ est lié aux deux règles d'inférences suivantes:
+
+\[
+\infer[({\forall}I)]{\forall x. A}{A & (*)}
+\]
+
+\[
+\infer[({\forall}E)]{A[X / x]}{\forall x. A}
+\]
+
+La règle $({\forall}I)$ est annotée d'une $(*)$: Elle est en effet soumise à la condition que la variable $x$ n'est pas libre dans une hypothèse non-déchargée au moment de l'application de la règle.
+
+\subsubsection{Quantificateur d'existence}
+
+Un note $\exists x. A$ le proposition qui postule que \og \textit{Il existe un objet $x$ tel que la proposition $A$ est vraie} \fg{}.
+Tout comme pour le quantificateur d'universalité, la proposition $A$ fait généralement référence à la variable $x$, sans que ce soit une obligation.
+Le quantificateur d'existence $\exists$ est lié aux deux règles d'inférences suivantes:
+
+\[
+\infer[({\exists}I)]{\exists x. A}{A[X / x]}
+\]
+
+\[
+\infer[({\exists}E)]{B}{\exists x. A & \infer*{B}{[A]} & (*)}
+\]
+
+La règle $({\exists}E)$ est annotée d'une $(*)$: Elle est en effet soumise à la condition que la variable $x$ n'est pas libre dans une hypothèse non-déchargée au moment de l'application de la règle, et que la variable n'est pas non plus libre dans la formule $B$.
+
+\section{Théories}
+
+Une \og \textit{théorie} \fg{} $T$ de logique du premier-ordre est une structure mathématique qui spécifie les noms d'un nombre fini de constantes, les noms d'un nombre fini de fonctions et leur arité, ainsi que les noms d'un nombre fini de prédicats et leur arité.
+Une théorie contient aussi généralement un ensemble d'axiomes faisant référence aux constantes, functions et prédicats de la théorie.
+
+On note $T \vdash A$ le fait qu'il existe une preuve (pouvant faire appel aux axiomes de $T$) de la formule $A$ en deduction naturelle dans la théorie T.
+
+\section{Interprétation sémantique}
+
+Étant donné une théorie $T$ de logique du premier-ordre, une \og \textit{interprétation} \fg{} $\mathcal{I}$ est une structure qui spécifie l'univers $U$ et qui associe:
+\begin{enumerate}
+\item à chaque constante de la théorie une valeur $v \in U$,
+\item à chaque fonction d'arité $n$ de la théorie une fonction $f : U^n \to U$, et
+\item à chaque prédicat d'arité $n$ de la théorie une relation $R \subseteq U^n$.
+\end{enumerate}
+
+\subsection{Évaluation}
+
+Étant donné une interprétation $\mathcal{I}$ et une fonction $\mu$ qui associe à chaque variable libre une valeur, il est possible d'évaluer une formule de la théorie à $0$ ou $1$ en procédant de manière récursive.
+La plupart des cas sont triviaux. Pour l'évaluation des quantificateurs, la fonction $\mu$ est modifiée dans les appels récursifs pour tenir compte de la nouvelle variable libre.
+
+Lorsque une formule $A$ évalue à 1 (\og vrai \fg{}) étant donné une interprétation $\mathcal{I}$ et une fonction $\mu$, on note:
+\[
+\mathcal{I}, \mu \vDash A
+\]
+Pour les formules sans variables libres, on note simplement:
+\[
+\mathcal{I} \vDash A
+\]
+
+Si on formule $A$ est vraie pour toutes les interprétations $\mathcal{I}$ d'une théorie $T$, alors on note:
+
+\[
+T \vDash A
+\]
+
+
+

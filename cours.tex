@@ -1,0 +1,37 @@
+\documentclass[12pt,french,a4paper]{memoir}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage[french]{cleveref}
+\usepackage{multirow}
+\usepackage{tikz}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{Fondamentaux formels\\/\\Informatique théorique}
+\author{Dr Romain Edelmann\\EPFL}
+\date{2021}
+\maketitle
+
+\frontmatter
+
+\tableofcontents
+
+\mainmatter
+
+\input{chapitres/1_calcul_des_propositions.tex}
+
+\input{chapitres/2_calcul_des_predicats.tex}
+
+\input{chapitres/3_ensembles_et_langages.tex}
+
+\input{chapitres/4_langages_reguliers.tex}
+
+\end{document}

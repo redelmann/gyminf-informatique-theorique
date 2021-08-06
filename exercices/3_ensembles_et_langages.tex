@@ -1,0 +1,131 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°2\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}10 août 2021}
+
+\maketitle
+
+\begin{question}
+Montrez que le produit cartésien de $\mathbb{N}$ avec l'ensemble \{\ 0, 1\ \}, noté $\mathbb{N} \times \{\ 0, 1\ \}$, est dénombrable, c'est-à-dire:
+\[
+|\mathbb{N} \times \{\ 0, 1\ \}| = |\mathbb{N}|
+\]
+\end{question}
+
+\begin{question}
+Considérons, pour chaque nombre naturel $i$, un ensemble fini $S_i$.
+Montrez que l'ensemble suivant est dénombrable:
+\[
+\bigcup_{i \in \mathbb{N}} S_i
+\]
+\end{question}
+
+\begin{question}
+Montrez que $\mathbb{N} \times \mathbb{N}$ est dénombrable.
+
+\paragraph{Indice} Considérez le résultat établi dans la question précédente.
+\end{question}
+
+\begin{question}
+Montrez que l'ensemble suivant est dénombrable:
+\[
+\bigcup_{i \in \mathbb{N}} (\mathbb{N} \times \{\ i\ \})
+\]
+
+\paragraph{Indice} Considérez le résultat établi dans la question précédente.
+\end{question}
+
+\begin{question}
+Démontrez le théorème de Cantor en utilisant la technique de la diagonalisation.
+Le théorème de Cantor énonce que, pour tout ensemble $x$:
+\[
+|x| < |\mathcal{P}(x)|
+\]
+
+\paragraph{Indice} Pour démontrer ce théorème, procédez en deux temps:
+\begin{enumerate}
+\item
+Dans un premier temps, prouvez que $|x| \leq |\mathcal{P}(x)|$ en montrant qu'il existe une injection entre $x$ et $\mathcal{P}(x)$.
+\item
+Dans un second temps, prouvez que $|x| \neq |\mathcal{P}(x)|$ en montrant qu'il n'existe pas de bijection entre $x$ et $\mathcal{P}(x)$.
+Pour cette seconde partie, partez de l'hypothèse qu'il existe une telle bijection $f$, et utilisez le procédé de la diagonalisation pour construire un sous-ensemble $y$ de $x$, tel que la paire $(f^{-1}(y), y)$ soit, de façon contradictoire, un élément de $f$ si et seulement si la paire n'est pas un élément de $f$.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Pour cet exercice, nous nous intéressons aux propriétés de la concaténation de langages, de l'exponentiation de langage et de la fermeture iterative.
+
+\paragraph{Partie 1} Montrez que la concatenation de langages est associative, c'est-à-dire, pour tous langages $L_1$, $L_2$, $L_3$:
+\[
+L_1 \cdot (L_2 \cdot L_3) = (L_1 \cdot L_2) \cdot L_3
+\]
+Utilisez le fait que deux ensembles sont égaux si et seulement si ils contiennent les mêmes éléments. Vous pouvez aussi utiliser le fait que la concaténation de mots est associative.
+
+\paragraph{Partie 2} Montrez la propriété suivante pour tout nombre naturel $i$, et ce par induction naturelle:
+\[
+L \cdot L^i = L^i \cdot L 
+\]
+Vous pouvez utiliser le fait que $\epsilon$ est l'élément neutre de la concaténation:
+\[
+\forall x. x \cdot \epsilon = x \wedge \epsilon \cdot x = x
+\]
+
+\paragraph{Induction naturelle} Le principe d'induction naturelle stipule que pour prouver une propriété pour tout nombre naturel $i$, il suffit de:
+\begin{itemize}
+\item prouver la propriété pour $0$,
+\item prouver que la propriété pour $i$ implique la propriété pour $i + 1$.
+\end{itemize}
+
+\paragraph{Partie 3} Montrez la propriété suivante de l'exponentiation de langages pour tout langage $L$ et tous entiers naturels $i$ et $j$:
+\[
+L^{i + j} = L^i \cdot L^j
+\]
+
+\paragraph{Partie 4} Montrez la propriété suivante de l'exponentiation de langages pour tout langage $L$ et tous entiers naturels $i$ et $j$:
+\[
+L^{i * j} = (L^i)^j
+\]
+
+\paragraph{Partie 5} Montrez la propriété suivante pour tout langage $L$:
+\[
+(L^*)^* = L^*
+\]
+\end{question}
+
+\begin{question}
+Pour les affirmations suivantes sur les langages, donnez une preuve ou un contre-exemple:
+\begin{enumerate}
+\item $(L_1 \cup L_2)^* = L_1^* \cup L_2^*$
+\item $(L_1 \cap L_2)^* = L_1^* \cap L_2^*$
+\item $(L_1 \cdot L_2)^* = L_1^* \cdot L_2^*$
+\item $\overline{L_1^*} = \overline{L_1}^*$
+\item $(L_1 \cup L_2) \cdot L_3 = L_1 \cdot L_3 \cup L_2 \cdot L_3$
+\item $(L_1 \cap L_2) \cdot L_3 = L_1 \cdot L_3 \cap L_2 \cdot L_3$
+\item $(L_1 \cdot L_2)^* = (L_2 \cdot L_1)^*$
+\item $(L_1 \cdot L_2)^* = L_1 \cdot (L_2 \cdot L_1)^* \cdot L_2 \cup \emptyset$
+\end{enumerate}
+\end{question}
+
+\end{document}

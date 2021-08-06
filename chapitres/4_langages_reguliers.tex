@@ -1,0 +1,244 @@
+% !TEX root = ../cours.tex
+\chapter{Langages réguliers}
+
+Dans ce chapitre, nous allons étudier une classe de langages appelés \og \textit{languages réguliers} \fg{}.
+Un langage régulier est un ensemble de mots qui peut être décrit à l'aide d'une \og \textit{expression régulière} \fg{}.
+Les expressions régulières sont une notation pour décrire des languages de façon algébrique.
+Tel que nous allons les introduire, les \og \textit{constructeurs} \fg{} d'expressions régulières correspondront aux opérations ensemblistes sur les langages que nous avons établis au chapitre précédent.
+Nous introduirons ensuite la notion d\og \textit{automates finis} \fg{} afin de donner une représentation des langages régulier qui admet une procédure effective très simple de vérification de l'appartenance d'un mot au langage.
+Nous montrerons finalement qu'il existe des langages non-réguliers qui semblent pourtant admettre des procédures effectives, nous poussant ainsi à chercher d'autre formalismes de description de langages.
+
+\section{Expressions régulières}
+
+Une \og \textit{expression régulière} \fg{} est une représentation sous forme d'\textit{expression} d'un langage.
+Une expression régulière est constituée d'expressions atomiques, tels que $\epsilon$, $\emptyset$ ou n'importe quel symbole d'un alphabet $\Sigma$, composées entre elles à l'aide de constructeurs tels que $\cdot$, $\cup$, et $*$. Formellement, étant donné un alphabet $\Sigma$, l'ensemble des expressions régulières est le \textit{plus petit} ensemble qui satisfait les propositions suivantes:
+\begin{itemize}
+\item $\epsilon$ est une expression régulière.
+\item $\emptyset$ est une expression régulière.
+\item Pour tout symbole $s \in \Sigma$, $s$ est une expression régulière.
+\item $(e_1 \cdot e_2)$ est une expression régulière si et seulement si $e_1$ et $e_2$ sont des expressions régulières.
+\item $(e_1 \cup e_2)$ est une expression régulière si et seulement si $e_1$ et $e_2$ sont des expressions régulières.
+\item $(e)^*$ est une expression régulière si et seulement si $e$ est une expression régulière.
+\end{itemize}
+
+Quand le sens est clair, on omettra les parenthèses lors de l'écriture d'une expression régulière.
+On considère que le constructeur $*$ a la plus haute précédence, suivit de $\cdot$ et enfin de $\cup$.
+
+\subsection{Différence entre expressions et langages}
+
+La définition des expressions régulières peut prêter à confusion.
+Pourquoi définir les expressions régulières alors que nous disposons déjà de toutes ces constantes et opérations sur les langages?
+La réponse est simple: Une expression régulière, contrairement à une langage, peut être \textit{manipulée symboliquement}.
+La structure d'une expression régulière peut être analysée.
+De plus, comme on le verra tout soudainement, nous pourrons aussi raisonner par induction sur la structure d'une expression régulière.
+Contrairement à une expression, un langage n'a pas de structure: il s'agit simplement d'une collection de mots.
+
+\subsection{Langage d'une expression régulière}
+
+Les expressions régulières correspondent à un langage, qui est donné par la fonction $L$, définie comme suit:
+\begin{align*}
+L(\epsilon) &\eqdef \{\ \epsilon\ \}\\
+L(\emptyset) &\eqdef \emptyset\\
+L(a) &\eqdef \{\ a\ \} \hspace{2em}\text{Pour tout symbole $a \in \Sigma$}\\
+L(e_1 \cdot e_2) &\eqdef L(e_1) \cdot L(e_2)\\
+L(e_1 \cup e_2) &\eqdef L(e_1) \cup L(e_2)\\
+L(e^*) &\eqdef L(e)^*
+\end{align*}
+
+\subsection{Langages réguliers}
+
+On appel \og \textit{langage régulier} \fg{} un langage $L$ si et seulement si il existe une expression régulière qui a pour langage $L$.
+
+%De ces définitions, on obtient les propositions suivantes pour n'importe quelles expressions $e$, $e_1$, $e_2$, mot $x$ et symbole $a$:
+%\begin{align*}
+%x \in L(\epsilon) &\iff x = \epsilon\\
+%x \in L(\emptyset) &\iff \bot\\
+%x \in L(a) &\iff x = a\\
+%x \in L(e_1 \cdot e_2) &\iff (\exists x_1. \exists x_2.\ x_1 \in L(e_1) \wedge x_2 \in L(e_2) \wedge x = x_1 \cdot x_2)\\
+%x \in L(e_1 \cup e_2) &\iff x \in L(e_1) \vee x \in L(e_2)\\
+%x \in L(e^*) &\iff x = \epsilon \vee x \in L(e) \cdot L(e^*)\\
+%\end{align*}
+
+\subsection{Principe d'induction structurelle}
+
+Pour prouver une propriété $P[e]$ pour toute expression régulière $e$, il est possible de procéder par \og \textit{induction structurelle} \fg{}. Pour cela, il suffit de:
+\begin{enumerate}
+\item Prouver la propriété sur $\epsilon$, c'est-à-dire $P[\epsilon]$.
+\item Prouver la propriété sur $\emptyset$, c'est-à-dire $P[\emptyset]$.
+\item Prouver la propriété sur $a$ pour tout symbole $a$ de l'alphabet,  c'est-à-dire $\forall a. a \in \Sigma \implies P[a]$.
+\item Prouver la propriété sur $e_1 \cdot e_2$, en admettant comme hypothèse d'induction $P[e_1]$ et $P[e_2]$.
+\item Prouver la propriété sur $e_1 \cup e_2$, en admettant comme hypothèse d'induction $P[e_1]$ et $P[e_2]$.
+\item Prouver la propriété sur $e^*$, en admettant comme hypothèse d'induction $P[e]$.
+\end{enumerate}
+
+\paragraph{Exemple de preuve par induction structurelle}
+
+Prouvons le théorème suivant: \og \textit{Si un expression régulière $e$ a pour langage l'ensemble vide, alors forcément elle contient l'expression $\emptyset$ comme sous-expression.} \fg.
+Procédons par induction structurelle sur $e$.
+\begin{enumerate}
+\item Si $e = \epsilon$, alors nous arrivons à une contradiction, car le langage de $\epsilon$ n'est pas vide, ce qui clôt le cas.
+\item Si $e = \emptyset$, alors directement $e$ contient $\emptyset$ comme sous-expression, ce qui clôt le cas.
+\item Si $e = a$ pour un symbole $a$ de $\Sigma$, alors nous arrivons à une contradiction, car le langage de $a$ n'est pas vide, ce qui clôt le cas.
+\item Considérons le cas où $e = e_1 \cdot e_2$ pour deux expressions $e_1$ et $e_2$.
+      Si le langage de $e$ est vide, alors forcément soit le langage de $e_1$ est vide, soit le langage de $e_2$ est vide.
+      \begin{enumerate}
+      \item Dans le cas où le langage de $e_1$ est vide, alors on a, par hypothèse d'induction,
+            que $e_1$ contient le symbole $\emptyset$ comme sous-expression, et donc c'est aussi le cas pour $e$.
+      \item Dans le cas où le langage de $e_2$ est vide, on procède de façon similaire.
+      \end{enumerate}
+\item Considérons le cas où $e = e_1 \cup e_2$ pour deux expressions $e_1$ et $e_2$.
+      Si le langage de $e$ est vide, alors forcément à la fois le langage de $e_1$ est vide et le langage de $e_2$ est vide.
+      Par hypothèse d'induction, l'expression $e_1$ contient donc $\emptyset$ comme sous-expression (idem pour $e_2$), et donc $e$ aussi.
+\item Si $e = e_1^*$, alors immédiatement nous arrivons à une contradiction, car le langage de $e_1^*$ n'est pas vide, ce qui clôt le cas.
+\end{enumerate}
+
+\section{Automates finis déterministes}
+
+Un \og \textit{automate fini déterministe} \fg{}, est une structure mathématique composée de:
+\begin{enumerate}
+\item Un ensemble fini $Q$ d'états.
+\item Un alphabet $\Sigma$.
+\item Une fonction de transition $\delta : Q \times \Sigma \to Q$.
+\item Un état initial $s \in Q$.
+\item Un ensemble d'états finaux $F \subset Q$.
+\end{enumerate}
+
+\subsection{Configuration}
+
+On appelle une \og configuration \fg{} d'un automate fini déterministe la paire d'un état $q \in Q$ et d'un mot $x \in \Sigma^*$.
+
+\subsection{Dérivation \& acceptation}
+
+Étant donné un automate fini déterministe $A$, une configuration $(q_1, x_1)$ est \og \textit{dérivable en une étape} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_A (q_1, x_1)$, si et seulement si il existe un symbole $a \in \Sigma$ tel que:
+\begin{enumerate}
+\item Que la fonction de transition amène $q_1$ depuis $q_0$ en voyant le symbole~$a$: $\delta(q_0, a) = q_1$
+\item Que le mot $x_0$ commence par le symbole $a$ et que le reste soit $x_1$: $x_0 = a \cdot x_1$
+\end{enumerate}
+
+On dit qu'une configuration $(q_1, x_1)$ est \og \textit{dérivable} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_A^* (q_1, x_1)$, si et seulement si il existe un nombre naturel $k$ et une série $c_1 \dots c_n$ de $k$ configurations tels que:
+\begin{gather*}
+c_1 = (q_0, x_0)\\
+c_k = (q_1, x_1)\\
+\forall i.\ i \geq 1 \wedge i < k \implies c_i \vdash_A c_{i + 1}
+\end{gather*}
+
+On dit d'un automate $A = (Q, \Sigma, \delta, s, F)$ qu'il \og \textit{accepte} \fg{} un mot $x \in \Sigma^*$ si et seulement si il existe un état $f \in F$ tel que:
+\[
+(s, x) \vdash_A^* (f, \epsilon)
+\]
+C'est-à-dire qu'il est possible d'aller de l'état initial $s$ à un état final $f$ en suivant la fonction de transition sur les symboles successifs de $x$.
+
+Le langage d'une automate fini déterministe est l'ensemble des mots qu'il accepte.
+
+\section{Non-déterminisme}
+
+Les automates présentés jusqu'à présent sont appelés \textit{déterministes}. En effet, la relation de transition de ces automates indique de façon non-ambiguë l'état suivant en fonction de l'état courant et du prochain symbole sur la bande.
+Il est possible de relaxer cette contrainte en permettant à l'automate plus de souplesse, en introduisant une notion de choix non-déterministe: L'automate peut décider par lui-même de quel transition prendre parmi un choix fini de possibilités.
+Intuitivement, on peut se représenter cette capacité non-déterministe comme celle de faire le \og \textit{bon choix} \fg, ou alors comme celle de pouvoir effectuer en parallèle des exécutions.
+
+Le non-déterminisme joue un rôle important en théorie de la calculabilité, et encore plus en théorie de la complexité.
+
+\section{Automates finis non-déterministes}
+
+Un \og \textit{automate fini non-déterministe} \fg{}, est une structure mathématique composée de:
+\begin{enumerate}
+\item Un ensemble fini $Q$ d'états.
+\item Un alphabet $\Sigma$.
+\item Une relation de transition de taille finie $\Delta \subseteq Q \times \Sigma^* \times Q$.
+\item Un état initial $s \in Q$.
+\item Un ensemble d'états finaux $F \subset Q$.
+\end{enumerate}
+
+\subsection{Configuration}
+
+On appelle une \og configuration \fg{} d'un automate fini non-déterministe la paire d'un état $q \in Q$ et d'un mot $x \in \Sigma^*$.
+
+\subsection{Dérivation \& acceptation}
+
+Étant donné un automate fini non-déterministe $N$, une configuration $(q_1, x_1)$ est \og \textit{dérivable en une étape} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_A (q_1, x_1)$, si et seulement si il existe un mot $x \in \Sigma^*$ tel que:
+\begin{enumerate}
+\item Que la relation de transition permette d'amener à $q_1$ depuis $q_0$ en voyant le mot~$x$: $(q_0, x, q_1) \in \Delta$
+\item Que le mot $x_0$ commence par le préfix $x$ et que le reste soit $x_1$: $x_0 = x \cdot x_1$
+\end{enumerate}
+
+On dit qu'une configuration $(q_1, x_1)$ est \og \textit{dérivable} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_N^* (q_1, x_1)$, si et seulement si il existe un nombre naturel $k$ et une série $c_1 \dots c_n$ de $k$ configurations tels que:
+\begin{gather*}
+c_1 = (q_0, x_0)\\
+c_k = (q_1, x_1)\\
+\forall i.\ i \geq 1 \wedge i < k \implies c_i \vdash_N c_{i + 1}
+\end{gather*}
+
+On dit d'un automate fini non-déterministe $N = (Q, \Sigma, \Delta, s, F)$ qu'il \og \textit{accepte} \fg{} un mot $x \in \Sigma^*$ si et seulement si il existe un état $f \in F$ tel que:
+\[
+(s, x) \vdash_N^* (f, \epsilon)
+\]
+C'est-à-dire qu'il est possible d'aller de l'état initial $s$ à un état final $f$ en suivant la relation de transition sur une décomposition de $x$ en sous-parties.
+
+Le langage d'une automate fini non-déterministe est l'ensemble des mots qu'il accepte.
+
+\section{Déterminisation}
+
+Comme nous allons le démontrer par un procédé, il est toujours possible de passer d'un automate non-déterministe à un automate fini déterministe ayant le même langage.
+Le procédé de \og déterminisation \fg{} d'un automate fini non-déterministe $N_1 = (Q_1, \Sigma, \Delta_1, s_1, F_1)$ consiste en deux étapes:
+\begin{enumerate}
+\item
+Dans la première étape, un automate fini non-déterministe $N_2 = (Q_2, \Sigma, \Delta_2, s_2, F_2)$  est construit afin d'éliminer toutes les transitions ayant pour argument un mot de taille $k$ plus grande que $1$. Pour ce faire, il suffit de supprimer toutes telles transitions $(q_1, a_1 \dots a_k, q_{k+1})$ et d'incorporer:
+\begin{enumerate}
+\item À l'ensemble $Q_2$ un nombre $k-1$ de \textit{nouveaux} états $q_2 \dots q_k$,
+\item À la relation de transition $\Delta_2$, toutes les transitions $(q_i, a_i, q_{i+1})$ pour tout $i$ de $1$ à $k$.
+\end{enumerate}
+L'automate $N_2$ résultant est équivalent $N_1$.
+\item
+Deuxièmement, un automate fini déterministe $A = (Q_3, \Sigma, \delta_3, s_3, F_3)$  est construit.
+Afin de gérer les transitions ayant pour argument $\epsilon$ (transitions $\epsilon$), on considère la fonction de \og \textit{fermeture-$\epsilon$} \fg{} dénotée $E : Q_2 \to \mathcal{P}(Q_2)$, qui retourne tous les états accessibles depuis un état donné en empruntant uniquement des transitions $\epsilon$:
+\[
+E(q) \eqdef \{\ q' \in Q_2\ |\ (q, \epsilon) \vdash_{N_2}^* (q', \epsilon)\ \} 
+\]
+Étant donné cette fonction, on construit l'automate fini déterministe $A = (Q_3, \Sigma, \delta_3, s_3, F_3)$ de la façon suivante:
+\begin{enumerate}
+\item L'ensemble d'état $Q_3$ est égal à $\mathcal{P}(Q_2)$, c'est-à-dire que chaque état de $Q_3$ est un ensemble d'état de $Q_2$.
+\item L'alphabet $\Sigma$ reste inchangé.
+\item La fonction de transition $\delta_3$ est définie comme suit:
+\[
+\delta_3(q, a) \eqdef \bigcup_{q' \in q} \{\ E(p)\ |\ (q', a, p) \in \Delta_2\ \}
+\]
+\item L'état initial $s_3$ est égal à $E(s_2)$,
+\item L'ensemble d'états finaux $F_3$ est égal à l'ensemble des états de $Q_3$ qui contiennent comme élément au moins un état final de $Q_2$:
+\[
+F_3 = \{\ q \in \mathcal{P}(Q_2)\ |\ q \cap F_2 \neq \emptyset\ \}
+\] 
+\end{enumerate}
+\end{enumerate}
+
+L'existence d'une telle transformation démontre que l'ajout du non-déterminisme aux automates finis n'augmente pas la classe des langages qu'ils peuvent décrire. Aussi, trivialement, chaque automate fini déterministe est un automate fini non-déterministe, ce qui nous permet de conclure que les deux formalismes ont exactement la même expressivité.
+
+Il est à noter cependant que le processus de déterminisation peut faire \textit{exploser} le nombre d'état.
+Étant donné un automate non-déterministe de taille $n$, l'automate déterministe obtenu par le procédé de déterminisation a $2^n$ états.
+
+\section{Minimisation}
+
+Étant donné un automate fini déterministe, il est possible de le \og \textit{minimaliser} \fg{} pour obtenir un automate fini déterministe équivalent mais de taille minimale.
+
+Le processus de minimisation est un processus itératif qui cherche à établir des classes d'équivalence entre les états d'un automate.
+Considérons $n$ le nombre d'états dans $Q$, et notons $q_1, \dots, q_n$ les $n$ états.
+
+On commence avec un tableau qui contient une entrée pour chaque paire d'état $(q_i, q_j)$ où $i < j$.
+Initialement, les entrées du tableau sont mises à $1$, pour indiquer une potentielle équivalence.
+Ensuite, on marque comme non-équivalente toute paire d'états $(q_i, q_j)$ où un état est final et l'autre ne l'ai pas.
+Ces deux états sont de toute évidence non-équivalents.
+
+Ensuite, on commence un processus itératif. À chaque iteration, on parcourt l'ensemble des paires d'états $(q_i, q_j)$ encore considérées équivalentes.
+Pour chacune de ces paires, on parcourt tous les symboles $a$ de $\Sigma$ et on regarde si $\delta(q_i, a)$ est considéré comme équivalent à $\delta(q_j, a)$.
+Si ce n'est pas le cas, on marque $(q_i, q_j)$ comme non-équivalente.
+Si au moins une paire a été marquée lors de l'itération, on procède à l'itération suivante, sinon le processus s'arrête.
+
+Quand le processus se termine, le tableau indique contient un $1$ pour chaque paire d'états équivalents.
+L'automate peut donc être modifié afin d'adopter ces classes d'équivalence comme états.
+
+\section{Transformation d'une expression régulière en automate}
+
+\section{Transformation d'un automate en expression régulière}
+
+\section{Théorème du gonflement}
+
+Comme établi au chapitre précédent, étant donné que l'ensemble des expressions régulières est dénombrable, il existe forcément des langages qui ne sont pas descriptibles à l'aide d'expressions régulières. Cependant, nous allons montrer qu'il existe certains langages qui admettent intuitivement des procédures effectives qui ne sont pas reconnu.

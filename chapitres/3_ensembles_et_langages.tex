@@ -1,0 +1,387 @@
+% !TEX root = ../cours.tex
+\chapter{Ensembles, problèmes et langages}
+
+Dans ce chapitre, nous allons formaliser la notion de \og \textit{problèmes} \fg{} et leur encodage sous forme de \og \textit{langages} \fg{}.
+Nous allons établir un premier résultat concernant l'\og \textit{indécidabilité} \fg{} de certains problèmes grâce à un raisonnement ensembliste lié à la cardinalité.
+Pour cette raison, nous commencerons ce chapitre par un bref rappel de théorie des ensembles.
+
+\section{Ensembles et appartenance}
+
+Un ensemble est une collection d'objets.
+On note $a \in x$ le prédicat binaire stipulant l'appartenance de l'objet $a$ dans l'ensemble $x$.
+On considère deux ensembles comme égaux si et seulement si ils contiennent les mêmes objets.
+Ce fait est exprimé formellement par l'axiome suivant:
+
+\[
+\forall x. \forall y.\ x = y \iff (\forall a. a \in x \iff a \in y)
+\]
+
+\subsection{Ensemble vide}
+
+On note l'ensemble vide $\emptyset$.
+On admet:
+
+\[
+\forall x.\ x \not\in \emptyset
+\]
+
+\subsection{Notation d'ensemble}
+
+Étant donné des éléments $x_1$, $x_2$ \dots $x_n$, on note l'ensemble qui contient ces éléments, et uniquement ces éléments, par:
+\[
+\{ x_1, x_2, \dots, x_n\}
+\]
+
+\section{Opérations ensemblistes}
+
+\subsection{Union}
+
+On note l'union de deux ensembles $X$ et $Y$ par $X \cup Y$.
+Un objet appartient à l'union de deux ensembles si et seulement si il appartient à l'un ou à l'autre des deux.
+Ce fait est exprimé par l'axiome:
+
+\[
+\forall x. \forall y. \forall a.\ a \in x \cup y \iff a \in x \vee a \in y
+\]
+
+\subsection{Intersection}
+
+On note l'intersection de deux ensembles $X$ et $Y$ par $X \cap Y$.
+Un objet appartient à l'intersection de deux ensembles si et seulement si il appartient aux deux ensembles.
+Ce fait est exprimé par l'axiome:
+
+\[
+\forall x. \forall y. \forall a.\ a \in x \cap y \iff a \in x \wedge a \in y
+\]
+
+\subsection{Produit cartésien}
+
+On note la paire de $a$ et $b$ par $(a, b)$.
+On note le produit cartésien de deux ensembles $X$ et $Y$ par $X \times Y$.
+Les éléments de $X \times Y$ sont les paires d'éléments de $X$ et de $Y$:
+
+\[
+\forall x. \forall y. \forall p.\ p \in x \times y \iff (\exists a. \exists b.\ a \in x \wedge b \in y \wedge p = (a, b))
+\]
+
+\subsection{Définition d'un ensemble en compréhension}
+
+Pour un ensemble $X$, on dénote l'ensemble de tous les éléments $x$ de $X$ qui satisfont une proposition $A$ (qui peut faire référence à $x$) comme:
+\[
+\{\ x \in X\ |\ A\ \}
+\]
+
+On admet le schéma d'axiomes suivant:
+\[
+\forall s. \forall a.\ a \in \{ x \in s\ |\ A\ \} \iff (a \in s \wedge A[a / x])
+\]
+
+\subsection{Sous-ensemble}
+
+On utilise le prédicat $X \subseteq Y$ pour indiquer que l'ensemble $X$ est un sous-ensemble de $Y$.
+Un ensemble $X$ est un sous-ensemble d'un ensemble $Y$ si et seulement si tout élément de $X$ est un élément de $Y$. 
+Ce fait est exprimé par l'axiome:
+
+\[
+\forall x. \forall y.\ x \subseteq y \iff (\forall a. a \in x \implies a \in y)
+\]
+
+\subsection{Super-ensemble}
+
+Le super-ensemble d'un ensemble $X$ est l'ensemble de tous les sous-ensembles de $X$.
+Pour un ensemble $X$, on note son super-ensemble $\mathcal{P}(X)$ (pour \textit{powerset}).
+On a:
+
+\[
+\forall x. \forall y.\ x \in \mathcal{P}(y) \iff x \subseteq y
+\]
+
+\section{Les nombres naturels}
+
+On note $\mathbb{N}$ l'ensemble des nombres naturels $0$, $1$, $2$, \dots.
+On admet les opérations usuelles telles qu'addition, multiplication, puissance, plus petit ou égal, et ainsi de suite.
+
+\section{Fonctions}
+
+Étant donnés deux ensembles $X$ (le \textit{domaine}) et $Y$ (le \textit{codomaine}), on appelle un sous-ensemble $f$ de $X \times Y$ une \og \textit{fonction} \fg{} si et seulement si $f$ obéit aux contraintes suivantes:
+\begin{enumerate}
+\item Pour tout élément $x$ de $X$, il existe élément $y$ de $Y$ tel que $(x, y) \in f$.
+\item Pour tout élément $x$ de $X$, s'il existe deux éléments $y_1$ et $y_2$ tels que $(x, y_1) \in f$ et $(x, y_2) \in f$, alors nécessairement $y_1 = y_2$.
+\end{enumerate}
+Étant donné une fonction $f$ de domaine $X$ et de codomaine $Y$ et un élément $x \in X$, on note $f(x)$ l'élément unique de $Y$ associé par $f$ à $x$.
+
+\subsection{Injections}
+
+On appelle une \og \textit{injection} \fg{} toute fonction qui associe au plus un élément du domaine à tout élément du codomaine.
+
+\subsection{Surjections}
+
+On appelle une \og \textit{surjection} \fg{} toute fonction qui associe au moins un élément du domaine à chaque élément du codomaine.
+
+\subsection{Bijections}
+
+On appelle une \og \textit{bijection} \fg{} toute fonction qui associe exactement un élément du domaine à chaque élément du codomaine.
+Une fonction est une bijection si et seulement si elle est à la fois une injection et une surjection.
+
+\section{Cardinalité}
+
+On appelle la cardinalité d'un ensemble sa taille. Pour un ensemble $X$, on dénote sa cardinalité par $|X|$.
+
+La cardinalité d'un ensemble fini est un nombre naturel qui est égal au nombre d'éléments.
+Pour les ensembles infinis, la réponse est plus complexe, et implique la notion de \textit{cardinaux}.
+L'étude des cardinaux est un sujet vaste en soit, et nous n'auront pas le temps de l'explorer en détails.
+Cependant, sans introduire la notion de cardinaux, nous ferons usage des résultats suivants:
+\begin{enumerate}
+\item
+On considère que deux ensembles ont la même cardinalité si et seulement si il existe une bijection entre les deux ensembles.
+\item
+Aussi, on considère que la cardinalité d'un ensemble est plus petite ou égale à la cardinalité d'un autre ensemble si et seulement si il est possible d'établir une injection entre le premier ensemble et le second.
+\end{enumerate}
+
+\subsection{Ensemble dénombrable}
+
+On appelle la cardinalité de l'ensemble des nombres naturels $\aleph_0$:
+\[
+|\mathbb{N}| = \aleph_0
+\]
+
+Tout ensemble dont la cardinalité est plus petite ou égal à $\aleph_0$ est appelé \og \textit{dénombrable} \fg{}.
+
+\section{Problèmes \& programmes}
+
+Un \og \textit{problème} \fg{} est une question qui porte sur un ensemble d'éléments.
+On appelle une \og \textit{instance} \fg{} un problème posé sur un élément en particulier.
+Chaque instance à une réponse.
+Dans ce cours, nous nous intéresserons particulièrement aux problèmes binaires, où la réponse à chaque instance est soit \og \textit{oui} \fg{}, soit \og \textit{non} \fg{}.
+On appelle une instance dont la réponse est \og oui \fg{} une \og \textit{instance positive} \fg{} du problème et une instance dont la réponse est \og non \fg{} une \og \textit{instance négative} \fg{} du problème.
+
+Un \og \textit{programme} \fg{} est une procédure de résolution de problème qui a les particularités suivantes:
+\begin{enumerate}
+\item
+Elle consiste en un nombre fini d'instructions, toutes de taille finie.
+\item
+Pour chaque instance du problème, la procédure termine et retourne le résultat correct.
+\item
+Les instructions sont non-ambiguë et ne requiert aucune ingéniosité. La procédure peut être suivie par un être humain suivant les instructions à la lettre (en faisant abstraction de sa capacité de mémoire et de sa patience). 
+\end{enumerate}
+On parle aussi de \og procédure effective \fg{} ou d'\og algorithme \fg{} pour faire référence à un programme.
+
+\section{Encodage}
+
+Au vu de la taille nécessairement finie d'un programme, il faudra nécessairement \textit{encoder} les instances du problème, c'est-à-dire leur donner une représentation sous forme de suite finie de symboles tirés d'un \og \textit{alphabet} \fg{} lui aussi fini.
+Sans cet encodage, il serait impossible au programme de pouvoir traiter efficacement toutes les instances.
+À noter que, comme on pourra le montrer tout soudain, cet encodage n'est pas toujours possible:
+Il y a \textit{trop} d'instances à encoder
+Par exemple, il est impossible d'encoder tous les nombres réels de façon unique.
+
+\subsection{Alphabet}
+
+On appelle un \og \textit{alphabet} \fg{} un ensemble finis et non-vide de \og \textit{symboles} \fg{}.
+Chaque symbole est distinct des autres symboles de l'alphabet.
+Bien que généralement implicite, on dénotera au besoin l'alphabet considéré par $\Sigma$.
+
+\subsection{Mots}
+
+On appelle une suite finie de symboles tirés d'un alphabet $\Sigma$ un \og \textit{mot} \fg{}.
+On dénote par $\Sigma^*$ l'ensemble de tous les mots basés sur l'alphabet $\Sigma$.
+On note aussi $\Sigma^n$ l'ensemble de tous les mots de taille $n$.
+
+Pour un mot $x$, on note $|x|$ le nombre naturel qui correspond à la taille du mot, c'est-à-dire à son nombre de symboles.
+On note $x(1)$ le premier élément du mot, $x(2)$ le deuxième, et ainsi de suite jusqu'à $x(n)$, où $n = |x|$.
+
+Deux mots sont égaux s'ils ont la même taille et qu'ils associent à chaque index le même symbole.
+
+\subsubsection{Notation}
+
+On note un mot formé d'au moins un symbole simplement en faisant écrivant les symboles l'un à la suite de l'autre.
+Par exemple, étant donnés des symboles $a$, $b$, $c$, on note $abc$ le mot de taille $3$ qui a le symbole $a$ à l'index $1$, le symbole $b$ à l'index $2$ et le symbole $c$ à l'index $3$.
+
+On utilise la même notation pour signifier un mot de taille $1$ et le symbole qu'il comprend.
+Le contexte d'utilisation permet généralement de désambiguïser la notation. 
+
+\subsubsection{Mot vide}
+
+On dénote le mot vide par $\epsilon$.
+Le mot vide est de taille $0$.
+
+\[
+|\epsilon| = 0
+\]
+
+\subsubsection{Concatenation de mots}
+
+On note la concaténation de deux mots $x$ et $y$ par $x \cdot y$, ou tout simplement $xy$.
+La concaténation $x \cdot y$ des deux mots $x$ et $y$ est aussi un mot, dont la taille et le contenu sont définis comme-ci:
+
+\begin{align*}
+|x \cdot y| &\eqdef |x| + |y|\\
+(x \cdot y)(i) &\eqdef \begin{cases}
+x(i) & \text{si $i \leq |x|$}\\
+y(i - |x|) & \text{autrement}
+\end{cases}
+\end{align*}
+
+L'opération de concaténation est associative:
+\[
+\forall x_1. \forall x_2. \forall x_3.\ x_1 \cdot (x_2 \cdot x_3) = (x_1 \cdot x_2) \cdot x_3   
+\]
+
+Le mot vide est l'élément neutre de la concatenation:
+\[
+\forall x. x \cdot \epsilon = x \wedge \epsilon \cdot x = x
+\]
+
+\section{Langages}
+
+On appelle un ensemble de mots un langage.
+De manière intéressante, on peut représenter un problème par le langage de ses instances positives.
+
+\subsection{Opérations sur les langages}
+
+En tant qu'ensemble, les langages admettent toutes les opérations ensemblistes précédemment évoquée, telles que l'union ($\cup$), l'intersection ($\cap$) ou encore la définition par compréhension ($\{ x \in L\ |\ A \}$).
+En plus de cela, nous considérerons aussi les opérations suivantes.
+
+\subsubsection{Concatenation de langages}
+
+Deux langages $L_1$ et $L_2$ peuvent être concaténé, noté $L_1 \cdot L_2$, ou simplement $L_1L_2$.
+Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux avec la parties de tel façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
+\[
+L_1 \cdot L_2 \eqdef \{ x \in \Sigma^*\ |\ \exists x_1. \exists x_2. x_1 \in l_1 \wedge x_2 \in l_2 \wedge x = x_1 \cdot x_2\ \}
+\]
+Ou, de manière équivalente:
+\[
+\forall x.\ x \in L_1 \cdot L_2 \iff (\exists x_1. \exists x_2.\ x_1 \in L_1 \wedge x_2 \in L_2 \wedge x = x_1 \cdot x_2)
+\]
+
+\subsubsection{Exponentiation de langages}
+
+Étant donné un langage $L$, on note $L^n$ l'ensemble des mots issus de la concatenation de $n$ mots (potentiellement différents) de $L$.
+L'opération est définie de manière inductive comme suit:
+\begin{align*}
+L^0 &\eqdef \{ \epsilon \}\\
+L^{i + 1} &\eqdef L \cdot L_i\\
+\end{align*}
+Ou de manière équivalente:
+\begin{align*}
+\forall x.\ x \in L^0 &\iff x = \epsilon\\
+\forall x. \forall i.\ x \in L^{i + 1} &\iff x \in L \cdot L^i\\
+\end{align*}
+
+\subsubsection{Fermeture iterative}
+
+La \og \textit{fermeture iterative} \fg{} d'un langage $L$, aussi appelée \og \textit{fermeture de Kleene} \fg{} de $L$, est l'ensemble de tous les mots qui peuvent être découpés en sous-parties toutes éléments de $L$. On dénote la fermeture iterative de $L$ par $L^*$.
+L'ensemble $L^*$ est la résultat de l'union infinie des puissances de~$L$:
+\[
+L^* \eqdef \bigcup_{i \in \mathbb{N}} L^i
+\]
+Autrement dit, sous forme de propositions:
+\[
+\forall x.\ x \in L^* \iff (\exists i. i \in \mathbb{N} \wedge x \in L^i)
+\]
+
+\subsubsection{Complément}
+
+Étant donné un alphabet $\Sigma$, le \og \textit{complément} \fg{} d'un langage $L$ est l'ensemble de tous les mots définis sur l'alphabet $\Sigma$ qui ne font pas partie de $L$. On dénote par $\overline{L}$ le complément de $L$.
+Formellement:
+\[
+\overline{L} \eqdef \{ x \in \Sigma^*\ |\ x \not\in L\ \}
+\]
+Ou, de façon équivalente:
+\[
+\forall x. \ x \in \overline{L} \iff (x \in \Sigma^* \wedge \not\in L)
+\]
+
+\subsection{Précédence des opérateurs}
+
+La précédence des opérateurs, par ordre décroissant, est donnée par:
+\begin{align*}
+{\overline{x}}, x^* & \hspace{1em}\text{complément, fermeture iterative}\\
+{\cdot} & \hspace{1em}\text{concatenation}\\
+{\cap} & \hspace{1em}\text{intersection}\\
+{\cup} & \hspace{1em}\text{union}\\
+{\subseteq}, {=}, \dots & \hspace{1em}\text{comparateurs}\\
+{\vdots} & \hspace{1em}\text{connecteurs logiques}
+\end{align*}
+
+\section{Ensemble des langages}
+
+Étant donné un alphabet $\Sigma$, l'ensemble de tous les langages prenant $\Sigma$ comme alphabet est simplement $\mathcal{P}(\Sigma^*)$.
+
+\subsection{Dénombrabilité des mots}
+
+Nous montrons qu'il existe une bijection entre $\mathbb{N}$ et $\Sigma^*$.
+Pour ce faire, prenons une bijection $f$ entre l'ensemble fini $\Sigma$ et le nombre $n > 0$ qui représente sa cardinalité $|\Sigma|$.
+Notons qu'il existe $n^k$ mots de taille $k$, c'est-à-dire qu'il existe une bijections entre les nombres naturels plus petit que $n^k$ et $\Sigma^k$. Pour chaque $i$, appelons $f_i$ la bijection entre ces deux ensembles.
+
+Considérons la suite de nombres $s$ définie de la façon suivante:
+\begin{align*}
+s_0 &\eqdef 0\\
+s_{i + 1} &\eqdef s_i + n^i
+\end{align*}
+
+Soit $g$ une fonction construite de la façon suivante:
+\[
+g \eqdef \bigcup_{i \in \mathbb{N}} \{\ p \in \mathcal{N} \times \Sigma^* |\ \exists j.\ p = (s_i + j, f_i(j)) \wedge j < n^i\ \}
+\]
+Il est aisé de démontrer (par induction naturelle) que $g$ est bien une bijection entre $\mathcal{N}$ et $\Sigma^*$, montrant ainsi que l'ensemble $\Sigma^*$ est dénombrable.
+
+\textit{c.q.d.f.}
+
+\subsection{Indénombrabilité de l'ensemble des langages}
+
+Nous allons maintenant démontrer que l'ensemble des langages $\mathcal{P}(\Sigma^*)$ n'est pas dénombrable, c'est-à-dire que cet ensemble a une cardinalité plus grande que celle, déjà infinie, de l'ensemble des nombres naturels.
+Pour ce faire, nous allons utiliser une preuve par \og \textit{diagonalisation} \fg{}.
+
+Commençons par prouver que les deux ensembles n'ont pas la même cardinalité.
+Pour ce faire, partons de l'hypothèse que les deux ensembles ont la même cardinalité.
+Par définition, il existe donc une bijection entre $\mathbb{N}$ et $\mathcal{P}(\Sigma^*)$.
+Notons cette bijection $f$.
+D'après le théorème démontré précédemment, il existe aussi une bijection entre les éléments de $\Sigma^*$ et $\mathbb{N}$.
+Soit $g$ une telle bijection. 
+Vers une contradiction, montrons maintenant qu'il existe un langage $L$ auquel aucun nombre naturel n'a été attribué par la bijection $f$.
+Le langage $L$ peut être construit ainsi: 
+\[
+L \eqdef \{ x \in \mathcal{P}(\Sigma^*)\ |\ x \not\in f(g(x))\ \}
+\]
+La fonction $f$ étant une bijection, il doit exister un nombre naturel $n$ tel que $f(n) = L$.
+Considérons maintenant le mot $x$ tels que $g(x) = n$.
+Posons-nous la question de savoir si $x \in L$.
+Procédons par cas:
+\begin{itemize}
+\item
+Au cas où $x \in L$, par définition nous avons que $x \not\in f(g(x))$.
+Comme $f(g(x)) = f(n)$ et que $f(n) = L$, nous avons donc que $x \not\in L$.
+Nous obtenons donc une contradiction.
+\item
+Au cas où $x \not\in L$, on a que $x \not\in f(n)$, c'est-à-dire $x \not\in f(g(x))$.
+Par définition de L, nous avons donc que $x \in L$, ce qui amène aussi à une contradiction.
+\end{itemize}
+Comme les deux cas terminent sur une contradiction, nous pouvons conclure à la négation de notre hypothèse initiale, qui était que les ensembles $\mathbb{N}$ et $\mathcal{P}(\Sigma^*)$ avait la même cardinalité.
+
+Pour finir la preuve que la $\mathcal{P}(\Sigma^*)$ est indénombrable, montrons que $|\mathbb{N}| \leq |\mathcal{P}(\Sigma^*)|$. Avec le résultat précédent, qui établit que $|\mathbb{N}| \neq |\mathcal{P}(\Sigma^*)|$, nous pourrons conclure que $|\mathbb{N}| < |\mathcal{P}(\Sigma^*)|$.
+Pour prouver que $|\mathbb{N}| \leq |\mathcal{P}(\Sigma^*)|$, prouvons qu'il existe une injection $h$ entre $\mathcal{N}$ et $\mathcal{P}(\Sigma^*)$.
+\[
+h(i) \eqdef \{ x \in \Sigma^*\ |\ |x| = i\ \}
+\]
+La fonction $h$ associe à chaque $i$ le langage qui contient tous les mots de taille $i$. Trivialement, on a que la fonction $h$ est une injection: En effet, il est impossible pour deux naturels différents $i$ et $j$ d'obtenir la même image.
+
+\textit{c.q.f.d}
+
+\subsection{Dénombrabilité des procédures effectives}
+
+Comme nous le postulerons plus tard dans le cours, il est possible de dénombrer les procédures effectives.
+En effet, intuitivement, comme nous exigeons des procédures effectives qu'elle contiennent un nombre fini d'instructions finies, alors chaque procédure effective a une représentation finie.
+Un procédure pourra donc être exprimée comme un mot d'un alphabet fini.
+De  plus, comme démontré précédemment, l'ensemble des mots d'un alphabet est dénombrable.
+Il y a donc uniquement une quantité dénombrable de procédure effective.
+À contrario, l'ensemble des problèmes est indénombrable, même si l'on se restreint aux problèmes qui admettent une fonction d'encodage.
+Il y a donc plus (et même infiniment plus) de problèmes que de procédures effectives pour résoudre ces problèmes.
+Il y aura donc des problèmes qui n'admette aucune procédure effective: On parlera de problèmes \og \textit{indécidables} \fg{}.
+
+Ce raisonnement démontre qu'il existe des problèmes indécidables, mais il n'en exhibe pas directement un.
+Il est raisonnable de se poser la question s'il existe des problèmes \textit{intéressants} qui sont indécidables.
+Comme nous le montrerons dans la suite du cours, la réponse est oui:
+Par exemple, le problème de l'arrêt, qui pose la question de savoir si une procédure termine pour toutes ses instances, est indécidable.
+
+
+ 

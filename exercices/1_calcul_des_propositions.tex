@@ -1,0 +1,243 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}9 août 2021}
+
+\maketitle
+
+\begin{question}
+Montrez les affirmations suivantes à l'aide de tables de vérité:
+\begin{enumerate}
+\item $\vDash A \vee \neg A$ \hspace{2em} (\textit{Tiers exclu})
+\item $\vDash A \implies A \implies A$
+\item $\not\vDash (A \implies A) \implies A$
+\item $\vDash ((A \implies B) \implies A) \implies A$ \hspace{2em} (\textit{Loi de Peirce})
+\item $\vDash \neg (A \wedge B) \iff \neg A \vee \neg B$ \hspace{2em} (\textit{Loi de De Morgan})
+\item $\vDash \neg (A \vee B) \iff \neg A \wedge \neg B$ \hspace{2em} (\textit{Loi de De Morgan})
+\end{enumerate}
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Pour les formules suivantes, indiquez lesquelles sont satisfiables.
+Dans le cas d'une formule satisfiable, donnez un modèle de la formule.
+\begin{enumerate}
+\item $A \wedge \neg B$
+\item $A \implies \bot$
+\item $\top$
+\item $(\top \implies A) \wedge (A \implies \bot \wedge B)$
+\item $(A \vee B \vee C) \wedge (\neg A \vee C) \wedge (\neg C \vee \neg B) \wedge (\neg B \vee \neg A)$
+\end{enumerate}
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Définissez une formule $F$ contenant les métavariables $A$ et $B$ qui admet la table de vérité:
+
+\begin{displaymath}
+\begin{array}{cc|c}
+A & B & F\\
+\hline
+1 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1\\
+0 & 0 & 0
+\end{array}
+\end{displaymath}
+
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Démontrez les théorèmes suivants à l'aide de la déduction naturelle:
+\begin{enumerate}
+\item $\vdash A \implies A$
+\item $\vdash A \wedge B \implies B \wedge A$
+\item $\vdash A \wedge (B \wedge C) \implies (A \wedge B) \wedge C$
+\item $\vdash A \vee B \implies B \vee A$
+\end{enumerate}
+\end{question}
+
+\newpage
+
+\begin{question}
+Certaines présentations de la déduction naturelle incluent une règle d'introduction pour $\bot$.
+Cette règle d'introduction, nommée $({\bot}I)$, est généralement exprimée comme suit:
+\[
+\infer[({\bot}I)]{\bot}{A & \neg A}
+\]
+
+\vspace{1cm}
+
+L'ajout d'une telle règle permettrait-elle d'inférer plus de théorèmes en logique classique ?
+Si vous pensez que c'est le cas, justifiez votre réponse en donnant une tautologie qui n'est pas démontrable sans la règle $({\bot}E)$.
+Dans le cas contraire, démontrez le théorème suivant à l'aide de la déduction naturelle:
+\[
+\vdash A \wedge \neg A \implies \bot
+\]
+Puis, à l'aide de ce théorème, montrez comment transformer un arbre de dérivation qui fait usage de la règle $({\bot}E)$ en un autre arbre de dérivation (avec la même conclusion) ne faisant plus usage de cette règle additionnelle.
+
+\paragraph{Indice} Utilisez la définition de ${\neg}$ en terme de ${\implies}$ et $\bot$.
+
+\end{question}
+
+\vspace{3cm}
+
+\begin{question}
+Dans un premier temps, démontrez grâce à la déduction naturelle le théorème suivant en \textit{logique intuitionniste}, c'est à dire sans utiliser la règle $(\neg{}\neg{}E)$:
+\[
+\vdash \neg\neg(A \vee \neg A)
+\]
+En d'autres termes, démontrez l'\textit{irréfutabilité} du \textit{tiers exclu} en logique intuitionniste.
+
+En second temps, à l'aide du résultat précédent, démontrez en logique classique l'affirmation suivante:
+\[
+\vdash A \vee \neg A
+\]
+
+\end{question}
+
+\newpage
+
+\begin{question}
+Les formules propositionnelles sont capables d'encoder de nombreux \textit{problèmes}.
+Dans la suite de ce cours, nous étudierons un tel encodage qui s'avérera fondamental en théorie de la complexité.
+Pour ce dernier exercice, le but sera d'encoder des jeux de \textit{Sudoku} à l'aide de la logique propositionnelle.
+
+\paragraph{Sudoku}
+
+Le \textit{Sudoku} est un jeu de réflexion qui se joue sur une grille de dimension 9 par 9, divisée en 9 \textit{régions} de taille 3 par 3.
+Initialement, certains cases de la grille sont vides, alors qu'un certain nombre de cases contiennent un chiffre entre 1 et 9 compris.
+Le but du jeu est de compléter la grille de manière à ce que:
+\begin{enumerate}
+\item
+Chaque case de la grille contienne un chiffre entre 1 et 9.
+\item
+Chaque case ne contienne qu'un seul chiffre.
+\item
+Chaque ligne de la grille comporte tous les chiffres de 1 à 9.
+\item
+Chaque colonne de la grille comporte tous les chiffres de 1 à 9.
+\item
+Chaque région de la grille comporte tous les chiffres de 1 à 9.
+\item
+Les chiffres initialement entrés dans la grille sont préservés.
+\end{enumerate}
+
+\paragraph{Variables} Dans le but d'encoder une grille de \textit{Sudoku}, considérons les variables $x_{i,j}^c$ pour chaque $i$, $j$, et $c$ allant de $1$ à $9$, pour un total de $9^3 = 729$ variables propositionnelles. La signification de $x_{i,j}^c$ doit être comprise comme \og \textit{la case à la ligne $i$ et à la colonne $j$ contient le chiffre $c$} \fg{}.
+
+\vspace{1cm}
+
+\begin{figure}[h]
+
+\begin{center}
+  \begin{lpsudoku}
+    \setrow{9}{6,{},{},{},{},{},{},3,{}}
+    \setrow{8}{{},{},9,{},5,8,{},{},4}
+    \setrow{7}{{},{},{},{},{},2,5,{},8}
+    \setrow{6}{{},{},6,{},3,{},{},7,{}}
+    \setrow{5}{{},{},{},{},{},{},{},{},{}}
+    \setrow{4}{4,{},{},{},{},1,2,{},{}}
+    \setrow{3}{{},{},{},{},6,{},{},{},5}
+    \setrow{2}{{},{},8,{},{},{},{},{},{}}
+    \setrow{1}{{},9,7,5,2,{},{},{},{}}
+  \end{lpsudoku}
+\end{center}
+
+\caption{Exemple de \textit{Sudoku} de difficulté \textit{expert} généré par la plateforme \url{sudoku.com}.}
+\label{fig_sudoku}
+
+\end{figure}
+
+\newpage
+
+\paragraph{Conjunctions bornées} Étant donné le grand nombre de variables dans cet exercice, il est intéressant d'introduire une notation pour exprimer de larges conjunctions. Étant donné deux nombres naturels $n$ et $m$, la notation $\bigwedge_{k=n}^m F_k$ dénote la conjonction des formules $F_k$ pour $k$ allant de $n$ à $m$. Par exemple:
+\[
+\bigwedge_{k=1}^9 F_k \eqdef F_1 \wedge F_2 \wedge F_3 \wedge F_4 \wedge F_5 \wedge F_6 \wedge F_7 \wedge F_8 \wedge F_9
+\]
+
+\vspace{1cm}
+
+\paragraph{Ennoncé}
+
+Étant donné une instance d'un \textit{Sudoku} (telle que celle de la~\cref{fig_sudoku}), le but de l'exercice est de concevoir une formule propositionnelle $S$ qui est satisfiable si et seulement si le sudoku peut être résolu.
+Pour faciliter la tâche, l'exercice est divisé en plusieurs sous-parties.
+
+\paragraph{Partie 1}
+Expliquez comment extraire d'un modèle de la formule $S$ une solution d'un \textit{Sudoku} correspondant.
+
+\paragraph{Partie 2}
+
+Donnez une formule propositionnelle $C_1$ pour encoder la contrainte:
+\begin{center}
+\og \textit{Chaque case de la grille contient un chiffre entre 1 et 9} \fg{}
+\end{center}
+
+\paragraph{Partie 3}
+
+Donnez une formule propositionnelle $C_2$ pour encoder la contrainte:
+\begin{center}
+\og \textit{Chaque case de la grille ne contient qu'un seul chiffre} \fg{}
+\end{center}
+
+\paragraph{Partie 4}
+
+Donnez une formule propositionnelle $C_3$ pour encoder la contrainte:
+\begin{center}
+\og \textit{Chaque ligne de la grille contient tous les chiffres de 1 à 9} \fg{}
+\end{center}
+
+\paragraph{Partie 5}
+
+Donnez une formule propositionnelle $C_4$ pour encoder la contrainte:
+\begin{center}
+\og \textit{Chaque colonne de la grille contient tous les chiffres de 1 à 9} \fg{}
+\end{center}
+
+\paragraph{Partie 6}
+
+Donnez une formule propositionnelle $C_5$ pour encoder la contrainte:
+\begin{center}
+\og \textit{Chaque région de la grille contient tous les chiffres de 1 à 9} \fg{}
+\end{center}
+
+\paragraph{Partie 7}
+
+Expliquez comment tenir compte des chiffres initialement présents dans la grille.
+
+\paragraph{Partie 8}
+
+Esquissez la formule correspondante au \textit{Sudoku} de la~\cref{fig_sudoku}.
+
+\paragraph{Pour aller plus loin}
+Le papier \textit{A SAT-based Sudoku solver} de Tjark Weber présente en 5 petites pages une implémentation d'un \textit{solver} de Sudoku se basant sur un solver pour SAT (le problème de satisfiabilité des formules de logique propositionnelle).
+Tjark Weber présente un petit nombre d'optimisations importantes en pratique.
+
+\end{question}
+
+\end{document}
