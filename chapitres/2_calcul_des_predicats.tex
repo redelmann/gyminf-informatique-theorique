@@ -138,6 +138,10 @@ Une théorie contient aussi généralement un ensemble d'axiomes faisant référ
 
 On note $T \vdash A$ le fait qu'il existe une preuve (pouvant faire appel aux axiomes de $T$) de la formule $A$ en deduction naturelle dans la théorie T.
 
+\subsection{Théorie récursivement axiomatisable}
+
+Une théorie est dite \og \textit{récursivement axiomatisable} \fg{} s'il existe une procédure qui permette d'énumérer tous les axiomes de la théorie, et uniquement ces axiomes. Formellement, on parle d'ensemble \textit{récursivement énumérable} (nous aborderons cette notion plus tard dans le cours).
+
 \section{Interprétation sémantique}
 
 Étant donné une théorie $T$ de logique du premier-ordre, une \og \textit{interprétation} \fg{} $\mathcal{I}$ est une structure qui spécifie l'univers $U$ et qui associe:
@@ -167,5 +171,50 @@ Si on formule $A$ est vraie pour toutes les interprétations $\mathcal{I}$ d'une
 T \vDash A
 \]
 
+\section{Théorèmes}
 
+Dans cette dernière partie, des théorèmes importants du calcul des prédicats sont énoncés.
+Ces résultats sont montrés sans preuves.
+Les preuves de ces théorèmes ont parfois des cours entiers consacrés à leur sujet.
 
+\subsection{Cohérence}
+
+Pour toute théorie $T$ de logique du premier-ordre et formule $A$, si $T \vdash A$ alors $T \vDash A$.
+Toute formule prouvée à l'aide de la déduction naturelle est vraie pour toutes les interprétations de la théorie.
+
+\subsection{Complétude}
+
+Pour toute théorie $T$ de logique du premier-ordre et formule $A$, si $T \vDash A$ alors $T \vdash A$.
+Toute formule vraie sous toutes les interprétations d'une théorie peut être prouvée à l'aide de la déduction naturelle.
+
+Ce théorème a été initialement formulé et prouvé en 1929 par le mathématicien Kurt Gödel.
+La présentation qui en est faite ici est une version moderne.
+
+\subsection{Premier théorème d'incomplétude de Gödel}
+
+Pour toute théorie $T$ effectivement axiomatisable, si $T$ est cohérente (ne permet pas de prouver $\bot$) et que $T$ décrit \textit{suffisamment de l'arithmétique}, alors il existe des propositions $A$ tel que ni $T \vdash A$, ni $T \vdash \neg A$, c'est à dire des propositions qui ne peuvent pas être \textit{décidée}.
+
+Une des conséquence de ce théorème est qu'il n'existe pas de procédure effective, d'algorithme, de programme, qui permette de décider si oui ou non tout énoncé en arithmétique est vrai.
+
+Ce premier théorème d'incomplétude, ainsi que le second, ont été établis par Kurt Gödel en 1931.
+
+\paragraph{Relation avec le théorème de complétude}
+
+Le théorème de complétude de Gödel et le premier théorème d'incomplétude de Gödel peuvent sembler entrer en contradiction.
+Comment quelque chose peut être à la fois complet et incomplet ?
+
+La réponse est simplement que le terme de complétude ne fait pas référence au même concept dans les deux énoncés.
+Il s'agit simplement d'un malheureux choix de terminologie.
+Dans le premier cas, on parle de la complétude de la déduction naturelle, dans le sens où elle est capable de prouver toutes les tautologies.
+Dans le deuxième cas, la complétude fait référence au fait d'être capable de montrer soit qu'une formule est vraie, soit que sa négation est vraie.
+
+Par exemple, la logique propositionnelle, qui est complète selon la première définition, est incomplète selon la deuxième définition.
+Prenez par exemple la formule $x$ pour une variable propositionnelle $x$. Cette formule est telle que ni $\vdash x$, ni $\vdash \neg x$. Ni $x$. $\neg x$ ne sont des tautologies.
+
+Le théorème d'incomplétude de Gödel démontre le fait qu'il est impossible de formaliser l'arithmétique de façon cohérente de telle manière à ce que tous les énoncés sur les nombres naturels soient soit vrais soit faux.
+Certains énoncés sont forcément \emph{indépendants} de la formalisation.
+Couplé au théorème de complétude, le premier théorème d'incomplétude démontre aussi l'existence de \emph{modèles non standards} de l'arithmétique.
+
+\subsection{Second théorème d'incomplétude de Gödel}
+
+Pour toute théorie $T$ effectivement axiomatisable qui décrit \textit{suffisamment de l'arithmétique}, la cohérence de $T$, qui peut être exprimée à l'aide d'un encodage dans $T$, n'est démontrable dans $T$ que si $T$ est incohérente (permet de tout démontrer).

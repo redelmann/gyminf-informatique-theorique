@@ -8,7 +8,7 @@ Pour cette raison, nous commencerons ce chapitre par un bref rappel de théorie 
 \section{Ensembles et appartenance}
 
 Un ensemble est une collection d'objets.
-On note $a \in x$ le prédicat binaire stipulant l'appartenance de l'objet $a$ dans l'ensemble $x$.
+On note $a \in x$ le prédicat binaire stipulant l'appartenance de l'objet $a$ à l'ensemble $x$.
 On considère deux ensembles comme égaux si et seulement si ils contiennent les mêmes objets.
 Ce fait est exprimé formellement par l'axiome suivant:
 
@@ -109,6 +109,7 @@ On admet les opérations usuelles telles qu'addition, multiplication, puissance,
 \item Pour tout élément $x$ de $X$, s'il existe deux éléments $y_1$ et $y_2$ tels que $(x, y_1) \in f$ et $(x, y_2) \in f$, alors nécessairement $y_1 = y_2$.
 \end{enumerate}
 Étant donné une fonction $f$ de domaine $X$ et de codomaine $Y$ et un élément $x \in X$, on note $f(x)$ l'élément unique de $Y$ associé par $f$ à $x$.
+On note aussi $f : A \to B$ pour signifier que $f$ est une fonction de domaine $A$ et de codomaine $B$.
 
 \subsection{Injections}
 
@@ -122,6 +123,11 @@ On appelle une \og \textit{surjection} \fg{} toute fonction qui associe au moins
 
 On appelle une \og \textit{bijection} \fg{} toute fonction qui associe exactement un élément du domaine à chaque élément du codomaine.
 Une fonction est une bijection si et seulement si elle est à la fois une injection et une surjection.
+
+\section{Séquence}
+
+On appelle une \og \textit{séquence} \fg{} une fonction $s$ de domaine $\{\ 1, 2, \dots, n\ \}$ pour un certain nombre naturel $n$.
+On appelle $n$ la taille de la séquence $s$, que l'on note $|s|$.
 
 \section{Cardinalité}
 
@@ -145,7 +151,8 @@ On appelle la cardinalité de l'ensemble des nombres naturels $\aleph_0$:
 |\mathbb{N}| = \aleph_0
 \]
 
-Tout ensemble dont la cardinalité est plus petite ou égal à $\aleph_0$ est appelé \og \textit{dénombrable} \fg{}.
+Tout ensemble dont la cardinalité est égal à $\aleph_0$ est appelé \og \textit{dénombrable} \fg{}.
+Un ensemble dénombrable peut être mis en bijection avec les nombres naturels.
 
 \section{Problèmes \& programmes}
 
@@ -182,7 +189,7 @@ Bien que généralement implicite, on dénotera au besoin l'alphabet considéré
 
 \subsection{Mots}
 
-On appelle une suite finie de symboles tirés d'un alphabet $\Sigma$ un \og \textit{mot} \fg{}.
+On appelle une séquence de symboles tirés d'un alphabet $\Sigma$ un \og \textit{mot} \fg{}.
 On dénote par $\Sigma^*$ l'ensemble de tous les mots basés sur l'alphabet $\Sigma$.
 On note aussi $\Sigma^n$ l'ensemble de tous les mots de taille $n$.
 
@@ -233,18 +240,18 @@ Le mot vide est l'élément neutre de la concatenation:
 
 \section{Langages}
 
-On appelle un ensemble de mots un langage.
+On appelle un ensemble de mots un \og \textit{langage} \fg{}.
 De manière intéressante, on peut représenter un problème par le langage de ses instances positives.
 
 \subsection{Opérations sur les langages}
 
 En tant qu'ensemble, les langages admettent toutes les opérations ensemblistes précédemment évoquée, telles que l'union ($\cup$), l'intersection ($\cap$) ou encore la définition par compréhension ($\{ x \in L\ |\ A \}$).
-En plus de cela, nous considérerons aussi les opérations suivantes.
+En plus de cela, nous considérerons des opérations propres aux langages.
 
 \subsubsection{Concatenation de langages}
 
 Deux langages $L_1$ et $L_2$ peuvent être concaténé, noté $L_1 \cdot L_2$, ou simplement $L_1L_2$.
-Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux avec la parties de tel façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
+Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux parties de tel façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
 \[
 L_1 \cdot L_2 \eqdef \{ x \in \Sigma^*\ |\ \exists x_1. \exists x_2. x_1 \in l_1 \wedge x_2 \in l_2 \wedge x = x_1 \cdot x_2\ \}
 \]
@@ -270,7 +277,7 @@ Ou de manière équivalente:
 \subsubsection{Fermeture iterative}
 
 La \og \textit{fermeture iterative} \fg{} d'un langage $L$, aussi appelée \og \textit{fermeture de Kleene} \fg{} de $L$, est l'ensemble de tous les mots qui peuvent être découpés en sous-parties toutes éléments de $L$. On dénote la fermeture iterative de $L$ par $L^*$.
-L'ensemble $L^*$ est la résultat de l'union infinie des puissances de~$L$:
+L'ensemble $L^*$ est le résultat de l'union infinie des puissances de~$L$:
 \[
 L^* \eqdef \bigcup_{i \in \mathbb{N}} L^i
 \]
@@ -311,7 +318,7 @@ La précédence des opérateurs, par ordre décroissant, est donnée par:
 
 Nous montrons qu'il existe une bijection entre $\mathbb{N}$ et $\Sigma^*$.
 Pour ce faire, prenons une bijection $f$ entre l'ensemble fini $\Sigma$ et le nombre $n > 0$ qui représente sa cardinalité $|\Sigma|$.
-Notons qu'il existe $n^k$ mots de taille $k$, c'est-à-dire qu'il existe une bijections entre les nombres naturels plus petit que $n^k$ et $\Sigma^k$. Pour chaque $i$, appelons $f_i$ la bijection entre ces deux ensembles.
+Notons qu'il existe $n^k$ mots de taille $k$, c'est-à-dire qu'il existe une bijection entre les nombres naturels plus petit que $n^k$ et $\Sigma^k$. Pour chaque $i$, appelons $f_i$ la bijection entre ces deux ensembles.
 
 Considérons la suite de nombres $s$ définie de la façon suivante:
 \begin{align*}
@@ -321,9 +328,9 @@ s_{i + 1} &\eqdef s_i + n^i
 
 Soit $g$ une fonction construite de la façon suivante:
 \[
-g \eqdef \bigcup_{i \in \mathbb{N}} \{\ p \in \mathcal{N} \times \Sigma^* |\ \exists j.\ p = (s_i + j, f_i(j)) \wedge j < n^i\ \}
+g \eqdef \bigcup_{i \in \mathbb{N}} \{\ p \in \mathbb{N} \times \Sigma^* |\ \exists j.\ p = (s_i + j, f_i(j)) \wedge j < n^i\ \}
 \]
-Il est aisé de démontrer (par induction naturelle) que $g$ est bien une bijection entre $\mathcal{N}$ et $\Sigma^*$, montrant ainsi que l'ensemble $\Sigma^*$ est dénombrable.
+Il est aisé de démontrer (par induction naturelle) que $g$ est bien une bijection entre $\mathbb{N}$ et $\Sigma^*$, montrant ainsi que l'ensemble $\Sigma^*$ est dénombrable.
 
 \textit{c.q.d.f.}
 
@@ -359,7 +366,7 @@ Par définition de L, nous avons donc que $x \in L$, ce qui amène aussi à une 
 Comme les deux cas terminent sur une contradiction, nous pouvons conclure à la négation de notre hypothèse initiale, qui était que les ensembles $\mathbb{N}$ et $\mathcal{P}(\Sigma^*)$ avait la même cardinalité.
 
 Pour finir la preuve que la $\mathcal{P}(\Sigma^*)$ est indénombrable, montrons que $|\mathbb{N}| \leq |\mathcal{P}(\Sigma^*)|$. Avec le résultat précédent, qui établit que $|\mathbb{N}| \neq |\mathcal{P}(\Sigma^*)|$, nous pourrons conclure que $|\mathbb{N}| < |\mathcal{P}(\Sigma^*)|$.
-Pour prouver que $|\mathbb{N}| \leq |\mathcal{P}(\Sigma^*)|$, prouvons qu'il existe une injection $h$ entre $\mathcal{N}$ et $\mathcal{P}(\Sigma^*)$.
+Pour prouver que $|\mathbb{N}| \leq |\mathcal{P}(\Sigma^*)|$, prouvons qu'il existe une injection $h$ entre $\mathbb{N}$ et $\mathcal{P}(\Sigma^*)$.
 \[
 h(i) \eqdef \{ x \in \Sigma^*\ |\ |x| = i\ \}
 \]
