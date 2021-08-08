@@ -334,12 +334,12 @@ Comme établi au chapitre précédent, étant donné que l'ensemble des expressi
 Cependant, nous allons montrer qu'il existe certains langages qui admettent intuitivement des procédures effectives mais qui ne sont pas reconnus par une expression régulière.
 
 Pour ce faire, nous allons démontrer que tous les langages réguliers $L$ ont une propriété intéressante:
-À partir d'une certaine taille $p$ (qui dépend uniquement du langage $L$), tous leurs mots contiennent une sous-partie non-vide comprises dans les $p$ premiers symboles qui peut être répétée un nombre arbitraire de fois tout en préservant l'appartenance du mot au langage $L$. Formellement, si $L$ est un langage régulier, alors:
+À partir d'une certaine taille $p$ (plus grande ou égal à 1 et qui dépend uniquement du langage $L$), tous leurs mots contiennent une sous-partie non-vide comprises dans les $p$ premiers symboles qui peut être répétée un nombre arbitraire de fois tout en préservant l'appartenance du mot au langage $L$. Formellement, si $L$ est un langage régulier, alors:
 \begin{align*}
-\exists p. \forall x.\ |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
+\exists p. p \geq 1 \wedge \forall x.\ |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
 &|x_1 \cdot x_2| \leq p\ \wedge\\
 &|x_2| \geq 1\ \wedge\\
-&\forall i.\ x_1 \cdot x_2^i \cdot x_3 \in L
+&\forall k.\ x_1 \cdot x_2^k \cdot x_3 \in L
 \end{align*}
 Une partie du mot peut être \textit{gonflée} et le mot toujours appartenir au langage.
 Intuitivement, le phénomène découle du fait qu'une automate fini qui reconnait le langage, n'ayant à sa disposition qu'un nombre fini d'états, est obligé de boucler sur des mots d'une taille suffisamment grande.

@@ -1,0 +1,133 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°2\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}10 août 2021}
+
+\maketitle
+
+\begin{question}
+
+Dans les formules et termes suivants, indiquez les variables libres et les variables liées.
+Pour chaque variable liée, indiquez le quantificateur (le plus proche) qui la lie.
+
+\begin{enumerate}
+\item $f(x, y)$
+\item $P(x) \wedge P(f(y, x))$
+\item $\forall y. P(x)$
+\item $\forall x.\ P(y, x) \vee Q(z)$
+\item $\forall x. (\exists x. P(x, x)) \wedge Q(x)$
+\item $(\exists x. P(x)) \wedge Q(x) \iff \forall y. P(x, y)$
+\end{enumerate}
+
+
+\end{question}
+
+\begin{question}
+
+Donnez une formule de logique du premier ordre pour exprimer les phrases suivantes:
+\begin{enumerate}
+\item Tout le monde aime quelqu'un.
+\item Il y a quelqu'un qui est aimé de tous.
+\item Tout ceux qui ne sont pas aimé n'aiment personne.
+\item On ne peut aimer que si quelqu'un nous aime.
+\item On ne peut aimer une personne que si elle nous aime en retour.
+\item Soit tout le monde est aimé, soit il y a une personne que tout le monde n'aime pas.
+\item Ce n'est pas parce que tout le monde aime quelqu'un que cette personne aime tout le monde.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+
+Considérez une théorie du premier ordre $T$ qui définit au moins un terme constant $C$, deux prédicats unaires $P$ et $Q$, et un prédicat binaire $R$.
+Pour chacune des affirmations suivantes, prouvez ou donnez un contre-exemple:
+\begin{enumerate}
+\item $(\forall x.\ Q(x)) \implies (\exists x.\ Q(x))$
+\item $(\forall x.\ P(x) \implies Q(x)) \implies (\exists x.\ P(x) \wedge Q(x))$
+\item $(\forall x.\ P(x) \implies Q(x)) \implies (\exists x.\ P(x) \vee Q(x))$
+\item $(\forall x.\ R(x, x)) \implies (\forall y. \exists z.\ R(y, z))$
+\item $(\forall x.\ R(x, x)) \implies (\forall y.\ (\exists z.\ R(y, z)) \implies (\forall z.\ y = z))$
+\end{enumerate}
+\end{question}
+
+
+\begin{question}
+
+\paragraph{Partie 1}
+Décrivez une théorie du premier ordre (un ensemble de constantes, fonctions, prédicats et axiomes) qui incorpore le fait que tout homme est mortel et que Socrate est un homme.
+
+\paragraph{Partie 2}
+Donnez un modèle (un univers et une interprétation des symboles qui respecte les axiomes) de votre théorie.
+
+\paragraph{Partie 3}
+Dans votre théorie, prouvez à l'aide d'un arbre de dérivation que Socrate est mortel.
+
+\paragraph{Partie 4}
+Dans votre théorie, montrez une proposition $A$ telle que ni $T \vdash A$, ni $T \vdash \neg A$ (si une telle proposition existe).
+\end{question}
+
+\begin{question}
+
+\paragraph{Partie 1}
+Décrivez une théorie du premier ordre qui incorpore comme axiome le fait qu'il existe un homme qui rase tous les hommes qui ne se rasent pas eux-même, et uniquement ces hommes.
+
+\paragraph{Partie 2}
+Montrez que votre théorie n'est pas cohérente en décrivant un moyen de prouver n'importe quelle formule exprimée dans votre théorie.
+\end{question}
+
+\begin{question}
+Considérez la théorie de l'arithmétique de Presburger, que l'on notera $\texttt{Pres}$.
+La théorie définit les symboles constants $0$ et $1$, ainsi que le symbole de fonction $+$ d'arité $2$.
+Elle a pour axiomes les formules suivante:
+\begin{enumerate}
+\item $\forall x.\ (x + 1 \neq 0)$
+\item $\forall x. \forall y.\ (x + 1 = y + 1) \implies x = y$
+\item $\forall x.\ x + 0 = x$
+\item $\forall x. \forall y.\ (x + y) + 1 = x + (y + 1)$
+\end{enumerate}
+En plus de cela, on considère un \textit{schéma d'axiomes} pour l'\textit{induction naturelle}.
+Pour n'importe quelle variables $x$, $y_1$, $\dots$, $y_n$, et formule $A[x, y_1, \dots, y_n]$ avec pour variables libres $x$, $y_1$, $\dots$, $y_n$, on a l'axiome suivant:
+\begin{align*}
+\forall y_1.\ \dots \forall y_n.\ &A[0, y_1, \dots, y_n]\ \wedge\\
+&(\forall x.\ A[x, y_1, \dots, y_n]\ \implies A[x + 1, y_1, \dots, y_n])\ \implies\\
+&(\forall x.\ A[x, y_1, \dots, y_n])
+\end{align*}
+
+\paragraph{Partie 1}
+
+Montrez les théorèmes suivants:
+\begin{enumerate}
+\item $\texttt{Pres} \vdash \forall x.\ 0 + x = x$
+\item $\texttt{Pres} \vdash \forall x. \forall y.\ x + (y + 1) = (x + 1) + y$
+\item $\texttt{Pres} \vdash \forall x. \forall y.\ x + y = y + x$
+\end{enumerate}
+
+\paragraph{Partie 2}
+
+L'arithmétique de Presburger est intéressante car elle est \textit{complète}: Pour chaque énoncé $A$ de la théorie, on peut soit démontrer $\texttt{Pres} \vdash A$, soit démontrer $\texttt{Pres} \vdash \neg A$.
+L'arithmétique de Presburger, ne contenant pas la multiplication, échappe au premier théorème d'incomplétude de Gödel.
+Étant une théorie récursivement axiomatisable complète, il existe une procédure effective qui, étant donné n'importe quelle formule $A$ de la théorie, décide de sa validité. Pouvez-vous imaginer une telle procédure ?
+\end{question}
+
+\end{document}

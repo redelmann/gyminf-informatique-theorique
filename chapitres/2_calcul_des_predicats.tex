@@ -47,27 +47,24 @@ Comme les fonctions, les prédicats ont aussi une arité qui dénote le nombre d
 \subsection{Égalité entre objets}
 
 On incorpore un prédicat binaire (d'arité 2) distinct, que l'on note ${=}$, pour l'égalité.
-Le prédicat jouit de plusieurs règles d'inférence:
-
+Le prédicat jouit de plusieurs règles d'inférence.
+\begin{enumerate}
+\item Pour toute variable $x$:
 \[
-\infer[({=}\text{-trans})]{X = Z}{X = Y & Y = Z}
+\infer[({=}\text{-sym})]{x = x}{}
 \]
-
+\item Pour toutes variables $x_1$ \dots $x_n$, et $y_1$ \dots $y_n$, et fonction $f$ d'arité $n$:
 \[
-\infer[({=}\text{-sym})]{X = X}{}
+\infer[({=}\text{-fun})]{f(x_1, \dots, x_n) = f(y_1, \dots, y_n)}{x_1 = y_1 & \dots & x_n = y_n}
 \]
-
+\item Pour toutes variables  $x_1$ \dots $x_n$, et $y_1$ \dots $y_n$, et formules $A$ et $A'$, si $A'$ est obtenue en remplaçant un certains nombre d'occurences \textit{libres} de $x_i$ par $y_i$ pour chaque $i$ de $1$ à $n$, alors:
 \[
-\infer[({=}\text{-com})]{Y = X}{X = Y}
+\infer[({=}\text{-replacement})]{A'}{x_1 = y_1 & \dots & x_n = y_n & A}
 \]
+\end{enumerate}
 
-\[
-\infer[({=}\text{-fun})]{F(X) = F(Y)}{X = Y}
-\]
+De ces axiomes, il est possible de déduire que l'égalité est symétrique et transitive. 
 
-\[
-\infer[({=}\text{-pre})]{P(Y)}{X = Y & P(X)}
-\]
 
 \subsection{Quantificateurs \& variables}
 
@@ -141,6 +138,9 @@ On note $T \vdash A$ le fait qu'il existe une preuve (pouvant faire appel aux ax
 \subsection{Théorie récursivement axiomatisable}
 
 Une théorie est dite \og \textit{récursivement axiomatisable} \fg{} s'il existe une procédure qui permette d'énumérer tous les axiomes de la théorie, et uniquement ces axiomes. Formellement, on parle d'ensemble \textit{récursivement énumérable} (nous aborderons cette notion plus tard dans le cours).
+
+Une théorie récursivement axiomatisable a la propriété que les théorèmes peuvent être énumérés.
+Chaque théorème de la théorie apparaît à une position finie dans l'énumération.
 
 \section{Interprétation sémantique}
 

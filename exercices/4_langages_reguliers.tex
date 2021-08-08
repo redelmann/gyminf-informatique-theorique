@@ -22,7 +22,7 @@
 
 \begin{document}
 
-\title{\vspace{-2cm}Série d'exercices n°3\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\title{\vspace{-2cm}Série d'exercices n°4\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
 \date{\vspace{-1cm}10 août 2021}
 
 \maketitle
@@ -41,6 +41,57 @@ si $x \in L^{i + 1}$, alors il existe une décomposition de $x$ en un mot \texti
 Concluez que pour tout langage $L$ et mot \textit{non-vide} $x$,
 si $x \in L^*$, alors il existe une décomposition de $x$ en un mot \textit{non-vide} $x_1$ de $L$ et un mot $x_2$ de $L^*$.
 Observez que le mot $x_2$ a une taille plus petite que $x$.
+\end{question}
+
+\begin{question}
+Rappeler vous la relation de dérivation en une étape $\vdash_A$ d'un automate fini déterministe $A = (Q, \Sigma, \delta, s, F)$.
+Montrez le lemme suivant:
+\[
+\forall a. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, a \cdot x_1) \vdash_A (q_2, x_1) \iff  (q_1, a \cdot x_2) \vdash_A (q_2, x_2)
+\]
+
+Étendez ensuite ce résultat à la relation de dérivation $\vdash_A^*$.
+En d'autres termes, montrez le lemme suivant:
+\[
+\forall x_0. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, x_0 \cdot x_1) \vdash_A^* (q_2, x_1) \iff  (q_1, x_0 \cdot x_2) \vdash_A^* (q_2, x_2)
+\]
+
+\paragraph{Indice} Utilisez le fait que, pour tout $q_i$, $q_j$, $a$, $x$ et $y$:
+\begin{gather*}
+(q_i, a \cdot x \cdot y) \vdash_A^* (q_j, y)\\
+\iff\\
+\exists q_k. (q_i, a \cdot x \cdot y) \vdash_A (q_k, x \cdot y) \wedge (q_k, x \cdot y) \vdash_A^* (q_j, \cdot y)
+\end{gather*}
+
+\paragraph{Indice} Procédez par induction sur la taille de $x_0$, et essayez de rester général quant au reste des variables universellement quantifiées.
+
+\end{question}
+
+\begin{question}
+Pour cet exercice, vous allez construire une autre preuve du théorème du gonflement.
+À la place d'une preuve se basant sur les automates finis déterministes, la preuve que vous allez développer reposera uniquement sur les expressions régulières et ne fera pas appel aux automates.
+
+Pour rappel, le théorème du gonflement stipule que si un langage $L$ est régulier, alors:
+\begin{align*}
+\exists p. p \geq 1 \wedge \forall x.\ |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
+&|x_1 \cdot x_2| \leq p\ \wedge\\
+&|x_2| \geq 1\ \wedge\\
+&\forall k.\ x_1 \cdot x_2^k \cdot x_3 \in L
+\end{align*}
+
+Prouvez le théorème du gonflement par induction structurelle sur les expressions régulières.
+Partez du postulat qu'un langage est régulier si et seulement si il est le langage d'une expression régulière.
+
+\paragraph{Indice} Pour chaque constructeur d'expression régulière, montrez qu'il existe un nombre $p \geq 1$ qui satisfait la propriété.
+
+\paragraph{Indice} Dans les cas où le langage de l'expression considérée est fini, il est possible de choisir un $p$ suffisamment grand pour qu'il n'y aie aucun mot de taille plus grande ou égal à $p$ dans le langage de l'expression.
+
+\paragraph{Indice} Dans les cas inductifs, utilisez le fait que vous avez à votre disposition une variable de gonflement $p_i$ pour chacune des sous-expressions directe $e_i$.
+
+\paragraph{Indice} Pour le cas de la fermeture inductive, utilisez le lemme suivant que vous avez prouvé précédemment:
+\[
+\forall L. \forall x.\ x \in L^* \wedge x \neq \epsilon \implies \exists x_1. \exists x_2.\ x = x_1 \cdot x_2 \wedge x_1 \neq \epsilon \wedge x_1 \in L \wedge x_2 \in L^* 
+\]
 \end{question}
 
 \end{document}
