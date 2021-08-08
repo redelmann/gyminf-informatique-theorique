@@ -18,16 +18,16 @@ Les propositions sont formées de propositions atomiques (variables et constante
 \paragraph{Example}
 
 Pour ce premier exemple, on considère trois variables $p$, $d$ et $m$.
-On donne à variable $p$ la signification \og il pleut \fg{}, à la variable $d$ le sens \og le chat est dehors \fg{} et à la variable $m$ le sens \og le chat est mouillé \fg{}.
+On donne à la variable $p$ la signification \og il pleut \fg{}, à la variable $d$ le sens \og le chat est dehors \fg{} et à la variable $m$ le sens \og le chat est mouillé \fg{}.
 
 Ces variables peuvent être combinées à l'aide de différents connecteurs afin d'exprimer des propositions plus complexes.
 Par exemple, alors que la proposition $m$ indique que le chat est mouillé, la proposition $\neg m$ indique que le chat n'est pas mouillé.
 La proposition $m \iff p \wedge d$ a pour sens \og le chat est mouillé si et seulement si il pleut et le chat est dehors. \fg{}.
 Bien que cette dernière proposition semble intuitivement vraie (étant donné notre interprétation de la réalité), elle n'est pas toujours vérifiée.
 Par exemple, si le chat est dehors, qu'il pleut et que le chat n'est pas mouillé, alors la formule sera considérée comme fausse.
-Comme on le découvrira par la suite, cette formule n'est pas \og \textit{valide} \fg{}: il existe au moins interprétation qui rende la formule fausse.
+Comme on le découvrira par la suite, cette formule n'est pas \og \textit{valide} \fg{}: il existe au moins une interprétation qui rende la formule fausse.
 
-À contrario, si on admet comme hypothèse le fait qu'un chat est mouillé si et seulement si il pleut et que le chat et dehors, et que l'on admette en plus le fait que le chat est mouillé, alors on pourra logiquement en conclure qu'il pleut.
+A contrario, si on admet comme hypothèse le fait qu'un chat est mouillé si et seulement si il pleut et que le chat est dehors, et que l'on admette en plus le fait que le chat est mouillé, alors on pourra logiquement en conclure qu'il pleut.
 Comme on pourra le montrer, la formule suivante, qui encode ce sens intuitif, est valide.
 \[
 (m \iff p \wedge d) \wedge m \implies p
@@ -48,9 +48,9 @@ Par convention, on notera les variables propositionnelles avec des lettres minus
 
 \subsection{Métavariables}
 
-Lors de notre exposition du calcul des propositions, nous feront aussi appel à des \og \textit{métavariables} \fg{}.
-Les métavariables ne font pas partie à proprement parler du langage des propositions: Il s'agit simplement d'un moyen de faire référence à des formules arbitraires dans la discussion de la logique propositionnelle.
-On utilise des lettre en majuscules tels que $A$, $B$ ou $C$ pour dénoter une métavariable.
+Lors de notre exposition du calcul des propositions, nous ferons aussi appel à des \og \textit{métavariables} \fg{}.
+Les métavariables ne font pas partie à proprement parler du langage des propositions: il s'agit simplement d'un moyen de faire référence à des formules arbitraires dans la discussion de la logique propositionnelle.
+On utilise des lettre en majuscules telles que $A$, $B$ ou $C$ pour dénoter une métavariable.
 
 \paragraph{Exemple} Dans la proposition $A \vee B$, on entend $A$ et $B$ comme des métavariables.
 Comme elle contient des métavariables, la proposition $A \vee B$ n'est techniquement pas considérée comme une véritable formule, mais plutôt comme un schéma de formule.
@@ -135,7 +135,7 @@ A \vee (B \vee C)
 
 On note la \textit{négation} d'une formule $A$ par $\neg A$, que l'on prononce \og \textit{non} $A$ \fg{}. Contrairement aux autres connecteurs présenté précédemment, on ne considérera pas ce connecteur comme étant \textit{primitif}, mais simplement un raccourci de notation pour exprimer la formule $A \implies \bot$.
 \[
-\neg A \eqdef A \implies B
+\neg A \eqdef A \implies \bot
 \]
 
 \subsubsection{Équivalence}
@@ -243,7 +243,7 @@ On dit que $A$ est \og \textit{valide} \fg{} lorsque $A^{\mathcal{I}}$ vaut $1$ 
 On dit aussi que la formule est une \og \textit{tautologie} \fg{}.
 Dans ce cas, on écrit:
 \[
-\vDash F
+\vDash A
 \]
 
 Une formule $A$ est \og \textit{invalide} \fg{} s'il existe une interprétation qui n'est pas un modèle de $A$.
