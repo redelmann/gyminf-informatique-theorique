@@ -30,13 +30,16 @@ Dans ce chapitre, nous utiliserons $A$, $B$, $C$ pour les métavariables associ�
 
 \subsection{Objets constants}
 
-Un objet constant réfère à un objet de l'univers. Par convention, on note les objets constant par un nom en minuscule.
+Un objet constant réfère à un objet de l'univers. Par convention, on note les objets constants par un nom en minuscule.
+
+Il est à noter que des objets constants ne sont pas forcément distincts.
+Par exemple, \textit{clarkkent} et \textit{superman} peuvent être deux constantes qui, sous certaines \textit{interprétations}, correspondent à la même valeur de l'univers.
 
 \subsection{Fonctions entres objets}
 
 Les fonctions prennent en arguments uniquement des termes, et retournent un terme.
 On note $f(X, Y)$ l'application d'une fonction $f$ à deux expressions $X$ et $Y$.
-Le nombres d'arguments qu'accepte une fonction est appelé son '\og arité \fg{}.
+Le nombres d'arguments qu'accepte une fonction est appelé son \og arité \fg{}.
 On considère que les fonctions ont une arité fixe.
 
 \subsection{Prédicats sur les objets}
@@ -63,7 +66,7 @@ Le prédicat jouit de plusieurs règles d'inférence.
 \]
 \end{enumerate}
 
-De ces axiomes, il est possible de déduire que l'égalité est symétrique et transitive. 
+De ces règles, il est possible de déduire que l'égalité est symétrique et transitive. 
 
 
 \subsection{Quantificateurs \& variables}
@@ -165,7 +168,7 @@ Pour les formules sans variables libres, on note simplement:
 \mathcal{I} \vDash A
 \]
 
-Si on formule $A$ est vraie pour toutes les interprétations $\mathcal{I}$ d'une théorie $T$, alors on note:
+Si une formule $A$ est vraie pour toutes les interprétations $\mathcal{I}$ d'une théorie $T$, alors on note:
 
 \[
 T \vDash A
@@ -177,7 +180,7 @@ Dans cette dernière partie, des théorèmes importants du calcul des prédicats
 Ces résultats sont montrés sans preuves.
 Les preuves de ces théorèmes ont parfois des cours entiers consacrés à leur sujet.
 
-\subsection{Cohérence}
+\subsection{Correction}
 
 Pour toute théorie $T$ de logique du premier-ordre et formule $A$, si $T \vdash A$ alors $T \vDash A$.
 Toute formule prouvée à l'aide de la déduction naturelle est vraie pour toutes les interprétations de la théorie.
