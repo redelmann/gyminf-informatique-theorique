@@ -401,7 +401,7 @@ La règle stipule que l'on peut prouver $\top$ sans aucune prémisse.
 
 La règle $({\Rightarrow{}}I)$ permet l'introduction d'une implication $A \implies B$ étant donné une preuve de la formule impliquée $B$.
 La preuve de la formule impliquée $B$ peut utiliser l'impliquant $A$ en tant que prémisse sans aucune autre preuve, et ce autant de fois que désiré.
-Les preuves de l'impliquant $B$ dans l'arbre de dérivation sont \og \textit{déchargées} \fg{} par $({\Rightarrow{}}I)$, ce que l'on note par une paire de crochets (\og [ \fg{} et \og ] \fg{}).
+Les preuves de l'impliquant $A$ dans l'arbre de dérivation de $B$ sont \og \textit{déchargées} \fg{} par la règle $({\Rightarrow{}}I)$, ce que l'on note par une paire de crochets (\og [ \fg{} et \og ] \fg{}).
 
 \[
 \infer[({\Rightarrow{}}I)]{A \implies B}{\infer*{B}{[A]}}
@@ -411,7 +411,7 @@ Les preuves de l'impliquant $B$ dans l'arbre de dérivation sont \og \textit{dé
 
 \subsubsection{Élimination de $\implies$}
 
-La règle $({\Rightarrow{}}E)$ permet de prouver l'impliquant $B$ d'une implication $A \implies B$ étant donné la preuve de l'implication et de l'impliquant $A$. Cette règle est aussi connue sous le nom de \og \textit{modus ponens} \fg{}.
+La règle $({\Rightarrow{}}E)$ permet de prouver l'impliqué $B$ d'une implication $A \implies B$ étant donné la preuve de l'implication et de l'impliquant $A$. Cette règle est aussi connue sous le nom de \og \textit{modus ponens} \fg{}.
 
 \[
 \infer[({\Rightarrow{}}E)]{B}{A \implies B & A}
@@ -513,7 +513,7 @@ De ce fait, en logique intuitionniste, il n'est pas possible de faire usage du p
 \infer[(\text{Réfutation})]{\neg A}{\infer*{\bot}{[A]}}
 \]
 
-La règle de réfutation est en faite une version spécialisée de la règle $({\Rightarrow}I)$, ce qui est d'avantage évident lorsque l'on se remémore la définition de $\neg A$ comme l'implication $A \implies B$.
+La règle de réfutation est en faite une version spécialisée de la règle $({\Rightarrow}I)$, ce qui est d'avantage évident lorsque l'on se remémore la définition de $\neg A$ comme l'implication $A \implies \bot$.
 
 \subsection{Correspondance de Curry-Howard}
 
