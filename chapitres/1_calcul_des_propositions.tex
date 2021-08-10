@@ -15,7 +15,7 @@ Le calcul des propositions a pour objet d'étude des \og \textit{propositions} \
 Une proposition est un fait qui peut être vrai ou faux.
 Les propositions sont formées de propositions atomiques (variables et constantes) combinées entre elles par des \og \textit{connecteurs} \fg{} (\textit{et}, \textit{ou}, \textit{seulement si}, etc.).
 
-\paragraph{Example}
+\paragraph{Exemple}
 
 Pour ce premier exemple, on considère trois variables $p$, $d$ et $m$.
 On donne à la variable $p$ la signification \og il pleut \fg{}, à la variable $d$ le sens \og le chat est dehors \fg{} et à la variable $m$ le sens \og le chat est mouillé \fg{}.
@@ -118,7 +118,7 @@ A \wedge (B \wedge C)
 
 \subsubsection{Disjonction}
 
-La \textit{disjunction} de deux formules $A$ et $B$ est notée $A \vee B$, que l'on prononce \og $A$ \textit{ou} $B$ \fg{}.
+La \textit{disjonction} de deux formules $A$ et $B$ est notée $A \vee B$, que l'on prononce \og $A$ \textit{ou} $B$ \fg{}.
 La formule $A \vee B$ est fausse si et seulement si $A$ et $B$ sont toutes deux fausses.
 La formule $A \vee B$ est vraie dans tous les autres cas, y compris lorsque $A$ et $B$ sont toutes deux vraies.
 
@@ -133,7 +133,7 @@ A \vee (B \vee C)
 
 \subsubsection{Négation}
 
-On note la \textit{négation} d'une formule $A$ par $\neg A$, que l'on prononce \og \textit{non} $A$ \fg{}. Contrairement aux autres connecteurs présenté précédemment, on ne considérera pas ce connecteur comme étant \textit{primitif}, mais simplement un raccourci de notation pour exprimer la formule $A \implies \bot$.
+On note la \textit{négation} d'une formule $A$ par $\neg A$, que l'on prononce \og \textit{non} $A$ \fg{}. Contrairement aux autres connecteurs présentés précédemment, on ne considérera pas ce connecteur comme étant \textit{primitif}, mais simplement un raccourci de notation pour exprimer la formule $A \implies \bot$.
 \[
 \neg A \eqdef A \implies \bot
 \]
@@ -186,7 +186,7 @@ Ayant étudié la syntaxe des propositions, nous pouvons maintenant nous attarde
 
 \subsection{Interprétation}
 
-Une \textit{interprétation} $\mathcal{I}$ d'une formule $A$ est une function qui associe à chaque variable propositionnelle de $A$ une valeur de vérité: Soit $1$ pour \og vrai \fg, soit $0$ pour \og faux \fg.
+Une \textit{interprétation} $\mathcal{I}$ d'une formule $A$ est une fonction qui associe à chaque variable propositionnelle de $A$ une valeur de vérité: Soit $1$ pour \og vrai \fg, soit $0$ pour \og faux \fg.
 La valeur assignée par $\mathcal{I}$ à une variable $x$ est dénotée par $\mathcal{I}(x)$.
 
 On peut aussi dénoter une interprétation sous forme d'ensemble d'associations entre variable et valeur.
@@ -197,7 +197,7 @@ Lorsque $A$ compte $n$ différentes variables propositionnelles, on dénombre $2
 \subsection{Évaluation}
 
 Étant donné une interprétation $\mathcal{I}$, une formule $A$ peut être évaluée à $1$ (\og vrai \fg) ou $0$ (\og faux \fg)
-en suivant l'interprétation données aux variables propositionnelles par $\mathcal{I}$ et
+en suivant l'interprétation donnés aux variables propositionnelles par $\mathcal{I}$ et
 en évaluant les connecteurs en suivant la table de la \cref{fig_tables_connecteurs}.
 La constante $\top$ évalue toujours à $1$, alors que la constante $\bot$ évalue toujours à $0$.
 On note $A^{\mathcal{I}}$ pour l'évaluation de la formule $A$ par l'interprétation $\mathcal{I}$.
@@ -355,7 +355,7 @@ Intuitivement, une règle d'inférence permet de conclure la conclusion étant d
 
 En déduction naturelle, la preuve formelle d'une formule $A$ prend la forme d'un \og \textit{arbre de dérivation} \fg.
 À la racine de l'arbre est une règle d'inférence instanciée avec la formule $A$ pour conclusion.
-Chaque prémisses de cette règle doit elle aussi être prouvée, et selon le même procédé.
+Chaque prémisse de cette règle doit elle aussi être prouvée, et selon le même procédé.
 L'arbre de dérivation a pour feuilles des arbres sans prémisses, que l'on appelle \og \textit{axiomes} \fg{}.
 Aussi, comme expliqué plus loin, les feuilles peuvent prendre la forme d'\og \textit{hypothèses déchargées} \fg{}, indiquée par une paire de crochets (\og [ \fg{} et \og ] \fg{}).
 
