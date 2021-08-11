@@ -98,7 +98,7 @@ On a:
 
 \section{Les nombres naturels}
 
-On note $\mathbb{N}$ l'ensemble des nombres naturels $0$, $1$, $2$, \dots.
+On note $\mathbb{N}$ l'ensemble des nombres naturels \{$0$, $1$, $2$, \dots\}.
 On admet les opérations usuelles telles qu'addition, multiplication, puissance, plus petit ou égal, et ainsi de suite.
 
 \section{Fonctions}
@@ -159,7 +159,7 @@ Un ensemble dénombrable peut être mis en bijection avec les nombres naturels.
 Un \og \textit{problème} \fg{} est une question qui porte sur un ensemble d'éléments.
 On appelle une \og \textit{instance} \fg{} un problème posé sur un élément en particulier.
 Chaque instance à une réponse.
-Dans ce cours, nous nous intéresserons particulièrement aux problèmes binaires, où la réponse à chaque instance est soit \og \textit{oui} \fg{}, soit \og \textit{non} \fg{}.
+Dans ce cours, nous nous intéresserons particulièrement aux problèmes binaires, dans lesquels la réponse à chaque instance est soit \og \textit{oui} \fg{}, soit \og \textit{non} \fg{}.
 On appelle une instance dont la réponse est \og oui \fg{} une \og \textit{instance positive} \fg{} du problème et une instance dont la réponse est \og non \fg{} une \og \textit{instance négative} \fg{} du problème.
 
 Un \og \textit{programme} \fg{} est une procédure de résolution de problème qui a les particularités suivantes:
@@ -169,7 +169,7 @@ Elle consiste en un nombre fini d'instructions, toutes de taille finie.
 \item
 Pour chaque instance du problème, la procédure termine et retourne le résultat correct.
 \item
-Les instructions sont non-ambiguë et ne requiert aucune ingéniosité. La procédure peut être suivie par un être humain suivant les instructions à la lettre (en faisant abstraction de sa capacité de mémoire et de sa patience). 
+Les instructions sont non-ambiguës et ne requièrent aucune ingéniosité. La procédure peut être suivie par un être humain suivant les instructions à la lettre (en faisant abstraction de sa capacité de mémoire et de sa patience). 
 \end{enumerate}
 On parle aussi de \og procédure effective \fg{} ou d'\og algorithme \fg{} pour faire référence à un programme.
 
@@ -178,12 +178,12 @@ On parle aussi de \og procédure effective \fg{} ou d'\og algorithme \fg{} pour 
 Au vu de la taille nécessairement finie d'un programme, il faudra nécessairement \textit{encoder} les instances du problème, c'est-à-dire leur donner une représentation sous forme de suite finie de symboles tirés d'un \og \textit{alphabet} \fg{} lui aussi fini.
 Sans cet encodage, il serait impossible au programme de pouvoir traiter efficacement toutes les instances.
 À noter que, comme on pourra le montrer tout soudain, cet encodage n'est pas toujours possible:
-Il y a \textit{trop} d'instances à encoder
+Il y a \textit{trop} d'instances à encoder.
 Par exemple, il est impossible d'encoder tous les nombres réels de façon unique.
 
 \subsection{Alphabet}
 
-On appelle un \og \textit{alphabet} \fg{} un ensemble finis et non-vide de \og \textit{symboles} \fg{}.
+On appelle un \og \textit{alphabet} \fg{} un ensemble fini et non-vide de \og \textit{symboles} \fg{}.
 Chaque symbole est distinct des autres symboles de l'alphabet.
 Bien que généralement implicite, on dénotera au besoin l'alphabet considéré par $\Sigma$.
 
@@ -200,7 +200,7 @@ Deux mots sont égaux s'ils ont la même taille et qu'ils associent à chaque in
 
 \subsubsection{Notation}
 
-On note un mot formé d'au moins un symbole simplement en faisant écrivant les symboles l'un à la suite de l'autre.
+On note un mot formé d'au moins un symbole simplement en écrivant les symboles l'un à la suite de l'autre.
 Par exemple, étant donnés des symboles $a$, $b$, $c$, on note $abc$ le mot de taille $3$ qui a le symbole $a$ à l'index $1$, le symbole $b$ à l'index $2$ et le symbole $c$ à l'index $3$.
 
 On utilise la même notation pour signifier un mot de taille $1$ et le symbole qu'il comprend.
@@ -233,7 +233,7 @@ L'opération de concaténation est associative:
 \forall x_1. \forall x_2. \forall x_3.\ x_1 \cdot (x_2 \cdot x_3) = (x_1 \cdot x_2) \cdot x_3   
 \]
 
-Le mot vide est l'élément neutre de la concatenation:
+Le mot vide est l'élément neutre de la concaténation:
 \[
 \forall x. x \cdot \epsilon = x \wedge \epsilon \cdot x = x
 \]
@@ -245,13 +245,13 @@ De manière intéressante, on peut représenter un problème par le langage de s
 
 \subsection{Opérations sur les langages}
 
-En tant qu'ensemble, les langages admettent toutes les opérations ensemblistes précédemment évoquée, telles que l'union ($\cup$), l'intersection ($\cap$) ou encore la définition par compréhension ($\{ x \in L\ |\ A \}$).
+En tant qu'ensemble, les langages admettent toutes les opérations ensemblistes précédemment évoquées, telles que l'union ($\cup$), l'intersection ($\cap$) ou encore la définition par compréhension ($\{ x \in L\ |\ A \}$).
 En plus de cela, nous considérerons des opérations propres aux langages.
 
-\subsubsection{Concatenation de langages}
+\subsubsection{Concaténation de langages}
 
-Deux langages $L_1$ et $L_2$ peuvent être concaténé, noté $L_1 \cdot L_2$, ou simplement $L_1L_2$.
-Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux parties de tel façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
+Deux langages $L_1$ et $L_2$ peuvent être concaténés, noté $L_1 \cdot L_2$, ou simplement $L_1L_2$.
+Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux parties de telle façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
 \[
 L_1 \cdot L_2 \eqdef \{ x \in \Sigma^*\ |\ \exists x_1. \exists x_2. x_1 \in l_1 \wedge x_2 \in l_2 \wedge x = x_1 \cdot x_2\ \}
 \]
@@ -262,7 +262,7 @@ Ou, de manière équivalente:
 
 \subsubsection{Exponentiation de langages}
 
-Étant donné un langage $L$, on note $L^n$ l'ensemble des mots issus de la concatenation de $n$ mots (potentiellement différents) de $L$.
+Étant donné un langage $L$, on note $L^n$ l'ensemble des mots issus de la concaténation de $n$ mots (potentiellement différents) de $L$.
 L'opération est définie de manière inductive comme suit:
 \begin{align*}
 L^0 &\eqdef \{ \epsilon \}\\
@@ -274,21 +274,21 @@ Ou de manière équivalente:
 \forall x. \forall i.\ x \in L^{i + 1} &\iff x \in L \cdot L^i\\
 \end{align*}
 
-\subsubsection{Fermeture iterative}
+\subsubsection{Fermeture itérative}
 
-La \og \textit{fermeture iterative} \fg{} d'un langage $L$, aussi appelée \og \textit{fermeture de Kleene} \fg{} de $L$, est l'ensemble de tous les mots qui peuvent être découpés en sous-parties toutes éléments de $L$. On dénote la fermeture iterative de $L$ par $L^*$.
+La \og \textit{fermeture itérative} \fg{} d'un langage $L$, aussi appelée \og \textit{fermeture de Kleene} \fg{} de $L$, est l'ensemble de tous les mots qui peuvent être découpés en sous-parties de $L$. On dénote la fermeture iterative de $L$ par $L^*$.
 L'ensemble $L^*$ est le résultat de l'union infinie des puissances de~$L$:
 \[
 L^* \eqdef \bigcup_{i \in \mathbb{N}} L^i
 \]
-Autrement dit, sous forme de propositions:
+Autrement dit, sous forme de proposition:
 \[
 \forall x.\ x \in L^* \iff (\exists i. i \in \mathbb{N} \wedge x \in L^i)
 \]
 
 \subsubsection{Complément}
 
-Étant donné un alphabet $\Sigma$, le \og \textit{complément} \fg{} d'un langage $L$ est l'ensemble de tous les mots définis sur l'alphabet $\Sigma$ qui ne font pas partie de $L$. On dénote par $\overline{L}$ le complément de $L$.
+Étant donné un alphabet $\Sigma$, le \og \textit{complément} \fg{} d'un langage $L$ est l'ensemble de tous les mots définis sur l'alphabet $\Sigma$ qui ne font pas partie de $L$, (c'est donc l'ensemble des mots formés par les instances négatives de ce langage ?). On dénote par $\overline{L}$ le complément de $L$.
 Formellement:
 \[
 \overline{L} \eqdef \{ x \in \Sigma^*\ |\ x \not\in L\ \}
@@ -302,8 +302,8 @@ Ou, de façon équivalente:
 
 La précédence des opérateurs, par ordre décroissant, est donnée par:
 \begin{align*}
-{\overline{x}}, x^* & \hspace{1em}\text{complément, fermeture iterative}\\
-{\cdot} & \hspace{1em}\text{concatenation}\\
+{\overline{x}}, x^* & \hspace{1em}\text{complément, fermeture itérative}\\
+{\cdot} & \hspace{1em}\text{concaténation}\\
 {\cap} & \hspace{1em}\text{intersection}\\
 {\cup} & \hspace{1em}\text{union}\\
 {\subseteq}, {=}, \dots & \hspace{1em}\text{comparateurs}\\
@@ -380,10 +380,10 @@ Comme nous le postulerons plus tard dans le cours, il est possible de dénombrer
 En effet, intuitivement, comme nous exigeons des procédures effectives qu'elle contiennent un nombre fini d'instructions finies, alors chaque procédure effective a une représentation finie.
 Un procédure pourra donc être exprimée comme un mot d'un alphabet fini.
 De  plus, comme démontré précédemment, l'ensemble des mots d'un alphabet est dénombrable.
-Il y a donc uniquement une quantité dénombrable de procédure effective.
+Il y a donc uniquement une quantité dénombrable de procédures effectives.
 À contrario, l'ensemble des problèmes est indénombrable, même si l'on se restreint aux problèmes qui admettent une fonction d'encodage.
 Il y a donc plus (et même infiniment plus) de problèmes que de procédures effectives pour résoudre ces problèmes.
-Il y aura donc des problèmes qui n'admette aucune procédure effective: On parlera de problèmes \og \textit{indécidables} \fg{}.
+Il y aura donc des problèmes qui n'admettront aucune procédure effective: On parlera de problèmes \og \textit{indécidables} \fg{}.
 
 Ce raisonnement démontre qu'il existe des problèmes indécidables, mais il n'en exhibe pas directement un.
 Il est raisonnable de se poser la question s'il existe des problèmes \textit{intéressants} qui sont indécidables.
