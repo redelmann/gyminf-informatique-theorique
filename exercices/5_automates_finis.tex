@@ -1,0 +1,54 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°5\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}13 août 2021}
+
+\maketitle
+
+\begin{question}
+Rappeler vous la relation de dérivation en une étape $\vdash_A$ d'un automate fini déterministe $A = (Q, \Sigma, \delta, s, F)$.
+Montrez le lemme suivant:
+\[
+\forall a. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, a \cdot x_1) \vdash_A (q_2, x_1) \iff  (q_1, a \cdot x_2) \vdash_A (q_2, x_2)
+\]
+
+Étendez ensuite ce résultat à la relation de dérivation $\vdash_A^*$.
+En d'autres termes, montrez le lemme suivant:
+\[
+\forall x_0. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, x_0 \cdot x_1) \vdash_A^* (q_2, x_1) \iff  (q_1, x_0 \cdot x_2) \vdash_A^* (q_2, x_2)
+\]
+
+\paragraph{Indice} Utilisez le fait que, pour tout $q_i$, $q_j$, $a$, $x$ et $y$:
+\begin{gather*}
+(q_i, a \cdot x \cdot y) \vdash_A^* (q_j, y)\\
+\iff\\
+\exists q_k. (q_i, a \cdot x \cdot y) \vdash_A (q_k, x \cdot y) \wedge (q_k, x \cdot y) \vdash_A^* (q_j, \cdot y)
+\end{gather*}
+
+\paragraph{Indice} Procédez par induction sur la taille de $x_0$, et essayez de rester général quant au reste des variables universellement quantifiées.
+
+\end{question}
+
+\end{document}

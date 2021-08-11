@@ -23,9 +23,42 @@
 \begin{document}
 
 \title{\vspace{-2cm}Série d'exercices n°4\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
-\date{\vspace{-1cm}10 août 2021}
+\date{\vspace{-1cm}12 août 2021}
 
 \maketitle
+
+\begin{question}
+Considérez l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}, \texttt{c}\ \}$.
+Donnez des exemples de mots appartenant au langage des expressions régulières suivantes.
+Dans le cas d'un langage fini, donnez tous les mots. Pour un langage de taille infinie, donnez au moins 3 exemples.
+\begin{enumerate}
+\item $\texttt{a}$
+\item $\texttt{a} \cdot \texttt{b}$
+\item $\texttt{a} \cup \texttt{b}$
+\item $(\texttt{a} \cup \texttt{b}) \cdot (\texttt{a} \cup \texttt{c})$
+\item $\epsilon$
+\item $\emptyset$
+\item $\texttt{a}^* \cup \texttt{b}^*$
+\item $(\texttt{a} \cup \texttt{b})^*$
+\item $\epsilon^*$
+\item $\emptyset^*$
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Considérez l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}, \texttt{c}\ \}$.
+Pour chaque langage suivant, donnez une expression régulière qui décrit le langage:
+\begin{enumerate}
+\item Le langage de tous les mots qui commencent par un $\texttt{a}$.
+\item Le langage de tous les mots qui commencent par un $\texttt{a}$, suivit d'au moins deux $\texttt{b}$ et finalement d'un $\texttt{c}$.
+\item Le langage de tous les mots qui commencent par un $\texttt{a}$ et finissent par un $\texttt{c}$.
+\item Le langage de tous les mots qui commencent par un $\texttt{a}$ et finissent par un $\texttt{a}$.
+\item Le langage de tous les mots qui contiennent au moins un $\texttt{a}$.
+\item Le langage de tous les mots qui contiennent au moins un $\texttt{a}$ ou un $\texttt{b}$.
+\item Le langage de tous les mots qui contiennent au moins un $\texttt{a}$ et un $\texttt{b}$ (\texttt{a} et \texttt{b} peuvent apparaître dans n'importe quel ordre).
+\item Le langage de tous les mots de taille paire.
+\end{enumerate}
+\end{question}
 
 \begin{question}
 
@@ -44,34 +77,8 @@ Observez que le mot $x_2$ a une taille plus petite que $x$.
 \end{question}
 
 \begin{question}
-Rappeler vous la relation de dérivation en une étape $\vdash_A$ d'un automate fini déterministe $A = (Q, \Sigma, \delta, s, F)$.
-Montrez le lemme suivant:
-\[
-\forall a. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, a \cdot x_1) \vdash_A (q_2, x_1) \iff  (q_1, a \cdot x_2) \vdash_A (q_2, x_2)
-\]
-
-Étendez ensuite ce résultat à la relation de dérivation $\vdash_A^*$.
-En d'autres termes, montrez le lemme suivant:
-\[
-\forall x_0. \forall q_1. \forall q_2. \forall x_1. \forall x_2.\ (q_1, x_0 \cdot x_1) \vdash_A^* (q_2, x_1) \iff  (q_1, x_0 \cdot x_2) \vdash_A^* (q_2, x_2)
-\]
-
-\paragraph{Indice} Utilisez le fait que, pour tout $q_i$, $q_j$, $a$, $x$ et $y$:
-\begin{gather*}
-(q_i, a \cdot x \cdot y) \vdash_A^* (q_j, y)\\
-\iff\\
-\exists q_k. (q_i, a \cdot x \cdot y) \vdash_A (q_k, x \cdot y) \wedge (q_k, x \cdot y) \vdash_A^* (q_j, \cdot y)
-\end{gather*}
-
-\paragraph{Indice} Procédez par induction sur la taille de $x_0$, et essayez de rester général quant au reste des variables universellement quantifiées.
-
-\end{question}
-
-\begin{question}
-Pour cet exercice, vous allez construire une autre preuve du théorème du gonflement.
-À la place d'une preuve se basant sur les automates finis déterministes, la preuve que vous allez développer reposera uniquement sur les expressions régulières et ne fera pas appel aux automates.
-
-Pour rappel, le théorème du gonflement stipule que si un langage $L$ est régulier, alors:
+Pour cet exercice, vous allez prouver le \textit{théorème du gonflement} des langages réguliers.
+Le théorème du gonflement stipule que si un langage $L$ est régulier, alors:
 \begin{align*}
 \exists p. p \geq 1 \wedge \forall x.\ |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
 &|x_1 \cdot x_2| \leq p\ \wedge\\
@@ -79,7 +86,10 @@ Pour rappel, le théorème du gonflement stipule que si un langage $L$ est régu
 &\forall k.\ x_1 \cdot x_2^k \cdot x_3 \in L
 \end{align*}
 
-Prouvez le théorème du gonflement par induction structurelle sur les expressions régulières.
+En d'autres terme, les mots du langage d'une expression régulière, à partir d'une certaine taille $p$ (plus grande ou égal à 1, et qui dépend uniquement de l'expression régulière), tous les mots contiennent une séquence non-vide de symboles qui peut être répétée un nombre arbitraire de fois tout en préservant l'appartenance au langage.
+Le théorème spécifie en plus que cette séquence apparaît entièrement dans les $p$ premiers symboles du mot. 
+
+\paragraph{Objectif} Prouvez le théorème du gonflement par \textbf{induction structurelle} sur les expressions régulières.
 Partez du postulat qu'un langage est régulier si et seulement si il est le langage d'une expression régulière.
 
 \paragraph{Indice} Pour chaque constructeur d'expression régulière, montrez qu'il existe un nombre $p \geq 1$ qui satisfait la propriété.
