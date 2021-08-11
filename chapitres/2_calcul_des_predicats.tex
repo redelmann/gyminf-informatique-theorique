@@ -21,7 +21,7 @@ On requiert généralement de l'univers qu'il contienne au moins un objet.
 Contrairement à la logique propositionnelle, qui ne comptait qu'une seule catégorie syntaxique (celle des propositions, ou formules), la logique de premier-ordre compte une catégorie syntaxique distincte additionnelle: les \og \textit{termes} \fg{}.
 Alors que l'évaluation d'une formule résulte en $1$ (\og \textit{vrai} \fg{}) ou $0$ (\og \textit{faux} \fg{}), l'évaluation d'un terme résulte en un objet de l'univers.
 
-\subsection{Metavariables}
+\subsection{Métavariables}
 
 Comme dans le précédent chapitre, nous allons utiliser des métavariables dans la présentation du calcul des prédicats.
 Ces métavariables ne font pas partie du formalisme et sont simplement un moyen de parler de termes et formules arbitraires.
@@ -71,7 +71,7 @@ De ces règles, il est possible de déduire que l'égalité est symétrique et t
 
 \subsection{Quantificateurs \& variables}
 
-Le calcul des prédicats incorpore des \og \textit{quantificateurs} \fg{} afin de pouvoir exprimer des propositions tels que \og \textit{Pour tout $x$, $x^2 \geq 0$.} \fg{} ou encore \og \textit{Il existe un homme qui rase tous les hommes qui ne se rasent pas eux-mêmes.} \fg{}.
+Le calcul des prédicats incorpore des \og \textit{quantificateurs} \fg{} afin de pouvoir exprimer des propositions telles que \og \textit{Pour tout $x$, $x^2 \geq 0$.} \fg{} ou encore \og \textit{Il existe un homme qui rase tous les hommes qui ne se rasent pas eux-mêmes.} \fg{}.
 
 \subsubsection{Variables}
 
@@ -101,7 +101,7 @@ Pour contourner cette restriction, il est possible de renommer les variables pro
 
 \subsubsection{Quantificateur d'universalité}
 
-Un note $\forall x. A$ le proposition qui postule que \og \textit{Pour tout objet $x$, la proposition $A$ est vraie} \fg{}.
+On note $\forall x. A$ le proposition qui postule que \og \textit{Pour tout objet $x$, la proposition $A$ est vraie} \fg{}.
 À noter que la proposition $A$ dans ce cas fait généralement référence à la variable $x$, mais ce n'est pas une obligation.
 Le quantificateur d'universalité $\forall$ est lié aux deux règles d'inférences suivantes:
 
@@ -117,7 +117,7 @@ La règle $({\forall}I)$ est annotée d'une $(*)$: Elle est en effet soumise à 
 
 \subsubsection{Quantificateur d'existence}
 
-Un note $\exists x. A$ le proposition qui postule que \og \textit{Il existe un objet $x$ tel que la proposition $A$ est vraie} \fg{}.
+On note $\exists x. A$ le proposition qui postule que \og \textit{Il existe un objet $x$ tel que la proposition $A$ est vraie} \fg{}.
 Tout comme pour le quantificateur d'universalité, la proposition $A$ fait généralement référence à la variable $x$, sans que ce soit une obligation.
 Le quantificateur d'existence $\exists$ est lié aux deux règles d'inférences suivantes:
 
@@ -134,9 +134,9 @@ La règle $({\exists}E)$ est annotée d'une $(*)$: Elle est en effet soumise à 
 \section{Théories}
 
 Une \og \textit{théorie} \fg{} $T$ de logique du premier-ordre est une structure mathématique qui spécifie les noms d'un nombre fini de constantes, les noms d'un nombre fini de fonctions et leur arité, ainsi que les noms d'un nombre fini de prédicats et leur arité.
-Une théorie contient aussi généralement un ensemble d'axiomes faisant référence aux constantes, functions et prédicats de la théorie.
+Une théorie contient aussi généralement un ensemble d'axiomes faisant référence aux constantes, fonctions et prédicats de la théorie.
 
-On note $T \vdash A$ le fait qu'il existe une preuve (pouvant faire appel aux axiomes de $T$) de la formule $A$ en deduction naturelle dans la théorie T.
+On note $T \vdash A$ le fait qu'il existe une preuve (pouvant faire appel aux axiomes de $T$) de la formule $A$ en déduction naturelle dans la théorie T.
 
 \subsection{Théorie récursivement axiomatisable}
 
@@ -178,7 +178,7 @@ T \vDash A
 
 Dans cette dernière partie, des théorèmes importants du calcul des prédicats sont énoncés.
 Ces résultats sont montrés sans preuves.
-Les preuves de ces théorèmes ont parfois des cours entiers consacrés à leur sujet.
+En effet, on peut consacrer des cours entiers à ces preuves.
 
 \subsection{Correction}
 
@@ -195,7 +195,7 @@ La présentation qui en est faite ici est une version moderne.
 
 \subsection{Premier théorème d'incomplétude de Gödel}
 
-Pour toute théorie $T$ effectivement axiomatisable, si $T$ est cohérente (ne permet pas de prouver $\bot$) et que $T$ décrit \textit{suffisamment de l'arithmétique}, alors il existe des propositions $A$ tel que ni $T \vdash A$, ni $T \vdash \neg A$, c'est à dire des propositions qui ne peuvent pas être \textit{décidée}.
+Pour toute théorie $T$ effectivement axiomatisable, si $T$ est cohérente (ne permet pas de prouver $\bot$) et que $T$ décrit \textit{suffisamment de l'arithmétique}, alors il existe des propositions $A$ tel que ni $T \vdash A$, ni $T \vdash \neg A$, c'est à dire des propositions qui ne peuvent pas être \textit{décidées}.
 
 Une des conséquence de ce théorème est qu'il n'existe pas de procédure effective, d'algorithme, de programme, qui permette de décider si oui ou non tout énoncé en arithmétique est vrai.
 
