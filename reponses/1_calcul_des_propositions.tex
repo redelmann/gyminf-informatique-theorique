@@ -135,48 +135,4 @@ Il n'existe aucun modèle, donc insatisfiable. $\not \vDash (\top \implies A) \w
 $F = (A \vee B) \wedge \neg (A \wedge B).$
 \end{question}
 
-\begin{question}
-
-\begin{enumerate}
-\item
-\[
-\infer[(\Rightarrow{}I)] {A \implies A} {[A] & A}
-\]
-
-\item
-\[
-\infer[(\Rightarrow{}I)] {A\wedge B \implies B \wedge A} {
-\infer[(\wedge I)] {B \wedge A} {
-\infer[(\wedge E)] {A} {[A \wedge B]} & \infer[(\wedge E)] {B} {[A \wedge B]}
-}
-}
-\]
-
-\end{enumerate}
-\end{question}
-
-\begin{question}
-Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la déduction naturelle donnée en classe. Rappel : $\neg A \eqdef A \implies \bot$, donc $A \wedge \neg A$ est $A \wedge (A \implies \bot)$.
-
-\[
-\infer[(\Rightarrow{}E)] {\bot} {
-\infer[(\wedge E)] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E)] {A} {[A \wedge (A \implies \bot)]}
-}
-\]
-
-
-\end{question}
-
-\newpage
-\begin{question}
-
-\begin{eqnarray*}
-& \neg \neg (A \wedge \neg A) \\
-\mbox{est} &\neg (A \wedge \neg A) \implies \bot \\
-\mbox{est} & \big( (A \wedge \neg A) \implies \bot\big) \implies \bot \\
-\mbox{est} & \Big( \big(A \wedge (A \implies \bot) \big) \implies \bot \Big) \implies \bot
-\end{eqnarray*}
-
-\end{question}
-
 \end{document}
