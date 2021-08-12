@@ -33,13 +33,13 @@
 
 \item \begin{displaymath}
 \begin{array}{c|ccc}
-A  & \neg A & A \wedge \neg A\\
+A  & \neg A & A \vee \neg A\\
 \hline
 1 & 0 & 1\\
 0 & 1 & 1
 \end{array} 
 \end{displaymath}
-et donc $\vDash A \wedge \neg A.$
+et donc $\vDash A \vee \neg A.$
 
 \item Rappel : $A \implies A \implies$ A se lit comme $A \implies (A \implies A).$
 
@@ -94,8 +94,8 @@ et donc $\vDash  ((A \implies B) \implies A) \implies A.$ \hfill \emph{(Loi de P
 A & B & A \wedge B &  \neg A \vee \neg B & \neg(A \wedge B) \iff  \neg A \vee \neg B\\
 \hline
 1 & 1 & 1 & 0 & 1\\
-1 & 0 & 1 & 0 & 1\\
-0 & 1 & 1 & 0 & 1\\
+1 & 0 & 0 & 1 & 1\\
+0 & 1 & 0 & 1 & 1\\
 0 & 0 & 0 & 1 & 1
 \end{array}
 \end{displaymath}
@@ -107,8 +107,8 @@ et donc $\vDash  \neg(A \wedge B) \iff  \neg A \vee \neg B.$ \hfill \emph{(Loi d
 A & B & A \vee B &  \neg A \wedge \neg B & \neg(A \vee B) \iff  \neg A \wedge \neg B\\
 \hline
 1 & 1 & 1 & 0 & 1\\
-1 & 0 & 0 & 1 & 1\\
-0 & 1 & 0 & 1 & 1\\
+1 & 0 & 1 & 0 & 1\\
+0 & 1 & 1 & 0 & 1\\
 0 & 0 & 0 & 1 & 1
 \end{array}
 \end{displaymath}
