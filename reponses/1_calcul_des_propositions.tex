@@ -176,6 +176,18 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 }
 \]
 
+\newpage
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\wedge (B \wedge C) \implies (A\wedge B) \wedge C} {
+\infer[(\wedge I)] {(A \wedge B) \wedge C} {
+	\infer[(\wedge I)] {A \wedge B} {
+\infer[(\wedge E)] {A} {[A \wedge (B \wedge C)]} & \infer[(\wedge E)] {B} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} } & \infer[(\wedge E)] {C} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} 
+	}
+}
+\]
+
+
 \end{enumerate}
 \end{question}
 
@@ -200,7 +212,7 @@ Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la d�
 & \neg \neg (A \wedge \neg A) \\
 \mbox{est} &\neg (A \wedge \neg A) \implies \bot \\
 \mbox{est} & \big( (A \wedge \neg A) \implies \bot\big) \implies \bot \\
-\mbox{est} & \Big( \big(A \wedge (A \implies \bot) \big) \implies \bot \Big) \implies \bot
+\mbox{est} & \Big( \big(A \wedge (A \implies \bot) \big) \implies \bot \Big) \implies \bot.
 \end{eqnarray*}
 
 \end{question}
