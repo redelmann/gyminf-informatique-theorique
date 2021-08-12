@@ -187,6 +187,17 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 }
 \]
 
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\vee B \implies B \vee A} {
+\infer[(\wedge I)] {B \vee A}
+	{
+	[A \vee B]
+	& \infer[(\Rightarrow{}I)] {A \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[A]}} 
+	& \infer[(\Rightarrow{}I)] {B \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[B]}} 
+	}
+}
+\]
 
 \end{enumerate}
 \end{question}
