@@ -1,0 +1,138 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+
+\title{\vspace{-2cm}Réponses d'exercices no1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}9 août 2021}
+
+\maketitle
+
+\begin{question}
+\begin{enumerate}
+
+\item \begin{displaymath}
+\begin{array}{c|ccc}
+A  & \neg A & A \wedge \neg A\\
+\hline
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} 
+\end{displaymath}
+et donc $\vDash A \wedge \neg A.$
+
+\item Rappel : $A \implies A \implies A \eqdef A \implies (A \implies A).$
+
+Rappel : $A \implies B \eqdef \neg A \wedge B$. 
+
+\begin{displaymath}
+\begin{array}{c|ccc}
+A  & \neg A \wedge A & \neg A \wedge (\neg A \wedge A)\\
+\hline
+1 & 1 & 1\\
+0 & 1 & 1
+\end{array} 
+\end{displaymath}
+et donc $\vDash A \implies A \implies A.$
+
+\item \begin{displaymath}
+\begin{array}{c|ccc}
+A  & \neg A \wedge A & \neg (\neg A \wedge A) \wedge A \\
+\hline
+1 & 1 & 1\\
+0 & 1 & 0
+\end{array}
+\end{displaymath}
+et donc $\not\vDash (A \implies A) \implies A.$
+
+\item\begin{displaymath}
+\begin{array}{cc|ccc}
+A & B & A \implies B & (A \implies B) \implies A &  ((A \implies B) \implies A) \implies A\\
+\hline
+1 & 1 & 1 & 1 & 1\\
+1 & 0 & 0 & 1 & 1\\
+0 & 1 & 1 & 0 & 1\\
+0 & 0 & 1 & 0 & 1
+\end{array}
+\end{displaymath}
+et donc $\vDash  ((A \implies B) \implies A) \implies A.$ \hfill \emph{(Loi de Peirce)}
+
+
+\item\begin{displaymath}
+\begin{array}{cc|ccc}
+A & B & A \wedge B &  \neg A \vee \neg B\\
+\hline
+1 & 1 & 1 & 0\\
+1 & 0 & 1 & 0\\
+0 & 1 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}
+\end{displaymath}
+et donc $\vDash  \neg(A \wedge B) \iff  \neg A \vee \neg B.$ \hfill \emph{(Loi de De Morgan)}
+
+
+\item\begin{displaymath}
+\begin{array}{cc|ccc}
+A & B & A \vee B &  \neg A \wedge \neg B\\
+\hline
+1 & 1 & 1 & 0\\
+1 & 0 & 0 & 1\\
+0 & 1 & 0 & 1\\
+0 & 0 & 0 & 1
+\end{array}
+\end{displaymath}
+et donc $\vDash  \neg(A \vee B) \iff  \neg A \wedge \neg B.$ \hfill \emph{(Loi de De Morgan)}
+
+\end{enumerate}
+\end{question}
+
+\begin{question}
+\begin{enumerate}
+
+\item Satisfiable, $(\top, \bot) \vDash A \wedge \neg B.$
+\item Satisfiable, $(\top) \vDash A \implies \top.$
+\item Satisfiable, $() \vDash \top.$
+\item Satisfiable, $(\top) \vDash A \implies \top.$
+
+\item\begin{displaymath}
+\begin{array}{cc|cccc}
+A & B & \top \implies A & \bot \wedge B &  A \implies \bot \wedge B &  (\top \implies A) \wedge( A \implies \bot \wedge B) \\
+\hline
+1 & 1 & 1 & 0 & 0 & 0\\
+1 & 0 & 1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 0 & 1 & 0
+\end{array}
+\end{displaymath}
+Il n'existe aucun modèle, donc insatisfiable. $\not \vDash (\top \implies A) \wedge( A \implies \bot \wedge B).$
+
+\item Satisfiable, $(\top, \bot, \top) \vDash (A \vee B \vee C) \wedge (\neg A \vee C) \wedge (\neg C \vee \neg B) \wedge (\neg B \vee \neg A).$
+
+\end{enumerate}
+\end{question}
+
+\begin{question}
+$F = (A \vee B) \wedge \neg (A \wedge B).$
+\end{question}
+
+\end{document}
