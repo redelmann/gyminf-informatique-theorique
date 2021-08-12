@@ -20,12 +20,10 @@
 % Définition de la commande pour le signe = avec "déf" aussi dessus.
 \newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
 
-\newunicodechar{°}{o}
-
 \begin{document}
 
 
-\title{\vspace{-2cm}Réponses à la série d'exercices n°1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\title{\vspace{-2cm}Réponses à la série d'exercices no1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
 \date{\vspace{-1cm}9 août 2021}
 
 \maketitle
@@ -159,5 +157,53 @@ $F = (A \vee B) \wedge \neg (A \wedge B).$
 
 On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \end{question}
+
+
+%************************* Exercice 4
+\begin{question}
+\begin{enumerate}
+\item
+\[
+\infer[(\Rightarrow{}I)] {A \implies A} {[A] & A}
+\]
+
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\wedge B \implies B \wedge A} {
+\infer[(\wedge I)] {B \wedge A} {
+\infer[(\wedge E)] {B} {[A \wedge B]} & \infer[(\wedge E)] {A} {[A \wedge B]}
+}
+}
+\]
+
+\end{enumerate}
+\end{question}
+
+
+%************************* Exercice 5
+\begin{question}
+Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la déduction naturelle donnée en classe. Rappel : $\neg A \eqdef A \implies \bot$, donc $A \wedge \neg A$ est $A \wedge (A \implies \bot)$.
+
+\[
+\infer[(\Rightarrow{}E)] {\bot} {
+\infer[(\wedge E)] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E)] {A} {[A \wedge (A \implies \bot)]}
+}
+\]
+
+\end{question}
+
+
+%************************* Exercice 6
+\begin{question}
+
+\begin{eqnarray*}
+& \neg \neg (A \wedge \neg A) \\
+\mbox{est} &\neg (A \wedge \neg A) \implies \bot \\
+\mbox{est} & \big( (A \wedge \neg A) \implies \bot\big) \implies \bot \\
+\mbox{est} & \Big( \big(A \wedge (A \implies \bot) \big) \implies \bot \Big) \implies \bot
+\end{eqnarray*}
+
+\end{question}
+
 
 \end{document}
