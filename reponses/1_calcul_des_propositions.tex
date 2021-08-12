@@ -41,13 +41,23 @@ A  & \neg A & A \wedge \neg A\\
 \end{displaymath}
 et donc $\vDash A \wedge \neg A.$
 
-\item Rappel : $A \implies A \implies A \eqdef A \implies (A \implies A).$
+\item Rappel : $A \implies A \implies$ A se lit comme $A \implies (A \implies A).$
 
-Rappel : $A \implies B \eqdef \neg A \wedge B$. 
+Rappel : Table de vérité de $A \implies B$:
+\begin{displaymath}
+\begin{array}{cc|c}
+A & B & A \implies B\\
+\hline
+1 & 1 & 1\\
+1 & 0 & 0\\
+0 & 1 & 1\\
+0 & 0 & 1
+\end{array}
+\end{displaymath}
 
 \begin{displaymath}
 \begin{array}{c|ccc}
-A  & \neg A \wedge A & \neg A \wedge (\neg A \wedge A)\\
+A  & A \implies A & A \implies (A \implies A)\\
 \hline
 1 & 1 & 1\\
 0 & 1 & 1
@@ -57,12 +67,13 @@ et donc $\vDash A \implies A \implies A.$
 
 \item \begin{displaymath}
 \begin{array}{c|ccc}
-A  & \neg A \wedge A & \neg (\neg A \wedge A) \wedge A \\
+A  & A \implies A & (A \implies A) \implies A\\
 \hline
 1 & 1 & 1\\
 0 & 1 & 0
-\end{array}
+\end{array} 
 \end{displaymath}
+et donc $\vDash A \implies A \implies A.$
 et donc $\not\vDash (A \implies A) \implies A.$
 
 \item\begin{displaymath}
@@ -79,26 +90,26 @@ et donc $\vDash  ((A \implies B) \implies A) \implies A.$ \hfill \emph{(Loi de P
 
 
 \item\begin{displaymath}
-\begin{array}{cc|ccc}
-A & B & A \wedge B &  \neg A \vee \neg B\\
+\begin{array}{cc|cccc}
+A & B & A \wedge B &  \neg A \vee \neg B & \neg(A \wedge B) \iff  \neg A \vee \neg B\\
 \hline
-1 & 1 & 1 & 0\\
-1 & 0 & 1 & 0\\
-0 & 1 & 1 & 0\\
-0 & 0 & 0 & 1
+1 & 1 & 1 & 0 & 1\\
+1 & 0 & 1 & 0 & 1\\
+0 & 1 & 1 & 0 & 1\\
+0 & 0 & 0 & 1 & 1
 \end{array}
 \end{displaymath}
 et donc $\vDash  \neg(A \wedge B) \iff  \neg A \vee \neg B.$ \hfill \emph{(Loi de De Morgan)}
 
 
 \item\begin{displaymath}
-\begin{array}{cc|ccc}
-A & B & A \vee B &  \neg A \wedge \neg B\\
+\begin{array}{cc|cccc}
+A & B & A \vee B &  \neg A \wedge \neg B & \neg(A \vee B) \iff  \neg A \wedge \neg B\\
 \hline
-1 & 1 & 1 & 0\\
-1 & 0 & 0 & 1\\
-0 & 1 & 0 & 1\\
-0 & 0 & 0 & 1
+1 & 1 & 1 & 0 & 1\\
+1 & 0 & 0 & 1 & 1\\
+0 & 1 & 0 & 1 & 1\\
+0 & 0 & 0 & 1 & 1
 \end{array}
 \end{displaymath}
 et donc $\vDash  \neg(A \vee B) \iff  \neg A \wedge \neg B.$ \hfill \emph{(Loi de De Morgan)}
@@ -109,10 +120,9 @@ et donc $\vDash  \neg(A \vee B) \iff  \neg A \wedge \neg B.$ \hfill \emph{(Loi d
 \begin{question}
 \begin{enumerate}
 
-\item Satisfiable, $(\top, \bot) \vDash A \wedge \neg B.$
-\item Satisfiable, $(\top) \vDash A \implies \top.$
-\item Satisfiable, $() \vDash \top.$
-\item Satisfiable, $(\top) \vDash A \implies \top.$
+\item Satisfiable, $\{\ A \mapsto 1, B \mapsto 0\ \} \vDash A \wedge \neg B.$
+\item Satisfiable, $\{\ A \mapsto 1\ \} \vDash A \implies \top.$
+\item Satisfiable, $\{ \} \vDash \top.$
 
 \item\begin{displaymath}
 \begin{array}{cc|cccc}
@@ -124,15 +134,26 @@ A & B & \top \implies A & \bot \wedge B &  A \implies \bot \wedge B &  (\top \im
 0 & 0 & 0 & 0 & 1 & 0
 \end{array}
 \end{displaymath}
-Il n'existe aucun modèle, donc insatisfiable. $\not \vDash (\top \implies A) \wedge( A \implies \bot \wedge B).$
+Il n'existe aucun modèle, donc insatisfiable.
 
-\item Satisfiable, $(\top, \bot, \top) \vDash (A \vee B \vee C) \wedge (\neg A \vee C) \wedge (\neg C \vee \neg B) \wedge (\neg B \vee \neg A).$
+\paragraph{Remarques}
+La négation de la formule est une tautologie, ce que l'on note ici:
+\[
+\vDash \neg ((\top \implies A) \wedge( A \implies \bot \wedge B))\
+\]
+
+À noter que, comme la formule est insatisfiable, la formule est aussi invalide. Il existe une interprétation qui n'est pas un modèle. Pour dénoter l'invalidité, on note:
+\[\not \vDash (\top \implies A) \wedge( A \implies \bot \wedge B)\]
+
+\item Satisfiable, $\{\ A \mapsto 1, B \mapsto 0, C \mapsto 1\ \} \vDash (A \vee B \vee C) \wedge (\neg A \vee C) \wedge (\neg C \vee \neg B) \wedge (\neg B \vee \neg A).$
 
 \end{enumerate}
 \end{question}
 
 \begin{question}
 $F = (A \vee B) \wedge \neg (A \wedge B).$
+
+On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \end{question}
 
 \end{document}
