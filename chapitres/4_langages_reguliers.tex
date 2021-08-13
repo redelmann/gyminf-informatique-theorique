@@ -47,7 +47,7 @@ L(e^*) &\eqdef L(e)^*
 
 \subsection{Langages réguliers}
 
-On appel \og \textit{langage régulier} \fg{} un langage $L$ si et seulement si il existe une expression régulière qui a pour langage $L$.
+On appelle \og \textit{langage régulier} \fg{} un langage $L$ si et seulement si il existe une expression régulière qui a pour langage $L$.
 
 %De ces définitions, on obtient les propositions suivantes pour n'importe quelles expressions $e$, $e_1$, $e_2$, mot $x$ et symbole $a$:
 %\begin{align*}
@@ -73,7 +73,7 @@ Pour prouver une propriété $P[e]$ pour toute expression régulière $e$, il es
 
 \paragraph{Exemple de preuve par induction structurelle}
 
-Prouvons le théorème suivant: \og \textit{Si un expression régulière $e$ a pour langage l'ensemble vide, alors forcément elle contient l'expression $\emptyset$ comme sous-expression.} \fg.
+Prouvons le théorème suivant: \og \textit{Si une expression régulière $e$ a pour langage l'ensemble vide, alors forcément elle contient l'expression $\emptyset$ comme sous-expression.} \fg.
 Procédons par induction structurelle sur $e$.
 \begin{enumerate}
 \item Si $e = \epsilon$, alors nous arrivons à une contradiction, car le langage de $\epsilon$ n'est pas vide, ce qui clôt le cas.
@@ -132,8 +132,8 @@ Le langage d'une automate fini déterministe est l'ensemble des mots qu'il accep
 
 \section{Non-déterminisme}
 
-Les automates présentés jusqu'à présent sont appelés \textit{déterministes}. En effet, la relation de transition de ces automates indique de façon non-ambiguë l'état suivant en fonction de l'état courant et du prochain symbole sur la bande.
-Il est possible de relaxer cette contrainte en permettant à l'automate plus de souplesse, en introduisant une notion de choix non-déterministe: L'automate peut décider par lui-même de quel transition prendre parmi un choix fini de possibilités.
+Les automates présentés jusqu'à présent sont appelés \textit{déterministes}. En effet, la fonction de transition de ces automates indique de façon non-ambiguë l'état suivant en fonction de l'état courant et du prochain symbole en entrée.
+Il est possible de relâcher cette contrainte et donner plus de souplesse à l'automate , en introduisant une notion de choix non-déterministe: L'automate peut décider par lui-même quelle transition prendre parmi un choix fini de possibilités.
 Intuitivement, on peut se représenter cette capacité non-déterministe comme celle de faire le \og \textit{bon choix} \fg, ou alors comme celle de pouvoir effectuer en parallèle des exécutions.
 
 Le non-déterminisme joue un rôle important en théorie de la calculabilité, et encore plus en théorie de la complexité.
@@ -158,7 +158,7 @@ On appelle une \og configuration \fg{} d'un automate fini non-déterministe la p
 Étant donné un automate fini non-déterministe $N$, une configuration $(q_1, x_1)$ est \og \textit{dérivable en une étape} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_A (q_1, x_1)$, si et seulement si il existe un mot $x \in \Sigma^*$ tel que:
 \begin{enumerate}
 \item Que la relation de transition permette d'amener à $q_1$ depuis $q_0$ en voyant le mot~$x$: $(q_0, x, q_1) \in \Delta$
-\item Que le mot $x_0$ commence par le préfix $x$ et que le reste soit $x_1$: $x_0 = x \cdot x_1$
+\item Que le mot $x_0$ commence par le préfixe $x$ et que le reste soit $x_1$: $x_0 = x \cdot x_1$
 \end{enumerate}
 
 On dit qu'une configuration $(q_1, x_1)$ est \og \textit{dérivable} \fg{} d'une autre configuration $(q_0, x_0)$, écrit $(q_0, x_0) \vdash_N^* (q_1, x_1)$, si et seulement si il existe un nombre naturel $k$ et une série $c_1 \dots c_n$ de $k$ configurations tels que:
@@ -174,15 +174,15 @@ On dit d'un automate fini non-déterministe $N = (Q, \Sigma, \Delta, s, F)$ qu'i
 \]
 C'est-à-dire qu'il est possible d'aller de l'état initial $s$ à un état final $f$ en suivant la relation de transition sur une décomposition de $x$ en sous-parties.
 
-Le langage d'une automate fini non-déterministe est l'ensemble des mots qu'il accepte.
+Le langage d'un automate fini non-déterministe est l'ensemble des mots qu'il accepte.
 
 \section{Déterminisation}
 
-Comme nous allons le démontrer par un procédé, il est toujours possible de passer d'un automate non-déterministe à un automate fini déterministe ayant le même langage.
+Comme nous allons le démontrer par un procédé, il est toujours possible de passer d'un automate fini non-déterministe à un automate fini déterministe ayant le même langage.
 Le procédé de \og déterminisation \fg{} d'un automate fini non-déterministe $N_1 = (Q_1, \Sigma, \Delta_1, s_1, F_1)$ consiste en deux étapes:
 \begin{enumerate}
 \item
-Dans la première étape, un automate fini non-déterministe $N_2 = (Q_2, \Sigma, \Delta_2, s_2, F_2)$  est construit afin d'éliminer toutes les transitions ayant pour argument un mot de taille $k$ plus grande que $1$. Pour ce faire, il suffit de supprimer toutes telles transitions $(q_1, a_1 \dots a_k, q_{k+1})$ et d'incorporer:
+Dans la première étape, un automate fini non-déterministe $N_2 = (Q_2, \Sigma, \Delta_2, s_2, F_2)$  est construit afin d'éliminer toutes les transitions ayant pour argument un mot de taille $k$ plus grande que $1$. Pour ce faire, il suffit de supprimer toutes les transitions $(q_1, a_1 \dots a_k, q_{k+1})$ et d'incorporer:
 \begin{enumerate}
 \item À l'ensemble $Q_2$ un nombre $k-1$ de \textit{nouveaux} états $q_2 \dots q_k$,
 \item À la relation de transition $\Delta_2$, toutes les transitions $(q_i, a_i, q_{i+1})$ pour tout $i$ de $1$ à $k$.
@@ -210,7 +210,7 @@ F_3 = \{\ q \in \mathcal{P}(Q_2)\ |\ q \cap F_2 \neq \emptyset\ \}
 \end{enumerate}
 \end{enumerate}
 
-L'existence d'une telle transformation démontre que l'ajout du non-déterminisme aux automates finis n'augmente pas la classe des langages qu'ils peuvent décrire. Aussi, trivialement, chaque automate fini déterministe est un automate fini non-déterministe, ce qui nous permet de conclure que les deux formalismes ont exactement la même expressivité.
+L'existence d'une telle transformation démontre que l'ajout du non-déterminisme aux automates finis n'augmente pas leur expressivité. Aussi, trivialement, chaque automate fini déterministe est un automate fini non-déterministe, ce qui nous permet de conclure que les deux formalismes ont exactement la même expressivité.
 
 Il est à noter cependant que le processus de déterminisation peut faire \textit{exploser} le nombre d'état.
 Étant donné un automate non-déterministe de taille $n$, l'automate déterministe obtenu par le procédé de déterminisation a $2^n$ états.
@@ -224,15 +224,15 @@ Considérons $n$ le nombre d'états dans $Q$, et notons $q_1, \dots, q_n$ les $n
 
 On commence avec un tableau qui contient une entrée pour chaque paire d'état $(q_i, q_j)$ où $i < j$.
 Initialement, les entrées du tableau sont mises à $1$, pour indiquer une potentielle équivalence.
-Ensuite, on marque comme non-équivalente toute paire d'états $(q_i, q_j)$ où un état est final et l'autre ne l'ai pas.
-Ces deux états sont de toute évidence non-équivalents.
+Ensuite, on marque comme non-équivalente toute paire d'états $(q_i, q_j)$ où un état est final et l'autre ne l'est pas.
+Ces deux états sont, de toute évidence, non-équivalents.
 
-Ensuite, on commence un processus itératif. À chaque iteration, on parcourt l'ensemble des paires d'états $(q_i, q_j)$ encore considérées équivalentes.
+Ensuite, on commence un processus itératif. À chaque itération, on parcourt l'ensemble des paires d'états $(q_i, q_j)$ encore considérées équivalentes.
 Pour chacune de ces paires, on parcourt tous les symboles $a$ de $\Sigma$ et on regarde si $\delta(q_i, a)$ est considéré comme équivalent à $\delta(q_j, a)$.
 Si ce n'est pas le cas, on marque $(q_i, q_j)$ comme non-équivalente.
 Si au moins une paire a été marquée lors de l'itération, on procède à l'itération suivante, sinon le processus s'arrête.
 
-Quand le processus se termine, le tableau indique contient un $1$ pour chaque paire d'états équivalents.
+Quand le processus se termine, le tableau contient un $1$ pour chaque paire d'états équivalents.
 L'automate peut donc être modifié afin d'adopter ces classes d'équivalence comme états.
 
 \section{Transformation d'une expression régulière en automate}
@@ -250,7 +250,7 @@ La procédure de transformation opère de façon récursive sur la structure de 
 (\{\ q\ \}, \Sigma, \emptyset, q, \{\ q\ \})
 \]
 \item Dans le cas où $e = a$ pour $a \in \Sigma$, on crée deux nouveaux états $q_1$ et $q_2$, avec $q_1$ initial et $q_2$ final.
-La relation de transition $\Delta$ contient uniquement la transition de $q_1$ par $a$ à $q_2$.
+La relation de transition $\Delta$ contient uniquement la transition de $q_1$ à $q_2$ par $a$.
 \[
 (\{\ q_1, q_2\ \}, \Sigma, \{\ (q_1, a, q_2)\ \}, q_1, \{\ q_2\ \})
 \]
