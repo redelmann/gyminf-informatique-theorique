@@ -132,7 +132,7 @@ Le langage d'une automate fini déterministe est l'ensemble des mots qu'il accep
 
 \section{Non-déterminisme}
 
-Les automates présentés jusqu'à présent sont appelés \textit{déterministes}. En effet, la fonction de transition de ces automates indique de façon non-ambiguë l'état suivant en fonction de l'état courant et du prochain symbole sur la bande (question : quelle bande ?).
+Les automates présentés jusqu'à présent sont appelés \textit{déterministes}. En effet, la fonction de transition de ces automates indique de façon non-ambiguë l'état suivant en fonction de l'état courant et du prochain symbole en entrée.
 Il est possible de relâcher cette contrainte et donner plus de souplesse à l'automate , en introduisant une notion de choix non-déterministe: L'automate peut décider par lui-même quelle transition prendre parmi un choix fini de possibilités.
 Intuitivement, on peut se représenter cette capacité non-déterministe comme celle de faire le \og \textit{bon choix} \fg, ou alors comme celle de pouvoir effectuer en parallèle des exécutions.
 
@@ -178,7 +178,7 @@ Le langage d'un automate fini non-déterministe est l'ensemble des mots qu'il ac
 
 \section{Déterminisation}
 
-Comme nous allons le démontrer par un procédé, il est toujours possible de passer d'un automate (fini ou pas forcément ?) non-déterministe à un automate fini déterministe ayant le même langage.
+Comme nous allons le démontrer par un procédé, il est toujours possible de passer d'un automate fini non-déterministe à un automate fini déterministe ayant le même langage.
 Le procédé de \og déterminisation \fg{} d'un automate fini non-déterministe $N_1 = (Q_1, \Sigma, \Delta_1, s_1, F_1)$ consiste en deux étapes:
 \begin{enumerate}
 \item
@@ -210,7 +210,7 @@ F_3 = \{\ q \in \mathcal{P}(Q_2)\ |\ q \cap F_2 \neq \emptyset\ \}
 \end{enumerate}
 \end{enumerate}
 
-L'existence d'une telle transformation démontre que l'ajout du non-déterminisme aux automates finis n'augmente pas la classe (on a défini la classe d'un langage ? )des langages qu'ils peuvent décrire. Aussi, trivialement, chaque automate fini déterministe est un automate fini non-déterministe, ce qui nous permet de conclure que les deux formalismes ont exactement la même expressivité.
+L'existence d'une telle transformation démontre que l'ajout du non-déterminisme aux automates finis n'augmente pas leur expressivité. Aussi, trivialement, chaque automate fini déterministe est un automate fini non-déterministe, ce qui nous permet de conclure que les deux formalismes ont exactement la même expressivité.
 
 Il est à noter cependant que le processus de déterminisation peut faire \textit{exploser} le nombre d'état.
 Étant donné un automate non-déterministe de taille $n$, l'automate déterministe obtenu par le procédé de déterminisation a $2^n$ états.
