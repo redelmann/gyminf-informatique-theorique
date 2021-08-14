@@ -1,5 +1,7 @@
 \documentclass[12pt,french,a4paper]{article}
 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{geometry}
  \geometry{
  a4paper,
@@ -26,6 +28,65 @@
 \date{\vspace{-1cm}13 août 2021}
 
 \maketitle
+
+\begin{question}
+Étant donné l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}\ \}$, donnez un automate fini déterministe pour les expressions régulières suivantes:
+\begin{enumerate}
+\item $\texttt{a}^*$
+\item $\texttt{a} \cdot \texttt{b}$
+\item $\texttt{a} \cdot \texttt{a} \cdot \texttt{a}^*$
+\item $\texttt{a} \cdot (\texttt{b} \cdot \texttt{a})^*$
+\item $\texttt{a} \cdot (\texttt{a} \cup \texttt{b} \cdot \texttt{a})^* \cdot (\texttt{b} \cup \epsilon) \cdot \texttt{a}$
+\end{enumerate}
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+\paragraph{Partie 1}
+Étant donné l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}\ \}$, construisez un automate fini non-déterministe pour le langage de tous les mots qui contiennent la séquence $\texttt{abba}$ ou la séquence $\texttt{baba}$.
+
+\paragraph{Partie 2}
+Déterminisez l'automate obtenu dans la première partie.
+
+\paragraph{Partie 3}
+Minimalisez l'automate obtenu dans la deuxième partie.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Étant donné l'alphabet $\Sigma = \{\ \texttt{0}, \texttt{1}\ \}$, donnez un automate fini déterministe qui accepte la représentation binaire de tous les entiers multiples de trois. On considère que le \textit{bit} de poids le plus fort débute le mot.
+
+À quoi ressemblerait l'automate si les bits étaient lus dans l'ordre inverse, c'est-à-dire du bit de poids le plus faible au bit de poids le plus fort ?
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Considérez l'opération d'inversion d'un mot $m$, que l'on note $m^R$:
+\begin{align*}
+|m^R| &\eqdef |m|\\
+m^R(i) &\eqdef m(|m| + 1 - i)
+\end{align*}
+Étant donné un alphabet $\Sigma$ et un langage \textit{régulier} $L$, montrez que le langage qui consiste en l'inversion des mots de $L$, que l'on note $L^R$, est régulier:
+\[
+L^R \eqdef \{\ m^R \in \Sigma^*\ |\ m \in L\  \}
+\]
+\end{question}
+
+\newpage
+
+\begin{question}
+Étant donné l'alphabet $\Sigma = \{\ \texttt{I}\ \}$, montrez que le langage suivant n'est pas régulier:
+\[
+\{\ m \in \Sigma^*\ |\ |m| \text{ est un nombre premier}\ \}
+\]
+\paragraph{Rappel}
+Un nombre $n$ est premier si et seulement si il n'admet qu'exactement deux diviseurs: $1$ et $n$.
+\end{question}
+
+\vspace{3cm}
 
 \begin{question}
 Rappeler vous la relation de dérivation en une étape $\vdash_A$ d'un automate fini déterministe $A = (Q, \Sigma, \delta, s, F)$.

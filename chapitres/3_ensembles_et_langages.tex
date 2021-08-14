@@ -253,7 +253,7 @@ En plus de cela, nous considérerons des opérations propres aux langages.
 Deux langages $L_1$ et $L_2$ peuvent être concaténés, noté $L_1 \cdot L_2$, ou simplement $L_1L_2$.
 Un mot est dans $L_1 \cdot L_2$ si et seulement si il peut être coupé en deux parties de telle façon à ce que la première fasse partie de $L_1$ et la seconde de $L_2$.
 \[
-L_1 \cdot L_2 \eqdef \{ x \in \Sigma^*\ |\ \exists x_1. \exists x_2. x_1 \in l_1 \wedge x_2 \in l_2 \wedge x = x_1 \cdot x_2\ \}
+L_1 \cdot L_2 \eqdef \{ x \in \Sigma^*\ |\ \exists x_1. \exists x_2. x_1 \in L_1 \wedge x_2 \in L_2 \wedge x = x_1 \cdot x_2\ \}
 \]
 Ou, de manière équivalente:
 \[
@@ -266,7 +266,7 @@ Ou, de manière équivalente:
 L'opération est définie de manière inductive comme suit:
 \begin{align*}
 L^0 &\eqdef \{ \epsilon \}\\
-L^{i + 1} &\eqdef L \cdot L_i\\
+L^{i + 1} &\eqdef L \cdot L^i\\
 \end{align*}
 Ou de manière équivalente:
 \begin{align*}

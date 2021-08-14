@@ -1,0 +1,90 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+
+\title{\vspace{-2cm}Réponse à l'exercice 4.3.2\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}13 août 2021}
+
+\maketitle
+
+Montrons que pour tout $i \in \mathbb{N}$, mot non-vide $x$ et langage $L$, si $x \in L^{i+1}$, alors il existe deux mots $x_1$ et $x_2$ tels que:
+\begin{enumerate}
+\item $x = x_1 \cdot x_2$
+\item $x_1 \neq \epsilon$
+\item $x_1 \in L$
+\item $x_2 \in L^i$
+\end{enumerate}
+Procédons par induction sur $i$.
+\begin{itemize}
+\item Considérons le cas où $i = 0$. On a $x \in L^{0+1}$. Observons que $L^{0+1} = L^1 = L$. Posons $x_1 = x$ et $x_2 = \epsilon$. La décomposition $x_1$ et $x_2$ vérifie bien que: 
+\begin{enumerate}
+\item $x = x_1 \cdot x_2$
+\item $x_1 \neq \epsilon$
+\item $x_1 \in L$
+\item $x_2 \in L^i = L^0 = \{\ \epsilon\ \}$
+\end{enumerate}
+
+\item Considérons maintenant le cas inductif, où $i = n + 1$ pour un certain $n$. Notre hypothèse d'induction stipule que:
+\[
+\forall x'.\ (x' \neq \epsilon \wedge x' \in L^{n+1}) \implies \exists x_1'. \exists x_2'.\ x' = x_1' \cdot x_2' \wedge x_1' \neq \epsilon \wedge x_1' \in L \wedge x_2' \in L^n
+\]
+Par hypothèse, on a que $x \in L^{(n + 1) + 1}$. Observons $L^{(n + 1) + 1} = L \cdot L^{n + 1}$.
+Il existe donc un mot $x_1$ et un mot $x_2$ tels que $x = x_1 \cdot x_2$ avec $x_1 \in L$ et $x_2 \in L^{n + 1}$.
+Si $x_1 \neq \epsilon$, alors la preuve conclut immédiatement, avec $x_1$ et $x_2$ comme décomposition.
+Considérons donc le cas où $x_1 = \epsilon$. Dans ce cas, on remarque de manière cruciale que $\epsilon \in L$.
+
+Dans ce cas, on observe que $x = x_1 \cdot x_2 = \epsilon \cdot x_2 = x_2$, et donc $x = x_2$. Donc, on a que $x \in L^{n + 1}$.
+Par hypothèse d'induction, on a donc qu'il existe un $x_1'$ et un $x_2'$ tels que:
+\begin{enumerate}
+\item $x = x_1' \cdot x_2'$
+\item $x_1' \neq \epsilon$
+\item $x_1' \in L$
+\item $x_2' \in L^n$
+\end{enumerate}
+Prouvons que la décomposition $x_1'$ et $x_2'$ est une solution valable.
+La seule condition non-triviale est:
+\[
+x_2' \in L^{n + 1}
+\]
+Or, comme $\epsilon \in L$, on a que:
+\[
+\epsilon \cdot x_2' \in L \cdot L^n
+\]
+Et donc, comme $L \cdot L^n = L^{n + 1}$: 
+\[
+\epsilon \cdot x_2' \in L^{n + 1}
+\]
+Et donc:
+\[
+x_2' \in L^{n + 1}
+\]
+Ce qui conclut la preuve.
+\end{itemize}
+
+%****************Exercice 4
+
+
+\end{document}
