@@ -18,6 +18,7 @@
 \usepackage{logicpuzzle}
 \usepackage{hyperref}
 \usepackage{cleveref}
+\usepackage{xcolor}
 
 % Définition de la commande pour le signe = avec "déf" aussi dessus.
 \newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
@@ -26,29 +27,120 @@
 
 
 \title{\vspace{-2cm}Réponses à la série d'exercices n°2\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
-\date{\vspace{-1cm}9 août 2021}
+\date{\vspace{-1cm}10 août 2021}
 
 \maketitle
 
 %****************Exercice 1
 \begin{question}
+En rouge les variables libres. Les variables liées sont de la même couleur que le quantificateur qui les lie.
 
+\begin{itemize}
+\item $f(\textcolor{red}{x}, \textcolor{red}{y})$
+\item $P(\textcolor{red}{x}) \wedge P(f(\textcolor{red}{y}, \textcolor{red}{x}))$
+\item $\forall y. P(\textcolor{red}{x})$
+\item $\textcolor{blue}{\forall} x.\ P(\textcolor{red}{y}, \textcolor{blue}{x}) \vee Q(\textcolor{red}{z})$
+\item $\textcolor{blue}{\forall} x. (\textcolor{violet}{\exists} x. P(\textcolor{violet}{x}, \textcolor{violet}{x})) \wedge Q(\textcolor{blue}{x})$
+\item $(\textcolor{blue}{\exists} x. P(\textcolor{blue}{x})) \wedge Q(\textcolor{red}{x}) \iff \textcolor{violet}{\forall} y. P(\textcolor{red}{x}, \textcolor{violet}{y})$
+\end{itemize}
 \end{question}
 
 
 %****************Exercice 2
 \begin{question}
-
+On utilise le prédicat $\texttt{aime}$ d'arité deux. La formule $\texttt{aime}(x, y)$ indique que $x$ aime $y$.
+\begin{enumerate}
+\item $\forall x. \exists y.\ \texttt{aime}(x, y)$.
+\item $\exists y. \forall x.\ \texttt{aime}(x, y)$.
+\item $\forall x. (\neg \exists y. \texttt{aime}(y, x)) \implies \forall y. \neg \texttt{aime}(x, y)$
+\item $\forall x. (\exists y.\ \texttt{aime}(x, y)) \implies \exists y.\ \texttt{aime}(y, x)$
+\item $\forall x. \forall y.\ \texttt{aime}(x, y) \implies \texttt{aime}(y, x)$
+\item $(\forall x. \exists y.\ \texttt{aime}(y, x)) \vee \exists x. \forall y.\ \neg \texttt{aime}(y, x)$
+\item $\neg (\forall x.\ (\forall y.\ \texttt{aime}(y, x)) \implies \forall y. \texttt{aime}(x, y))$
+\end{enumerate}
 \end{question}
 
 %****************Exercice 3
 \begin{question}
+\begin{enumerate}
+\item
 
+\[
+\infer[(\Rightarrow{}I)]{(\forall x.\ Q(x)) \implies (\exists x.\ Q(x))}{
+\infer[(\exists I)]{\exists x.\ Q(x)}{
+\infer[(\forall E)]{Q(C)}{[\forall x.\ Q(x)]}
+}
+}
+\]
+\item
+Considérons l'univers $\{\ 1\ \}$, avec l'interprétation $\mathcal{I}$ telle que:
+\begin{align*}
+\mathcal{I}(C) &\eqdef 1\\
+\mathcal{I}(P) &\eqdef \emptyset\\
+\mathcal{I}(Q) &\eqdef \emptyset\\
+\mathcal{I}(R) &\eqdef \emptyset
+\end{align*}
+L'interprétation $\mathcal{I}$ évalue la formule à $0$, et est donc un contre-exemple.
+\item La même interprétation $\mathcal{I}$ qu'au point précédent est un contre-exemple.
+\item
+\[
+\infer[(\Rightarrow{}I)]{(\forall x.\ R(x, x)) \implies (\forall y. \exists z.\ R(y, z))}{
+\infer[(\forall I)]{\forall y. \exists z.\ R(y, z)}{
+\infer[(\exists I)]{\exists z.\ R(y, z)}{
+\infer[(\forall E)]{R(y, y)}{[\forall x.\ R(x, x)]}
+}
+}
+}
+\]
+\item
+Considérons l'univers $\{\ 1, 2\ \}$, avec l'interprétation $\mathcal{I}$ telle que:
+\begin{align*}
+\mathcal{I}(C) &\eqdef 1\\
+\mathcal{I}(P) &\eqdef \emptyset\\
+\mathcal{I}(Q) &\eqdef \emptyset\\
+\mathcal{I}(R) &\eqdef \{\ (1, 1), (2, 2)\ \}
+\end{align*}
+L'interprétation $\mathcal{I}$ évalue la formule à $0$, et est donc un contre-exemple.
+\end{enumerate}
 \end{question}
 
 %****************Exercice 4
 \begin{question}
+\paragraph{Partie 1}
+La théorie a pour prédicats unaires $\texttt{homme}$ et $\texttt{mortel}$, et comme constante $\texttt{socrate}$.
+Elle admet comme axiomes:
+\begin{enumerate}
+\item $\forall x.\ \texttt{homme}(x) \implies \texttt{mortel}(x)$
+\item $\texttt{homme}(\texttt{socrate})$
+\end{enumerate}
 
+\paragraph{Partie 2}
+
+Considérons, par exemple, l'univers $\{ 1, 2 \}$, et une interprétation $\mathcal{I}$ telle que:
+\begin{align*}
+\mathcal{I}(\texttt{socrate}) &\eqdef 1\\
+\mathcal{I}(\texttt{mortel}) &\eqdef \{\ 1, 2\ \}\\
+\mathcal{I}(\texttt{homme}) &\eqdef \{\ 1\ \}\\
+\end{align*}
+
+\paragraph{Partie 3}
+
+\[
+\infer[\Rightarrow{}E]{\texttt{mortel}(\texttt{socrate})}{
+\infer[\forall E]{\texttt{homme}(\texttt{socrate}) \implies \texttt{mortel}(\texttt{socrate})}{
+\infer[]{\forall x.\ \texttt{homme}(x) \implies \texttt{mortel}(x)}{}
+} & \infer[]{\texttt{homme}(\texttt{socrate})}{}}
+\]
+
+\paragraph{Partie 4}
+
+La proposition $\forall x. \texttt{mortel}(x)$ est \textit{indépendante} de la théorie.
+\end{question}
+
+\begin{question} 
+\end{question}
+
+\begin{question} 
 \end{question}
 
 
