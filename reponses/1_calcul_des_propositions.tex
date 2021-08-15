@@ -123,7 +123,7 @@ et donc $\vDash  \neg(A \vee B) \iff  \neg A \wedge \neg B.$ \hfill \emph{(Loi d
 \begin{enumerate}
 
 \item Satisfiable, $\{\ A \mapsto 1, B \mapsto 0\ \} \vDash A \wedge \neg B.$
-\item Satisfiable, $\{\ A \mapsto 1\ \} \vDash A \implies \top.$
+\item Satisfiable, $\{\ A \mapsto 0\ \} \vDash A \implies \bot.$
 \item Satisfiable, $\{ \} \vDash \top.$
 
 \item\begin{displaymath}
@@ -212,7 +212,7 @@ Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la d�
 \[
 \infer[(\Rightarrow{}I)] {A \wedge (A \implies \bot) \implies \bot} {
 \infer[(\Rightarrow{}E)] {\bot} {
-\infer[(\wedge E)] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E)] {A} {[A \wedge (A \implies \bot)]}
+\infer[(\wedge E \text{ droite})] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E \text{ gauche})] {A} {[A \wedge (A \implies \bot)]}
 }}
 \]
 
@@ -245,6 +245,25 @@ Ce théorème est montré par l'arbre suivant:
 }
 }
 \]
+
+En logique classique, en utilisant la règle $(\neg \neg E)$, on peut donc montrer le tiers exclu comme théorème:
+
+\[
+\infer[(\neg \neg E)]{A \vee (A \implies \bot)}{
+\infer[(\Rightarrow{}I)]{\Big( \big(A \vee (A \implies \bot) \big) \implies \bot \Big) \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(A \vee (A \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ droite})]{A \vee (A \implies \bot)}{
+\infer[(\Rightarrow{}I)]{A \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(A \vee (A \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ gauche})]{A \vee (A \implies \bot)}{[A]}
+}
+}
+}
+}
+}
+}
+\]
+
 
 \end{question}
 
