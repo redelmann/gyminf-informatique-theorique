@@ -25,7 +25,7 @@
 \begin{document}
 
 
-\title{\vspace{-2cm}Réponses à la série d'exercices n°1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\title{\vspace{-2cm}Réponses à la série d'exercices no1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
 \date{\vspace{-1cm}9 août 2021}
 
 \maketitle
@@ -75,7 +75,6 @@ A  & A \implies A & (A \implies A) \implies A\\
 0 & 1 & 0
 \end{array} 
 \end{displaymath}
-et donc $\vDash A \implies A \implies A.$
 et donc $\not\vDash (A \implies A) \implies A.$
 
 \item\begin{displaymath}
@@ -160,5 +159,76 @@ $F = (A \vee B) \wedge \neg (A \wedge B).$
 
 On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \end{question}
+
+
+%************************* Exercice 4
+\begin{question}
+\begin{enumerate}
+\item
+\[
+\infer[(\Rightarrow{}I)] {A \implies A} {[A] & A}
+\]
+
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\wedge B \implies B \wedge A} {
+\infer[(\wedge I)] {B \wedge A} {
+\infer[(\wedge E)] {B} {[A \wedge B]} & \infer[(\wedge E)] {A} {[A \wedge B]}
+}
+}
+\]
+
+\newpage
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\wedge (B \wedge C) \implies (A\wedge B) \wedge C} {
+\infer[(\wedge I)] {(A \wedge B) \wedge C} {
+	\infer[(\wedge I)] {A \wedge B} {
+\infer[(\wedge E)] {A} {[A \wedge (B \wedge C)]} & \infer[(\wedge E)] {B} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} } & \infer[(\wedge E)] {C} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} 
+	}
+}
+\]
+
+\item
+\[
+\infer[(\Rightarrow{}I)] {A\vee B \implies B \vee A} {
+\infer[(\wedge I)] {B \vee A}
+	{
+	[A \vee B]
+	& \infer[(\Rightarrow{}I)] {A \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[A]}} 
+	& \infer[(\Rightarrow{}I)] {B \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[B]}} 
+	}
+}
+\]
+
+\end{enumerate}
+\end{question}
+
+
+%************************* Exercice 5
+\begin{question}
+Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la déduction naturelle donnée en classe. Rappel : $\neg A \eqdef A \implies \bot$, donc $A \wedge \neg A$ est $A \wedge (A \implies \bot)$.
+
+\[
+\infer[(\Rightarrow{}E)] {\bot} {
+\infer[(\wedge E)] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E)] {A} {[A \wedge (A \implies \bot)]}
+}
+\]
+
+\end{question}
+
+
+%************************* Exercice 6
+\begin{question}
+
+\begin{eqnarray*}
+& \neg \neg (A \vee \neg A) \\
+\mbox{est} &\neg (A \vee \neg A) \implies \bot \\
+\mbox{est} & \big( (A \vee \neg A) \implies \bot\big) \implies \bot \\
+\mbox{est} & \Big( \big(A \vee (A \implies \bot) \big) \implies \bot \Big) \implies \bot.
+\end{eqnarray*}
+
+\end{question}
+
 
 \end{document}
