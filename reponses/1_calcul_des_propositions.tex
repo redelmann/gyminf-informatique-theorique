@@ -25,7 +25,7 @@
 \begin{document}
 
 
-\title{\vspace{-2cm}Réponses à la série d'exercices no1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\title{\vspace{-2cm}Réponses à la série d'exercices n°1\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
 \date{\vspace{-1cm}9 août 2021}
 
 \maketitle
@@ -166,14 +166,14 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \begin{enumerate}
 \item
 \[
-\infer[(\Rightarrow{}I)] {A \implies A} {[A] & A}
+\infer[(\Rightarrow{}I)] {A \implies A} {[A]}
 \]
 
 \item
 \[
 \infer[(\Rightarrow{}I)] {A\wedge B \implies B \wedge A} {
 \infer[(\wedge I)] {B \wedge A} {
-\infer[(\wedge E)] {B} {[A \wedge B]} & \infer[(\wedge E)] {A} {[A \wedge B]}
+\infer[(\wedge E \text{ droite})] {B} {[A \wedge B]} & \infer[(\wedge E \text{ gauche})] {A} {[A \wedge B]}
 }
 }
 \]
@@ -184,7 +184,7 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \infer[(\Rightarrow{}I)] {A\wedge (B \wedge C) \implies (A\wedge B) \wedge C} {
 \infer[(\wedge I)] {(A \wedge B) \wedge C} {
 	\infer[(\wedge I)] {A \wedge B} {
-\infer[(\wedge E)] {A} {[A \wedge (B \wedge C)]} & \infer[(\wedge E)] {B} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} } & \infer[(\wedge E)] {C} {\infer[(\wedge E)] {B \wedge C} {[A \wedge (B \wedge C)]}} 
+\infer[(\wedge E \text{ gauche})] {A} {[A \wedge (B \wedge C)]} & \infer[(\wedge E \text{ gauche})] {B} {\infer[(\wedge E \text{ droite})] {B \wedge C} {[A \wedge (B \wedge C)]}} } & \infer[(\wedge E \text{ droite})] {C} {\infer[(\wedge E \text{ droite})] {B \wedge C} {[A \wedge (B \wedge C)]}} 
 	}
 }
 \]
@@ -192,11 +192,11 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 \item
 \[
 \infer[(\Rightarrow{}I)] {A\vee B \implies B \vee A} {
-\infer[(\wedge I)] {B \vee A}
+\infer[(\vee E)] {B \vee A}
 	{
 	[A \vee B]
-	& \infer[(\Rightarrow{}I)] {A \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[A]}} 
-	& \infer[(\Rightarrow{}I)] {B \implies B \vee A} {\infer[(\vee I)] {B \vee A} {[B]}} 
+	& \infer[(\Rightarrow{}I)] {A \implies B \vee A} {\infer[(\vee I \text{ droite})] {B \vee A} {[A]}} 
+	& \infer[(\Rightarrow{}I)] {B \implies B \vee A} {\infer[(\vee I \text{ gauche})] {B \vee A} {[B]}} 
 	}
 }
 \]
@@ -210,9 +210,10 @@ On appelle cette opération le \og \textit{ou exclusif} \fg{}.
 Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la déduction naturelle donnée en classe. Rappel : $\neg A \eqdef A \implies \bot$, donc $A \wedge \neg A$ est $A \wedge (A \implies \bot)$.
 
 \[
+\infer[(\Rightarrow{}I)] {A \wedge (A \implies \bot) \implies \bot} {
 \infer[(\Rightarrow{}E)] {\bot} {
 \infer[(\wedge E)] {A \implies \bot} {[A \wedge (A \implies \bot)]} & \infer[(\wedge E)] {A} {[A \wedge (A \implies \bot)]}
-}
+}}
 \]
 
 \end{question}
@@ -221,12 +222,29 @@ Nous démontrons le théorème $\vdash A \wedge \neg A \implies \bot$ avec la d�
 %************************* Exercice 6
 \begin{question}
 
+On remarque, par définition de la négation, que:
 \begin{eqnarray*}
 & \neg \neg (A \vee \neg A) \\
 \mbox{est} &\neg (A \vee \neg A) \implies \bot \\
 \mbox{est} & \big( (A \vee \neg A) \implies \bot\big) \implies \bot \\
 \mbox{est} & \Big( \big(A \vee (A \implies \bot) \big) \implies \bot \Big) \implies \bot.
 \end{eqnarray*}
+Montrons donc $\vdash \Big( \big(A \vee (A \implies \bot) \big) \implies \bot \Big) \implies \bot$.
+Ce théorème est montré par l'arbre suivant:
+
+\[
+\infer[(\Rightarrow{}I)]{\Big( \big(A \vee (A \implies \bot) \big) \implies \bot \Big) \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(A \vee (A \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ droite})]{A \vee (A \implies \bot)}{
+\infer[(\Rightarrow{}I)]{A \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(A \vee (A \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ gauche})]{A \vee (A \implies \bot)}{[A]}
+}
+}
+}
+}
+}
+\]
 
 \end{question}
 
