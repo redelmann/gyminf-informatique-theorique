@@ -134,13 +134,200 @@ Considérons, par exemple, l'univers $\{ 1, 2 \}$, et une interprétation $\math
 
 \paragraph{Partie 4}
 
-La proposition $\forall x. \texttt{mortel}(x)$ est \textit{indépendante} de la théorie.
+La proposition $\forall x.\ \texttt{mortel}(x)$ est \textit{indépendante} de la théorie.
 \end{question}
 
-\begin{question} 
+\begin{question}
+\paragraph{Partie 1}
+Considérons la théorie avec un seul prédicat binaire $\texttt{rase}$ et un seul axiome:
+\[
+\exists x. \forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)
+\]
+
+\paragraph{Partie 2}
+Montrons qu'il est possible de dériver le théorème $\vdash \bot$ dans la théorie. En utilisant la règle $(\bot E)$, il sera donc possible de montrer n'importe quelle proposition.
+
+Soit $x$ l'homme dont l'existence est postulée par l'axiome. On a donc que:
+\[
+\forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)
+\]
+De plus, en appliquant cette proposition universelle à $x$:
+\[
+\neg \texttt{rase}(x, x) \iff \texttt{rase}(x, x)
+\]
+D'après le principe du tiers exclu, soit $\texttt{rase}(x, x)$, soit $\neg \texttt{rase}(x, x)$. Montrons une contradiction dans chaque cas:
+\begin{itemize}
+\item Dans le cas où $\texttt{rase}(x, x)$, par hypothèse on a que $\texttt{rase}(x, x) \implies \neg \texttt{rase}(x, x)$. On peut donc conclure à fois $\texttt{rase}(x, x)$ et $\neg \texttt{rase}(x, x)$, et donc on peut montrer $\bot$.
+\item Idem dans le cas où $\neg \texttt{rase}(x, x)$. Par hypothèse on a que $\neg \texttt{rase}(x, x) \implies \texttt{rase}(x, x)$, et donc on peut aussi conclure $\bot$.
+\end{itemize}
+
+En utilisant la règle du tiers exclu (TND), on pourrait construire explicitement cette arbre de dérivation pour montrer formellement la contradiction. L'arbre est donné à la page suivante.
+
+Le principe du tiers exclu avait été démontré dans la série précédente.
+On considère donc qu'il peut être utilisé sans répéter la preuve à chaque fois.
+Répéter la preuve reviendrait à l'incorporer directement dans l'arbre, ce qui est tout à fait possible de faire.
+Par exemple, voir le second arbre de la page suivante.
+\newpage
+
+\begin{center}
+\begin{tabular}{ccc}
+\rotatebox{90}{
+\resizebox{26cm}{!} 
+{
+$
+\infer[(\exists E)]{\bot}{
+\infer[]{\exists x. \forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)}{} &
+\infer[(\vee E)]{\bot}{
+\infer[(TND)]{\texttt{rase}(x, x) \vee \neg\texttt{rase}(x, x)}{}
+&
+\infer[(\Rightarrow{}E)]{\bot}{
+\infer[(\Rightarrow{}E)]{\neg\texttt{rase}(x, x)}{
+\infer[(\wedge E \text{ droite})]{\texttt{rase}(x, x) \implies \neg \texttt{rase}(x, x)}{
+\infer[(\forall E)]{\neg\texttt{rase}(x, x) \iff \texttt{rase}(x, x)}{[\forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)]}
+} &
+[\texttt{rase}(x, x)]
+}
+&
+[\texttt{rase}(x, x)]}
+&
+\infer[(\Rightarrow{}E)]{\bot}{
+[\neg\texttt{rase}(x, x)] &
+\infer[(\Rightarrow{}E)]{\texttt{rase}(x, x)}{
+\infer[(\wedge E \text{ gauche})]{\neg\texttt{rase}(x, x) \implies \texttt{rase}(x, x)}{
+\infer[(\forall E)]{\neg\texttt{rase}(x, x) \iff \texttt{rase}(x, x)}{[\forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)]}
+} &
+[\neg\texttt{rase}(x, x)]
+}
+}
+}
+}
+$
+}
+}
+&
+\hspace{3cm}
+&
+\rotatebox{90}{
+\resizebox{26cm}{!} 
+{
+$
+\infer[(\exists E)]{\bot}{
+\infer[]{\exists x. \forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)}{} &
+\infer[(\vee E)]{\bot}{
+\infer[(\neg \neg E)]{\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot)}{
+\infer[(\Rightarrow{}I)]{\Big( \big(\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot) \big) \implies \bot \Big) \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ droite})]{\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot)}{
+\infer[(\Rightarrow{}I)]{\texttt{rase}(x, x) \implies \bot}{
+\infer[(\Rightarrow{}E)]{\bot}{[\big(\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot) \big) \implies \bot] & 
+\infer[(\vee I \text{ gauche})]{\texttt{rase}(x, x) \vee (\texttt{rase}(x, x) \implies \bot)}{[\texttt{rase}(x, x)]}
+}
+}
+}
+}
+}
+}
+&
+\infer[(\Rightarrow{}E)]{\bot}{
+\infer[(\Rightarrow{}E)]{\neg\texttt{rase}(x, x)}{
+\infer[(\wedge E \text{ droite})]{\texttt{rase}(x, x) \implies \neg \texttt{rase}(x, x)}{
+\infer[(\forall E)]{\neg\texttt{rase}(x, x) \iff \texttt{rase}(x, x)}{[\forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)]}
+} &
+[\texttt{rase}(x, x)]
+}
+&
+[\texttt{rase}(x, x)]}
+&
+\infer[(\Rightarrow{}E)]{\bot}{
+[\neg\texttt{rase}(x, x)] &
+\infer[(\Rightarrow{}E)]{\texttt{rase}(x, x)}{
+\infer[(\wedge E \text{ gauche})]{\neg\texttt{rase}(x, x) \implies \texttt{rase}(x, x)}{
+\infer[(\forall E)]{\neg\texttt{rase}(x, x) \iff \texttt{rase}(x, x)}{[\forall y. \neg \texttt{rase}(y, y) \iff \texttt{rase}(x, y)]}
+} &
+[\neg\texttt{rase}(x, x)]
+}
+}
+}
+}
+$
+}
+}
+\end{tabular}
+\end{center}
 \end{question}
 
-\begin{question} 
+\newpage
+
+\begin{question}
+
+\paragraph{Partie 1}
+
+\begin{enumerate}
+\item Montrons $\texttt{Pres} \vdash \forall x.\ 0 + x = x$ par induction sur $x$. Pour le cas $0$, on doit montrer $0 + 0 = $, ce qui est immédiat par l'axiome 3. Dans le cas $x + 1$, on doit montrer:
+\[
+0 + (x + 1) = x + 1
+\]
+Or, par l'axiome 4, on a que:
+\[
+0 + (x + 1) = (0 + x) + 1
+\]
+De plus, par hypothèse d'induction ($0 + x = x$), on a que:
+\[
+0 + (x + 1) = x + 1
+\]
+Ce qui conclut le cas $x + 1$ et la preuve.
+\item Montrons $\texttt{Pres} \vdash \forall x. \forall y.\ x + (y + 1) = (x + 1) + y$ par induction sur $y$.
+Le cas $0$ est immédiat par le résultat du point précédent et par l'axiome 3.
+Considérons le cas $y + 1$. On doit montrer:
+\[
+x + ((y + 1) + 1) = (x + 1) + (y + 1)
+\]
+Avec comme hypothèse d'induction:
+\[
+x + (y + 1) = (x + 1) + y
+\]
+Par l'axiome 4, on a que:
+\[
+x + ((y + 1) + 1) = (x + (y + 1)) + 1
+\]
+Par hypothèse d'induction, on a donc que:
+\[
+x + ((y + 1) + 1) = ((x + 1) + y) + 1
+\]
+En appliquant encore une fois l'axiome 4, on obtient:
+\[
+x + ((y + 1) + 1) = (x + 1) + (y + 1)
+\]
+Ce qui conclut le cas inductif et la preuve.
+\item Montrons $\texttt{Pres} \vdash \forall x. \forall y.\ x + y = y + x$ par induction sur $y$.
+Le cas $0$ est immédiat en appliquant le résultat du point 1 et l'axiome 3.
+Considérons le cas $y + 1$. On doit montrer:
+\[
+x + (y + 1) = (y + 1) + x
+\]
+Avec comme hypothèse d'induction:
+\[
+x + y = y + x
+\]
+Par l'axiome 4, on a que:
+\[
+x + (y + 1) = (x + y) + 1
+\]
+Par hypothèse d'induction, on a donc:
+\[
+x + (y + 1) = (y + x) + 1
+\]
+Puis, par l'axiome 4:
+\[
+x + (y + 1) = y + (x + 1)
+\]
+Finalement, en appliquant le résultat du point 2:
+\[
+x + (y + 1) = (y + 1) + x
+\]
+Ce qui conclut le cas inductif et la preuve.
+\end{enumerate}
+
 \end{question}
 
 
