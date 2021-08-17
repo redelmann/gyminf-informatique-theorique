@@ -1,0 +1,93 @@
+% \documentclass[12pt,french,a4paper]{article}
+\documentclass[12pt]{scrartcl}  % mise en page "européenne" (la classe article
+                                % est adapté aux USA à la base) - gère bien la page
+% \usepackage{geometry}
+%  \geometry{
+%  a4paper,
+%  total={170mm,257mm},
+%  left=20mm,
+%  top=20mm,
+%  }
+\usepackage[T1]{fontenc}  % recommandé pour français
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+
+\newenvironment{automate}{
+  % référence: https://latexdraw.com/automata-diagrams-in-latex/
+  \begin{tikzpicture}[node distance=3cm, on grid, auto,
+    every path/.style={-stealth}, % flèches pour transitions
+    every loop/.style={stealth-}, % boucle=revenir "en arrière"
+    ]
+  }{
+  \end{tikzpicture}
+}
+\newcommand\autoitem{\item\phantom+\par\vspace{-2ex}} % éviter que la figure
+                                % soit au-dessus du numéro de sous-question
+
+\begin{document}
+\title{\vspace{-2cm}Réponses à la série d'exercices n°5\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}17 août 2021}
+
+\maketitle
+
+%****************Exercice 1
+\begin{question}
+  
+\begin{enumerate}
+\autoitem\begin{automate}
+  \node (e1) [state, initial, initial text={}, accepting] {1};
+  \path (e1) edge[loop above] node{$a$}  (e1);
+\end{automate}
+
+\autoitem\begin{automate}
+  \node (e1) [state, initial, initial text={}] {1};
+  \node (e2) [state, right=of e1] {2};
+  \node (e3) [state, accepting, right=of e2] {3};
+  \path (e1) edge node{$a$}  (e2);
+  \path (e2) edge node{$b$}  (e3);
+\end{automate}
+
+\autoitem\begin{automate}
+  \node (e1) [state, initial, initial text={}] {1};
+  \node (e2) [state, right=of e1] {2};
+  \node (e3) [state, accepting, right=of e2] {3};
+  \path (e1) edge node{$a$}  (e2);
+  \path (e2) edge node{$a$}  (e3);
+  \path (e3) edge[loop right] node{$a$} (e3);
+\end{automate}
+
+\autoitem\begin{automate}
+  \node (e1) [state, initial, initial text={}] {1};
+  \node (e2) [state, accepting, right=of e1] {2};
+  \path (e1) edge[bend left] node{$a$} (e2);
+  \path (e2) edge[bend left] node{$b$} (e1);
+\end{automate}
+
+\autoitem\begin{automate}
+  \node (e1) [state, initial, initial text={}] {1};
+  \node (e2) [state, right=of e1] {2};
+  \node (e3) [state, accepting, above right=of e2] {3};
+  \node (e4) [state, below right=of e2] {4};
+  \node (e5) [state, accepting, below right=of e3] {5};
+  \path (e1) edge node{$a$} (e2);
+  \path (e2) edge[bend left] node{$a$} (e3);
+  \path (e3) edge[bend left] node{$a$} (e2);
+  \path (e2) edge[bend right] node{$b$} (e4);
+  \path (e4) edge[bend left] node{$a$} (e5);
+  \path (e5) edge[bend left] node{$b$} (e4);
+  \path (e5) edge[bend right] node{$a$} (e3);
+\end{automate}
+
+  
+\end{enumerate}
+\end{question}
+
+\end{document}
