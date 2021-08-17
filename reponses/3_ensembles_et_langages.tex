@@ -1,0 +1,129 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage[frenchb]{babel}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+
+\title{\vspace{-2cm}Réponses à la série d'exercices n°3\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}11 août 2021}
+
+\maketitle
+
+%****************Exercice 1
+\begin{question}
+Dans cet exercice, nous devons montrer que:
+\[
+|\mathbb{N} \times \{\ 0, 1\ \}| = |\mathbb{N}|
+\]
+
+Pour ce faire, montrons l'existence d'une bijection entre $\mathbb{N} \times \{\ 0, 1\ \}$ et $\mathbb{N}$.
+Considérons la fonction $f$ suivante:
+\[
+f(n, b) \eqdef 2n + b
+\]
+La fonction $f$ est bien une bijection entre $\mathbb{N} \times \{\ 0, 1\ \}$ et $\mathbb{N}$. En effet:
+\begin{enumerate}
+\item La fonction est surjective: Pour tout nombre $m$, il est possible de l'écrire sous la forme $2n + 0$ (pour $m$ pair) ou $2n + 1$ (pour $m$ impair).
+\item La fonction est injective: Si $f(n, b) = f(n', b')$, alors forcément $n = n'$ et $b = b'$.
+\end{enumerate}
+\end{question}
+
+
+%****************Exercice 2
+\begin{question}
+\paragraph{Partie 1}
+Admettons que les ensembles $S_i$ sont mutuellement disjoints.
+Montrons qu'il existe une bijection $f$ entre $\mathbb{N}$ et $S$:
+\[
+S \eqdef \bigcup_{i \in \mathbb{N}} S_i
+\]
+
+Construisons une fonction $s : \mathbb{N} \to \mathbb{N}$ de la manière suivante:
+\[
+s(0) \eqdef 0
+s(i + 1) \eqdef s(i) + |S_i|
+\]
+
+Considérons pour chaque ensemble fini $S_i$ une bijection $f_i : n \to S_i$.
+Construisons la bijection $f : \mathbb{N} \to S$ de la manière suivante:
+\[
+f \eqdef \bigcup_{i \in \mathbb{N}} \{ (n + s(i), f_i(n))\ |\ n \in |S_i| \}
+\]
+L'ensemble $f$ est bien une fonction, et de plus une bijection.
+
+\paragraph{Partie 2}
+Montrons que $\mathbb{N} \times \mathbb{N}$ est dénombrable en utilisant le résultat de la partie 1.
+Pour ce faire, montrons que l'on peut partitionner $\mathbb{N} \times \mathbb{N}$ en une union infinie d'ensembles disjoints et de taille finie:
+\[
+\mathbb{N} \times \mathbb{N} = \bigcup_{i \in \mathbb{N}} \{\ (a, b) \in \mathbb{N} \times \mathbb{N}\ |\ a + b = i\ \}
+\]
+
+\paragraph{Partie 3}
+L'ensemble en question est dénombrable car il s'agit en fait de $\mathbb{N} \times \mathbb{N}$, qui a été montré dénombrable en partie 2.
+\[
+\bigcup_{i \in \mathbb{N}} (\mathbb{N} \times \{\ i\ \}) = \mathbb{N} \times \mathbb{N}
+\]
+
+\end{question}
+
+\newpage
+
+%****************Exercice 3
+\begin{question}
+Premièrement, montrons:
+\[
+|x| <= |\mathcal{P}(x)|
+\]
+Pour ce faire, construisons une injection $f$ entre $x$ et $\mathcal{P}(x)$:
+\[
+f(a) \eqdef \{ a \}
+\]
+Clairement, $f$ est injectif, car si $f(a) = f(a')$, alors $\{ a \} = \{ a' \}$ et donc $a = a'$.
+
+Deuxièmement, montrons qu'il n'existe pas de bijection entre $x$ et $\mathcal{P}(x)$.
+Partons de l'hypothèse qu'il existe une telle bijection, et montrons une contradiction.
+Soit $g$ une telle bijection.
+Construisons l'ensemble $y$ sous-ensemble de $x$ de la manière suivante:
+\[
+y \eqdef \{\ a \in x\ |\ a \not\in f(a)\ \}
+\]
+Comme $f$ est une bijection, il existe forcément un $a' \in x$ tel que $f(a') = y$. Posons-nous la question de savoir si $a' \in y$.
+Analysons les deux possibilités:
+\begin{enumerate}
+\item
+Dans le cas où $a' \in y$, alors forcément par construction de $y$ on a que $a' \not\in f(a')$, et donc $a' \not\in y$. Contradiction.
+\item
+Dans le cas où $a' \not\in y$, alors $a' \not\in f(a')$ et donc par construction $a' \in \{\ a \in x\ |\ a \not\in f(a)\ \}$, et donc $a' \in y$. Contradiction.
+\end{enumerate}
+
+\end{question}
+
+%****************Exercice 4
+\begin{question}
+\end{question}
+
+%****************Exercice 5
+\begin{question}
+\end{question}
+
+\end{document}
