@@ -1,0 +1,213 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+
+\title{\vspace{-2cm}Réponses à la série d'exercices n°3\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}11 août 2021}
+
+\maketitle
+
+%****************Exercice 1
+\begin{question}
+Dans cet exercice, nous devons montrer que:
+\[
+|\mathbb{N} \times \{\ 0, 1\ \}| = |\mathbb{N}|
+\]
+
+Pour ce faire, montrons l'existence d'une bijection entre $\mathbb{N} \times \{\ 0, 1\ \}$ et $\mathbb{N}$.
+Considérons la fonction $f$ suivante:
+\[
+f(n, b) \eqdef 2n + b
+\]
+La fonction $f$ est bien une bijection entre $\mathbb{N} \times \{\ 0, 1\ \}$ et $\mathbb{N}$. En effet:
+\begin{enumerate}
+\item La fonction est surjective: Pour tout nombre $m$, il est possible de l'écrire sous la forme $2n + 0$ (pour $m$ pair) ou $2n + 1$ (pour $m$ impair).
+\item La fonction est injective: Si $f(n, b) = f(n', b')$, alors forcément $n = n'$ et $b = b'$.
+\end{enumerate}
+\end{question}
+
+
+%****************Exercice 2
+\begin{question}
+\paragraph{Partie 1}
+Admettons que les ensembles $S_i$ sont mutuellement disjoints.
+Montrons qu'il existe une bijection $f$ entre $\mathbb{N}$ et $S$:
+\[
+S \eqdef \bigcup_{i \in \mathbb{N}} S_i
+\]
+
+Construisons une fonction $s : \mathbb{N} \to \mathbb{N}$ de la manière suivante:
+\[
+s(0) \eqdef 0
+s(i + 1) \eqdef s(i) + |S_i|
+\]
+
+Considérons pour chaque ensemble fini $S_i$ une bijection $f_i : n \to S_i$.
+Construisons la bijection $f : \mathbb{N} \to S$ de la manière suivante:
+\[
+f \eqdef \bigcup_{i \in \mathbb{N}} \{ (n + s(i), f_i(n))\ |\ n \in |S_i| \}
+\]
+L'ensemble $f$ est bien une fonction, et de plus une bijection.
+
+\paragraph{Partie 2}
+Montrons que $\mathbb{N} \times \mathbb{N}$ est dénombrable en utilisant le résultat de la partie 1.
+Pour ce faire, montrons que l'on peut partitionner $\mathbb{N} \times \mathbb{N}$ en une union infinie d'ensembles disjoints et de taille finie:
+\[
+\mathbb{N} \times \mathbb{N} = \bigcup_{i \in \mathbb{N}} \{\ (a, b) \in \mathbb{N} \times \mathbb{N}\ |\ a + b = i\ \}
+\]
+
+\paragraph{Partie 3}
+L'ensemble en question est dénombrable car il s'agit en fait de $\mathbb{N} \times \mathbb{N}$, qui a été montré dénombrable en partie 2.
+\[
+\bigcup_{i \in \mathbb{N}} (\mathbb{N} \times \{\ i\ \}) = \mathbb{N} \times \mathbb{N}
+\]
+
+\end{question}
+
+\newpage
+
+%****************Exercice 3
+\begin{question}
+Premièrement, montrons:
+\[
+|x| <= |\mathcal{P}(x)|
+\]
+Pour ce faire, construisons une injection $f$ entre $x$ et $\mathcal{P}(x)$:
+\[
+f(a) \eqdef \{ a \}
+\]
+Clairement, $f$ est injectif, car si $f(a) = f(a')$, alors $\{ a \} = \{ a' \}$ et donc $a = a'$.
+
+Deuxièmement, montrons qu'il n'existe pas de bijection entre $x$ et $\mathcal{P}(x)$.
+Partons de l'hypothèse qu'il existe une telle bijection, et montrons une contradiction.
+Soit $g$ une telle bijection.
+Construisons l'ensemble $y$ sous-ensemble de $x$ de la manière suivante:
+\[
+y \eqdef \{\ a \in x\ |\ a \not\in f(a)\ \}
+\]
+Comme $f$ est une bijection, il existe forcément un $a' \in x$ tel que $f(a') = y$. Posons-nous la question de savoir si $a' \in y$.
+Analysons les deux possibilités:
+\begin{enumerate}
+\item
+Dans le cas où $a' \in y$, alors forcément par construction de $y$ on a que $a' \not\in f(a')$, et donc $a' \not\in y$. Contradiction.
+\item
+Dans le cas où $a' \not\in y$, alors $a' \not\in f(a')$ et donc par construction $a' \in \{\ a \in x\ |\ a \not\in f(a)\ \}$, et donc $a' \in y$. Contradiction.
+\end{enumerate}
+
+\end{question}
+
+%****************Exercice 4
+\begin{question}
+\paragraph{Partie 1}
+On doit montrer:
+\[
+L_1 \cdot (L_2 \cdot L_3) = (L_1 \cdot L_2) \cdot L_3
+\]
+Et donc, pour tout $x$:
+\[
+x \in L_1 \cdot (L_2 \cdot L_3) \iff x \in (L_1 \cdot L_2) \cdot L_3
+\]
+Procédons par direction de la double implication.
+\begin{enumerate}
+\item
+Partons de l'hypothèse que $x \in L_1 \cdot (L_2 \cdot L_3)$.
+Il existe donc un $x_1$ et un $x_{23}$ tels que:
+\begin{align*}
+x_1 \cdot x_{23} &= x\\
+x_1 &\in L_1\\
+x_{23} &\in L_2 \cdot L_3
+\end{align*}
+De plus, il existe un $x_2$ et un $x_3$ tels que:
+\begin{align*}
+x_2 \cdot x_3 &= x_{23}\\
+x_2 &\in L_2\\
+x_3 &\in L_3
+\end{align*}
+On peut conclure à l'existence d'un mot $x_{12}$ tel que:
+\begin{align*}
+x_1 \cdot x_2 &= x_{12}\\
+x_{12} &\in L_1 \cdot L_2
+\end{align*}
+En ajoutant $x_3$ à droite, on obtient que:
+\begin{align*}
+x_{12} \cdot x_3 &\in (L_1 \cdot L_2) \cdot L_3
+\end{align*}
+Finalement, par associativité de la concaténation de mots:
+\[
+x_{12} \cdot x_3 = (x_1 \cdot x_2) \cdot x_3 = x_1 \cdot (x_2 \cdot x_3) = x
+\]
+On conclut donc que:
+\[
+x \in (L_1 \cdot L_2) \cdot L_3
+\]
+\item La deuxième direction procède de façon similaire.
+\end{enumerate}
+
+\paragraph{Partie 2}
+
+Par induction naturelle:
+\begin{itemize}
+\item
+Considérons le cas $0$. On doit montrer:
+\[
+L \cdot L^0 = L^0 \cdot L
+\]
+On a que:
+\[
+L^0 = \{\ \epsilon\ \}
+\]
+Et donc:
+\begin{align*}
+L \cdot L^0 &= L \cdot \{\ \epsilon\ \} \\
+&= L \\
+&= \{\ \epsilon\ \} \cdot L\\
+&= L^0 \cdot L
+\end{align*}
+\item
+Considérons le cas $n + 1$. On doit montrer:
+\[
+L \cdot L^{n + 1} = L^{n + 1} \cdot L
+\]
+On a que:
+\[
+L^{n + 1} = L \cdot L^n
+\]
+Et donc, en utilisant l'hypothèse d'induction et l'associativité (montrée en partie 1):
+\begin{align*}
+L \cdot L^{n + 1} &= L \cdot (L \cdot L^n) \\
+&= L \cdot (L^n \cdot L) \\
+&= (L \cdot L^n) \cdot L\\
+&= L^{n + 1} \cdot L
+\end{align*}
+Ce qui conclut le cas et la preuve.
+\end{itemize}
+\end{question}
+
+%****************Exercice 5
+\begin{question}
+\end{question}
+
+\end{document}

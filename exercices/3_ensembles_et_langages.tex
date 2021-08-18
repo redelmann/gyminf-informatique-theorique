@@ -1,7 +1,9 @@
 \documentclass[12pt,french,a4paper]{article}
 
-\usepackage[T1]{fontenc}
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{geometry}
  \geometry{
  a4paper,
@@ -9,7 +11,6 @@
  left=20mm,
  top=20mm,
  }
-\usepackage[frenchb]{babel}
 \usepackage{exsheets}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -73,9 +74,9 @@ Pour cette seconde partie, partez de l'hypothèse qu'il existe une telle bijecti
 \end{question}
 
 \begin{question}
-Pour cet exercice, nous nous intéressons aux propriétés de la concaténation de langages, de l'exponentiation de langage et de la fermeture iterative.
+Pour cet exercice, nous nous intéressons aux propriétés de la concaténation de langages, de l'exponentiation de langage et de la fermeture itérative.
 
-\paragraph{Partie 1} Montrez que la concatenation de langages est associative, c'est-à-dire, pour tous langages $L_1$, $L_2$, $L_3$:
+\paragraph{Partie 1} Montrez que la concaténation de langages est associative, c'est-à-dire, pour tous langages $L_1$, $L_2$, $L_3$:
 \[
 L_1 \cdot (L_2 \cdot L_3) = (L_1 \cdot L_2) \cdot L_3
 \]
