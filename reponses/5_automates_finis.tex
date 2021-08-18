@@ -71,7 +71,43 @@
   \path (e2) edge[bend left] node{$b$} (e1);
 \end{automate}
 
-\autoitem\begin{automate}
+\item
+  Il est plus facile de commencer par un automate fini non déterministe, par exemple:
+\begin{automate}
+  \node (e1) [state, initial, initial text={}] {1};
+  \node (e2) [state, right=of e1] {2};
+  \node (e3) [state, above right=of e2] {3};
+  \node (e4) [state, accepting, right=of e2] {4};
+  \path (e1) edge[bend left] node{$a$} (e2);
+  \path (e2) edge[bend left] node{$a,b$} (e1);
+  \path (e2) edge[bend left] node{$b$} (e3);
+  \path (e2) edge[] node{$a$} (e4);
+  \path (e3) edge[bend left] node{$a$} (e4);
+\end{automate}
+
+On procède ensuite à la transformation vers un automate déterministe en
+définissant des nouveaux états comme des ensembles des états de l'automate
+précédent. Si un état acceptant est présent dans l'ensemble, le nouvel état est
+acceptant.
+
+\begin{automate}
+  \node (e1) [state, initial, initial text={}] {$\{1\}$};
+  \node (e2) [state, right=of e1] {$\{2\}$};
+  \node (e3) [state, accepting, above right=of e2] {$\{1,4\}$};
+  \node (e4) [state, below right=of e2] {$\{1,3\}$};
+  \node (e5) [state, accepting, below right=of e3] {$\{2,4\}$};
+  \path (e1) edge node{$a$} (e2);
+  \path (e2) edge[bend left] node{$a$} (e3);
+  \path (e3) edge[bend left] node{$a$} (e2);
+  \path (e2) edge[bend right] node{$b$} (e4);
+  \path (e4) edge[bend left] node{$a$} (e5);
+  \path (e5) edge[bend left] node{$b$} (e4);
+  \path (e5) edge[bend right] node{$a$} (e3);
+\end{automate}
+
+Enfin, on renomme les nouveaux états:
+
+\begin{automate}
   \node (e1) [state, initial, initial text={}] {1};
   \node (e2) [state, right=of e1] {2};
   \node (e3) [state, accepting, above right=of e2] {3};
