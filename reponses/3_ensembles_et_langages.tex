@@ -121,6 +121,89 @@ Dans le cas où $a' \not\in y$, alors $a' \not\in f(a')$ et donc par constructio
 
 %****************Exercice 4
 \begin{question}
+\paragraph{Partie 1}
+On doit montrer:
+\[
+L_1 \cdot (L_2 \cdot L_3) = (L_1 \cdot L_2) \cdot L_3
+\]
+Et donc, pour tout $x$:
+\[
+x \in L_1 \cdot (L_2 \cdot L_3) \iff x \in (L_1 \cdot L_2) \cdot L_3
+\]
+Procédons par direction de la double implication.
+\begin{enumerate}
+\item
+Partons de l'hypothèse que $x \in L_1 \cdot (L_2 \cdot L_3)$.
+Il existe donc un $x_1$ et un $x_{23}$ tels que:
+\begin{align*}
+x_1 \cdot x_{23} &= x\\
+x_1 &\in L_1\\
+x_{23} &\in L_2 \cdot L_3
+\end{align*}
+De plus, il existe un $x_2$ et un $x_3$ tels que:
+\begin{align*}
+x_2 \cdot x_3 &= x_{23}\\
+x_2 &\in L_2\\
+x_3 &\in L_3
+\end{align*}
+On peut conclure à l'existence d'un mot $x_{12}$ tel que:
+\begin{align*}
+x_1 \cdot x_2 &= x_{12}\\
+x_{12} &\in L_1 \cdot L_2
+\end{align*}
+En ajoutant $x_3$ à droite, on obtient que:
+\begin{align*}
+x_{12} \cdot x_3 &\in (L_1 \cdot L_2) \cdot L_3
+\end{align*}
+Finalement, par associativité de la concaténation de mots:
+\[
+x_{12} \cdot x_3 = (x_1 \cdot x_2) \cdot x_3 = x_1 \cdot (x_2 \cdot x_3) = x
+\]
+On conclut donc que:
+\[
+x \in (L_1 \cdot L_2) \cdot L_3
+\]
+\item La deuxième direction procède de façon similaire.
+\end{enumerate}
+
+\paragraph{Partie 2}
+
+Par induction naturelle:
+\begin{itemize}
+\item
+Considérons le cas $0$. On doit montrer:
+\[
+L \cdot L^0 = L^0 \cdot L
+\]
+On a que:
+\[
+L^0 = \{\ \epsilon\ \}
+\]
+Et donc:
+\begin{align*}
+L \cdot L^0 &= L \cdot \{\ \epsilon\ \} \\
+&= L \\
+&= \{\ \epsilon\ \} \cdot L\\
+&= L^0 \cdot L
+\end{align*}
+\item
+Considérons le cas $n + 1$. On doit montrer:
+\[
+L \cdot L^{n + 1} = L^{n + 1} \cdot L
+\]
+On a que:
+\[
+L^{n + 1} = L \cdot L^n
+\]
+Et donc, en utilisant l'hypothèse d'induction et l'associativité (montrée en partie 1):
+\begin{align*}
+L \cdot L^{n + 1} &= L \cdot (L \cdot L^n) \\
+&= L \cdot (L^n \cdot L) \\
+&= (L \cdot L^n) \cdot L\\
+&= L^{n + 1} \cdot L
+\end{align*}
+Ce qui conclut le cas et la preuve.
+\end{itemize}
 \end{question}
 
 %****************Exercice 5
