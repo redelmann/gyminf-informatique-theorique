@@ -204,6 +204,55 @@ L \cdot L^{n + 1} &= L \cdot (L \cdot L^n) \\
 \end{align*}
 Ce qui conclut le cas et la preuve.
 \end{itemize}
+
+\paragraph{Partie 3}
+On doit montrer:
+\[
+L^{i + j} = L^i + L^j
+\]
+Par induction naturelle sur $j$:
+\begin{itemize}
+\item
+Considérons le cas $0$. On doit montrer:
+\[
+L^{i + 0} = L^{i} \cdot L^0
+\]
+Ce qui est immédiat par:
+\[
+L^{i + 0} = L^i = L^i \cdot \{\ \epsilon\ \} = L^i \cdot L^0
+\]
+\item
+Considérons le cas $j + 1$. On doit montrer:
+\[
+L^{i + (j + 1)} = L^{i} \cdot L^{j + 1}
+\]
+Par définition:
+\[
+L^{i + (j + 1)} = L \cdot L^{i + j}
+\]
+Puis, par hypothèse d'induction:
+\[
+L^{i + (j + 1)} = L \cdot (L^i \cdot L^j)
+\]
+En utilisant le résultat de la partie 2:
+\[
+L^{i + (j + 1)} = (L^i \cdot L^j) \cdot L
+\]
+En utilisant l'associativité (partie 1):
+\[
+L^{i + (j + 1)} = L^i \cdot (L^j \cdot L)
+\]
+En utilisant de nouveau le résultat de la partie 2:
+\[
+L^{i + (j + 1)} = L^i \cdot (L \cdot L^j)
+\]
+Finalement, par définition:
+\[
+L^{i + (j + 1)} = L^i \cdot L^{j + 1}
+\]
+Ce qui conclut le cas et la preuve.
+\end{itemize}
+
 \end{question}
 
 %****************Exercice 5
