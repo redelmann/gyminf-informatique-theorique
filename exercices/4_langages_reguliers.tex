@@ -83,7 +83,7 @@ Observez que le mot $x_2$ a une taille plus petite que $x$.
 Pour cet exercice, vous allez prouver le \textit{théorème du gonflement} des langages réguliers.
 Le théorème du gonflement stipule que si un langage $L$ est régulier, alors:
 \begin{align*}
-\exists p. p \geq 1 \wedge \forall x.\ |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
+\exists p. p \geq 1 \wedge \forall x.\ x \in L \wedge |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
 &|x_1 \cdot x_2| \leq p\ \wedge\\
 &|x_2| \geq 1\ \wedge\\
 &\forall k.\ x_1 \cdot x_2^k \cdot x_3 \in L
