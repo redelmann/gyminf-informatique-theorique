@@ -66,6 +66,24 @@
 \begin{question}
 \begin{enumerate}
 \item
+Montrons que pour tout $i \in \mathbb{N}$, mot non-vide $x$ et langage $L$, si $x \in L^{i+1}$, alors soit:
+\begin{enumerate}
+\item
+Soit $x$ peut être décomposé en $x_1 \in L$ \textit{non-vide} et $x_2 \in L^i$.
+\item
+Soit $x \in L^i$. 
+\end{enumerate}
+
+Comme $L^{i + 1} = L \cdot L^i$, il existe forcément un mot $x_1 \in L$ et un mot $x_2 \in L^i$ tels que $x = x_1 \cdot x_2$.
+On considère deux cas: $x_1 = \epsilon$ et $x_1 \neq \epsilon$:
+\begin{enumerate}
+\item
+Dans le cas $x_1 = \epsilon$, on a que $x = x_1 \cdot x_2 = \epsilon \cdot x_2 = x_2$.
+On conclut donc que $x \in L^i$.
+\item
+Quand $x_1 \neq \epsilon$, alors $x_1$ et $x_2$ est une décomposition de $x$ qui satisfait les conditions.
+\end{enumerate}
+
 
 \item
 
@@ -124,11 +142,95 @@ Ce qui conclut la preuve.
 \end{itemize}
 
 \item
+
+Soit $x \in L^*$ un mot non-vide. Par définition, il existe un $i$ tel que $x \in L^i$.
+Considérons deux cas: $i = 0$ ou $i = n + 1$ pour un certain $n$.
+\begin{enumerate}
+\item
+Dans le cas où $i = 0$, alors $x \in L^0$ et donc $x = \epsilon$, ce qui est en contradiction avec l'hypothèse que $x$ est non-vide.
+\item
+Dans le cas où $i = n + 1$ pour un certain $n$, alors le résultat de la partie 2 conclut immédiatement la preuve.
+\end{enumerate}
 \end{enumerate}
 \end{question}
 
 %****************Exercice 4
 \begin{question}
+Montrons que, pour tout langage régulier $L$:
+\begin{align*}
+\exists p. p \geq 1 \wedge \forall x.\ x \in L \wedge |x| \geq p \implies \exists x_1. \exists x_2. \exists x_3.\ &x = x_1 \cdot x_2 \cdot x_3\ \wedge\\
+&|x_1 \cdot x_2| \leq p\ \wedge\\
+&|x_2| \geq 1\ \wedge\\
+&\forall k.\ x_1 \cdot x_2^k \cdot x_3 \in L
+\end{align*}
+Par induction structurelle sur une expression régulière $e$ qui a pour langage $L$:
+\begin{enumerate}
+\item
+Dans le cas où $e = \epsilon$, il suffit de prendre $p = 1$ pour n'avoir aucun mots dans le langage de l'expression de taille au moins $p$, et donc vérifier trivialement la propriété. En effet, $L(\epsilon) = \{\ \epsilon\ \}$, et donc il n'y a aucun mot de taille $1$ ou plus.
+\item
+Dans le cas où $e = \emptyset$, il suffit de prendre $p = 1$ pour n'avoir aucun mots dans le langage de l'expression de taille au moins $p$, et donc vérifier trivialement la propriété.
+\item
+Dans le cas où $e = a$ pour un symbole $a \in \Sigma$, il suffit de prendre $p = 2$ pour n'avoir aucun mots dans le langage de l'expression de taille au moins $p$, et donc vérifier trivialement la propriété.
+\item
+Considérons le cas $e = e_1 \cup e_2$. Dans ce cas, par hypothèses d'induction, il existe un nombre $p_1$ et un nombre $p_2$ qui vérifient la propriété pour $e_1$ et respectivement $e_2$.
+
+Maintenant, il suffit de prendre $p = \text{max}(p_1, p_2)$. En effet, pour tout mot $x \in L(e_1 \cup e_2)$, on a que soit $x \in L(e_1)$, soit $x \in L(e_2)$. Dans le cas où $x \in L(e_1)$, alors par hypothèse d'induction la propriété est vraie pour $x$ ($|x| \geq p$ implique que $|x| \geq p_1$). De manière similaire pour le cas $x \in L(e_2)$.
+
+\item
+Considérons le cas $e = e_1 \cdot e_2$. Dans ce cas, par hypothèses d'induction, il existe un nombre $p_1$ et un nombre $p_2$ qui vérifient la propriété pour $e_1$ et respectivement $e_2$.
+
+Maintenant, il suffit de prendre $p = p_1 + p_2 - 1$. En effet, pour tout mot $x \in L(e_1 \cdot e_2)$, on a qu'il existe $x_1 \in L(e_1)$ et $x_2 \in L(e_2)$ avec $x = x_1 \cdot x_2$. Si $|x| \geq p$, alors forcément soit $|x_1| \geq p_1$, soit $|x_2| \geq p_2$. En effet, si $|x_1| < p_1$ et $|x_2| < p_2$, alors $|x_1| \leq p_1 - 1$ et $|x_2| \leq p_2 - 1$, et donc $|x| = |x_1| + |x_2| \leq p_1 - 1 + p_2 - 1 = p - 1$, ce qui est en contradiction avec l'hypothèse que $|x| \geq p = p_1 + p_2 - 1$.
+On considère donc deux cas: $|x_1| \geq p_1$, ou $|x_1| \leq p_1 - 1 \wedge |x_2| \geq p_2$:
+\begin{enumerate}
+\item
+Dans le cas $|x_1| \geq p_1$, alors par hypothèse d'induction il existe une décomposition de $x_1$ en $x'_1$, $x'_2$ et $x'_3$ telle que:
+\begin{align*}
+&|x'_1 \cdot x'_2| \leq p_1\ \wedge\\
+&|x'_2| \geq 1\ \wedge\\
+&\forall k.\ x'_1 \cdot x_2'^k \cdot x'_3 \in L(e_1)
+\end{align*}
+La décomposition de $x$ en $x'_1$, $x'_2$ et $x'_3 \cdot x_2$ satisfait toutes les conditions.
+\item
+Dans le cas $|x_1| \leq p_1 - 1$ et $|x_2| \geq p_2$, alors par hypothèse d'induction il existe une décomposition de $x_2$ en $x'_1$, $x'_2$ et $x'_3$ telle que:
+\begin{align*}
+&|x'_1 \cdot x'_2| \leq p_2\ \wedge\\
+&|x'_2| \geq 1\ \wedge\\
+&\forall k.\ x'_1 \cdot x_2'^k \cdot x'_3 \in L(e_2)
+\end{align*}
+Dans ce cas, la décomposition de $x$ en $x_1 \cdot x'_1$, $x'_2$ et $x'_3$ satisfait toutes les conditions.
+\end{enumerate}
+\item
+Finalement, considérons le cas $e = e_1^*$.
+Par hypothèse d'induction, il existe un nombre $p_1$ tel que la propriété est vérifiée sur le langage de $x_1$.
+Posons $p = p_1$.
+Admettons $x \in L(e^*) = L(e)^*$ tel que $|x| \geq p$. Par conséquent, $x$ est non-vide.
+En appliquant le résultat de l'exercice 3 partie 3, alors forcément il existe $x_1 \in L$ et $x_2 \in L^*$ avec $x_1$ non vide et $x = x_1 \cdot x_2$.
+
+On distingue deux cas: Soit $|x_1| < p$, soit $|x_1| \geq p$.
+\begin{enumerate}
+\item
+Dans le cas $|x_1| < p$, la décomposition de $x$ en $\epsilon$, $x_1$ et $x_2$ est une solution qui satisfait toutes les propriétés désirées. En effet:
+\begin{align*}
+&|\epsilon \cdot x_1| \leq p\ \wedge\\
+&|x_1| \geq 1\ \wedge\\
+&\forall k.\ \epsilon \cdot x_1^k \cdot x_2 \in L(e_1^*)
+\end{align*}
+\item
+Dans le cas $|x_1| \geq p$, par hypothèse d'induction il existe une décomposition de $x_1$ en $x_1'$, $x_2'$ et $x_3'$ telle que:
+\begin{align*}
+&|x'_1 \cdot x'_2| \leq p_1\ \wedge\\
+&|x'_2| \geq 1\ \wedge\\
+&\forall k.\ x'_1 \cdot x_2'^k \cdot x'_3 \in L(e_1)
+\end{align*}
+La décomposition de $x$ en $x_1'$, $x_2'$ et $x_3' \cdot x_2$ est une solution. En effet:
+\begin{align*}
+&|x'_1 \cdot x'_2| \leq p\ \wedge\\
+&|x'_2| \geq 1\ \wedge\\
+&\forall k.\ x'_1 \cdot x_2'^k \cdot (x'_3 \cdot x_2) \in L(e_1^*)
+\end{align*}
+
+\end{enumerate}
+\end{enumerate}
 
 \end{question}
 
