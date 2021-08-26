@@ -1,0 +1,120 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°6\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}28 août 2021}
+
+\maketitle
+
+\begin{question}
+
+Considérez l'automate à pile $P = (Q, \Sigma, \Gamma, \Delta, Z, s, F)$ tel que:
+\begin{itemize}
+\item $Q \eqdef \{\ q_1, q_2\ \}$
+\item $\Sigma \eqdef \{\ \texttt{a}, \texttt{b}\ \}$
+\item $\Gamma \eqdef \{\ \texttt{A}, \texttt{Z}\ \}$
+\item La relation $\Delta$ se compose de:
+\begin{enumerate}
+\item $((q_1, \texttt{a}, \epsilon), (q_1, \texttt{A}))$
+\item $((q_1, \texttt{b}, \texttt{A}), (q_1, \epsilon))$
+\item $((q_1, \epsilon, \texttt{Z}), (q_2, \epsilon))$
+\end{enumerate}
+\item $Z \eqdef \texttt{Z}$
+\item $s \eqdef q_1$
+\item $F \eqdef \{\ q_2\ \}$
+\end{itemize}
+\end{question}
+
+Parmi les mots suivants, lesquels sont acceptés par $P$ ?
+\begin{enumerate}
+\item $\epsilon$
+\item $\texttt{ab}$
+\item $\texttt{baba}$
+\item $\texttt{aab}$
+\item $\texttt{aabaabbabb}$
+\end{enumerate}
+
+\vspace{2cm}
+
+\begin{question}
+
+\paragraph{Partie 1}
+
+Étant donné l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}, \texttt{c}\ \}$, donnez un automate à pile (non-déterministe) pour les langages suivants:
+\begin{enumerate}
+\item $L_1 \eqdef \{\ \texttt{a}^n\texttt{b}^n\ |\ n \in \mathbb{N} \ \}$
+\item $L_2 \eqdef \{\ \texttt{a}^n\texttt{b}^m\texttt{a}^{n+m}\ |\ n \in \mathbb{N} \wedge m \in \mathbb{N}\ \}$
+\item $L_3 \eqdef \{\ \texttt{a}^n\texttt{b}^n\texttt{c}^{m}\ |\ n \in \mathbb{N} \wedge m \in \mathbb{N}\ \}$
+\item $L_4 \eqdef \{\ \texttt{a}^m\texttt{b}^n\texttt{c}^{n}\ |\ n \in \mathbb{N} \wedge m \in \mathbb{N}\ \}$
+\end{enumerate}
+
+\paragraph{Partie 2}
+
+Décrivez les mots du langage $L_5 \eqdef L_3 \cap L_4$.
+Montrez, en utilisant le théorème du gonflement hors-contexte, que le langage $L_5$ ne peut pas être décrit à l'aide d'un automate à pile.
+
+\end{question}
+
+\newpage
+
+\begin{question}
+Pour cet exercice, considérons une extension aux automates à pile:
+Les automates finis dotés non pas d'une seule pile, mais de \textbf{deux piles} indépendantes.
+Les transitions d'un automate à deux piles spécifient quels préfixes doivent apparaître au sommet de chacune des piles afin que la transition d'état puisse s'effectuer, et spécifient aussi par quelles séquences ces préfixes sont remplacés après la transitions.
+Pour simplifier la présentation, on considère que les deux piles opèrent sur le même alphabet $\Gamma$ et commencent initialement avec le même symbole $Z$.
+
+\paragraph{Partie 1}
+
+Donnez une description formelle d'un automate fini (non-déterministe) à deux piles.
+Pour rappel, on avait formellement défini les automates à (une) pile comme un n-uplet:
+
+\[
+(Q, \Sigma, \Gamma, \Delta, Z, s, F)
+\]
+Avec $\Delta \subseteq (Q \times \Sigma^* \times \Gamma^*) \times (Q \times \Gamma^*)$.
+
+Donnez une telle définition pour les automates à deux piles.
+
+\paragraph{Partie 2}
+
+Donnez une description formelle d'une \textit{configuration} d'une telle machine à deux piles, puis définissez la relation de \textit{dérivabilité en une étape} sur ces machines. Définissez la condition d'acceptation d'un mot par une telle machine.
+
+\paragraph{Partie 3}
+
+Considérez l'alphabet $\Sigma = \{\ \texttt{a}, \texttt{b}\ \}$ et le langage $L$ suivant:
+\[
+L = \{\ \texttt{a}^n\texttt{b}^n\texttt{a}^n\ |\ n \in \mathbb{N} \ \}
+\]
+\end{question}
+
+Construisez un automate à deux piles qui a pour langage $L$.
+Remarquez que, par le théorème du gonflement pour les langages hors-contexte, le langage $L$ défini en partie 3 ne peut pas être décrit à l'aide d'un automate à pile simple. Il est pourtant définissable à l'aide d'un automate à deux piles.
+Les automates à deux piles sont donc plus expressifs.
+Comme nous le verrons par la suite, les automates à deux piles sont équivalentes en terme d'expressivité aux \textit{machines de Turing}.
+
+
+\end{document}

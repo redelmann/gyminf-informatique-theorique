@@ -1,10 +1,68 @@
 % !TEX root = ../cours.tex
 \chapter{Langages hors contexte}
 
-\section{Automates non-déterministes à pile}
+\section{Automates à pile}
 
+Un \og \textit{automate à pile non-déterministe} \fg, ou simplement \og \textit{automate à pile} \fg, est une extension aux automates finis non-déterministes qui leur ajoute une mémoire non-bornée sous forme de \textit{pile}.
+Une pile est une structure de donnée qui représente une séquence d'éléments accessible de manière \textit{last-in/first-out} (LIFO): les derniers éléments ajoutés sont les premiers à être retirés.
+À chaque transition, l'automate peut consulter le sommet de cette pile et le replacer par une autre séquence de symbole.
+
+Formellement, un automate à pile est un $n$-tuplet:
 \[
-\Delta \subseteq (Q \times \Sigma^* \times \Gamma^*) \times (Q \times \Gamma^*)
+(Q, \Sigma, \Gamma, \Delta, Z, s, F)
 \]
+Avec pour composants:
+\begin{enumerate}
+\item
+Un ensemble d'états $Q$.
+\item
+Un alphabet d'entrée $\Sigma$.
+\item
+Un alphabet de pile $\Gamma$.
+\item
+Une relation de transition $\Delta \subseteq (Q \times \Sigma^* \times \Gamma^*) \times (Q \times \Gamma^*)$.
+\item
+Un symbole initial de pile $Z \in \Gamma$.
+\item
+Un état initial $s \in Q$.
+\item
+Un ensemble d'états finaux $F \subseteq Q$.
+\end{enumerate}
+
+\subsection{Configuration}
+
+Une \og \textit{configuration} \fg{} d'un automate à pile contient l'état de l'automate, le reste du mot d'entrée, ainsi que le contenu de la pile.
+Ainsi, les configurations d'un automate à pile $(Q, \Sigma, \Gamma, \Delta, Z, s, F)$ sont des éléments de l'ensemble:
+\[
+Q \times \Sigma^* \times \Gamma^*
+\]
+
+\subsection{Dérivabilité}
+
+Étant donné un automate à pile $P = (Q, \Sigma, \Gamma, \Delta, Z, s, F)$, on dit qu'une configuration $(q', w_2, p' \cdot r)$ est \og \textit{dérivable en une étape} \fg{} d'une configuration $(q, w_1 \cdot w_2, p \cdot r)$ si et seulement si:
+\[
+((q, w_1, p), (q', p')) \in \Delta
+\]
+Intuitivement, la transition se fait de l'état $q$ à l'état $q'$, consomme en entrée le mot $w_1$, et remplace la séquence $p$ au sommet de la pile par la séquence~$p'$.
+
+Étant donnés un automate à pile $P$ et deux configurations $(q, w, p)$ et $(q', w', p')$ de cet automate, on note $(q, w, p) \vdash_P (q', w', p')$ le fait que $(q', w', p')$ est dérivable en une étape de $(q, w, p)$.
+
+Une configuration $(q', w', p')$ est \og \textit{dérivable} \fg{} d'une configuration $(q, w, p)$ si et seulement si il existe un nombre $n > 1$ de configurations $(q_i, w_i, p_i)$ pour $i$ allant de $1$ à $n$ telles que:
+\begin{enumerate}
+\item $q_1 = q, w_1 = w, p_1 = p$
+\item $q_n = q', w_n = w', p_n = p'$
+\item $(q_i, w_i, p_i) \vdash_P (q_{i+1}, w_{i+1}, p_{i+1})$ pour tout $i < n$.
+\end{enumerate}
+Étant données deux configurations $(q, w, p)$ et $(q', w', p')$, on note $(q, w, p) \vdash_P^* (q', w', p')$ le fait que $(q', w', p')$ est dérivable de $(q, w, p)$.
+
+\subsection{Acceptation}
+
+Étant donnés un automate à pile $P = (Q, \Sigma, \Gamma, \Delta, Z, s, F)$ et un mot $w$, on dit que $P$ \og \textit{accepte} \fg{} $w$ si et seulement si il existe une pile $p \in \Gamma^*$ et un état final $f \in F$ tels que $(s, w, Z) \vdash_P^* (f, \epsilon, p)$.
+Le langage d'un automate à pile est l'ensemble des mots qu'il accepte.
+
+On considère qu'un automate à pile accepte un mot s'il est possible de le traiter en entier et de terminer dans un état acceptant, peut importe le contenu de la pile dans la dernière configuration.
+On parle d'automate \og \textit{sur état final} \fg{}. Une définition alternative, et d'expressivité équivalente, consiste à considérer une configuration comme finale lorsque à la fois le mot d'entrée et la pile sont vides, et ce peu importe l'état (acceptant ou non).
+On parle dans ce cas d'automate \og \textit{sur pile vide} \fg{}.
+
 
 \section{Grammaires non-contextuelles}
