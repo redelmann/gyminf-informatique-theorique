@@ -64,5 +64,134 @@ On considère qu'un automate à pile accepte un mot s'il est possible de le trai
 On parle d'automate \og \textit{sur état final} \fg{}. Une définition alternative, et d'expressivité équivalente, consiste à considérer une configuration comme finale lorsque à la fois le mot d'entrée et la pile sont vides, et ce peu importe l'état (acceptant ou non).
 On parle dans ce cas d'automate \og \textit{sur pile vide} \fg{}.
 
+\subsection{Théorème du gonflement}
+
+Étant donné un langage $L$ décrit par un automate à pile $P$, il existe un nombre $p$ tel que tout mot $w$ de $L$ de taille supérieure où égale à $p$ peut être décomposé en 5 sous-parties $x, u, y, v, z$ telles que:
+\begin{enumerate}
+\item $w = x \cdot u \cdot y \cdot v \cdot z$,
+\item $|u \cdot v| > 0$
+\item $|u \cdot y \cdot v| \leq p$
+\item $\forall i, x \cdot u^i \cdot y \cdot v^i \cdot z \in L$. 
+\end{enumerate}
 
 \section{Grammaires non-contextuelles}
+
+Une \og \textit{grammaire non-contextuelle} \fg{} $G$ est composée de:
+\begin{enumerate}
+\item Un ensemble fini de symboles $V$,
+\item Un alphabet $\Sigma \subseteq V$ de symboles \og \textit{terminaux} \fg{},
+\item Un ensemble fini de règles $R \subseteq (V - \Sigma) \times V^*$,
+\item Un symbole initial $S \in (V - \Sigma)$.
+\end{enumerate}
+On note $G = (V, \Sigma, R, S)$.
+On appelle les éléments de $(V - \Sigma)$ des symboles \og \textit{non-terminaux} \fg{}.
+On utilise généralement des lettres majuscules pour dénoter les non-terminaux et des lettres minuscules pour les terminaux.
+Chaque règle d'une grammaire non-contextuelle met en relation un symbole non-terminal de la grammaire avec une séquence finie de symboles, qu'ils soient terminaux ou non-terminaux. On note généralement $A \to w$ la règle $(A, w) \in R$.
+
+\subsection{Dérivation}
+
+Étant donné une séquence non-vide de symboles $s \in V^+$ et une séquence de symboles $s' \in V^*$, une grammaire non-contextuelle $G = (V, \Sigma, R, S)$ permet de \og \textit{dériver en une étape} \fg{} $s'$ de $s$ si et seulement si:
+\begin{enumerate}
+\item $s = s_1 \cdot A \cdot s_2$ pour certains $A \in V - \Sigma$ et $s_1, s_2 \in V^*$,
+\item $s' = s_1 \cdot w \cdot s_2$ pour un mot $w \in V^*$, et
+\item la grammaire $G$ contient règle $A \to w$.
+\end{enumerate}
+Dans ce cas, on note:
+\[
+s \Rightarrow_G s'
+\]
+On dit qu'une grammaire $G$ permet de \og \textit{dériver} \fg{} une séquence de symbole $s' \in V^*$ d'une séquence $s \in V^*$ si et seulement si il existe un nombre $n \geq 1$ et $n$ mots $w_i$ pour $i$ de $1$ à $n$ tels que:
+\begin{enumerate}
+\item $w_1 = s$,
+\item $w_n = s'$,
+\item $w_i \Rightarrow_G w_{i+1}$ pour chaque $i < n$.
+\end{enumerate}
+Dans ce cas, on note:
+\[
+s \Rightarrow_G^* s'
+\]
+Une grammaire permet de dériver un mot $w \in \Sigma^*$ si et seulement si:
+\[
+S \Rightarrow_G^* w
+\]
+On appelle la séquence des $w_1 \dots w_n$ une \og \textit{dérivation} \fg{} de $w$.
+Une dérivation dans laquelle le symbole non-terminal le plus à gauche de chaque séquence est remplacé à chaque étape est appelé une \og \textit{dérivation à gauche} \fg.
+
+\subsection{Langage d'une grammaire}
+
+On note $L(G)$ le langage d'une grammaire $G = (V, \Sigma, R, S)$.
+\[
+L(G) \eqdef \{\ w \in \Sigma^*\ |\ S \Rightarrow_G^* w\ \}
+\]
+
+\subsection{Équivalence grammaires non-contextuelle / automates à pile}
+
+Les grammaires non-contextuelles décrivent exactement les mêmes langages que les automates à pile:
+Pour chaque langage généré par une grammaire, il existe un automate à pile qui décrit le langage, et inversement.
+
+\subsection{Arbre d'analyse}
+
+Un arbre d'analyse est un arbre où chaque noeud intérieur est annoté d'un symbole non-terminal et chaque feuille de l'arbre est annotée d'un symbole terminal ou de $\epsilon$.
+Pour chaque noeud intérieur annoté d'un symbole non-terminal $A$, les noeuds descendants directs sont chacun annoté d'un symbole $s_i \in V$ tels que la grammaire comprend la règle $A \to s_1 \cdot \ldots \cdot s_n$.
+Chaque feuille $\epsilon$ de l'arbre d'analyse est l'unique descendant de leur parent. Dans ce cas, la grammaire comprend la règle $A \to \epsilon$.
+
+La concaténation des annotations des feuilles d'un arbre d'analyse résulte toujours en un mot généré par la grammaire.
+De plus, pour chaque mot généré par la grammaire, il existe au moins un arbre d'analyse.
+
+On dit qu'un mot $w$ est \og \textit{ambigu} \fg{} dans une grammaire s'il existe au moins deux arbres d'analyse distincts.
+Une grammaire $G$ est dite \og \textit{ambiguë} \fg{} si au moins un de ses mots est ambigu.
+
+\subsection{Forme normale de Chomsky}
+
+Une grammaire $G = (V, \Sigma, R, S)$ est dite sous \og \textit{forme normale de Chomsky} \fg{} si et seulement si chaque règle de $R$ a la forme:
+\begin{itemize}
+\item $A \to B \cdot C$ pour des terminaux $A$, $B$ et $C$,
+\item $A \to a$ pour un terminal $A$ et un non-terminal $a$, ou
+\item $S \to \epsilon$.
+\end{itemize}
+Si la grammaire a pour règle $S \to \epsilon$, alors $S$ ne peut pas apparaitre dans la partie droite d'une règle.
+
+Chaque grammaire peut être convertie en une grammaire équivalente sous forme normale de Chomsky.
+Le processus de conversion opère en 5 étapes:
+\begin{enumerate}
+\item Lors de la première étape, un nouveau symbole initial $S_0$, est introduit, ainsi que la règle $S_0 \to S$.
+\item Pour chaque symbole terminal $a$, on introduit un nouveau symbole non-terminal $N_a$, ainsi que la règle $N_a \to a$.
+Chaque autre règle remplace les occurrences des terminaux $a$ par le non-terminal $N_a$.
+\item Chaque règle $A \to B_1 \cdot \ldots \cdot B_n$ avec $n > 2$ est remplacé par de nouvelles règles avec des parties droites de taille $2$:
+\begin{align*}
+A &\to B_1 \cdot Z_1\\
+Z_1 &\to B_2 \cdot Z_2\\
+&\hspace{2em} \vdots\\
+Z_{n - 3} &\to B_{n - 2} \cdot Z_{n - 2}\\
+Z_{n - 2} &\to B_{n - 1} \cdot B_n
+\end{align*}
+\item En quatrième temps, toutes les règles de la forme $A \to \epsilon$ pour $A$ différent du symbole initial sont éliminées.
+Pour ce faire, les non-terminaux \og \textit{annulables} \fg{} sont calculés: Un terminal est annulable s'il peut générer le mot vide $\epsilon$.
+Ensuite, pour chaque règle $A \to B \cdot C$ qui contient un symbole annulable $B$, une nouvelle règle $A \to C$ est ajoutée.
+De même dans le cas où $C$ serait annulable: dans ce cas, la règle $A \to B$ est ajoutée.
+Si le symbole $S_0$ initial est annulable, alors la règles $S_0 \to \epsilon$ est ajoutée.
+Toutes les autres règles de la forme $A \to \epsilon$ sont retirées.
+\item
+Finalement, dans un cinquième temps, les règles dont la partie de droite est un unique non-terminal sont supprimées.
+Ces règles sont appelées règles \og \textit{unitaires} \fg{}.
+Étant donné une règle unitaire $A \to B$, on ajoute pour chaque règles $B \to s$ une règle $A \to s$. Une fois effectué, on peut supprimer la règle $A \to B$. On n'ajoute cependant par une règle si elle a été préalablement supprimée dans le courant de l'exécution de cette étape, comme cela pourrait se produire en cas de cycles. 	 
+\end{enumerate}
+
+\subsection{Algorithme de Cocke-Younger-Kasami}
+
+L'algorithme de Cocke-Younger-Kasami (CYK) est un algorithme d'analyse syntaxique opérant sur les grammaires non-contextuelles sous forme normale de Chomsky. L'algorithme fait usage d'une technique algorithmique appelée \textit{programmation dynamique}.
+
+\subsection{Types de grammaires}
+
+Les grammaires que nous avons considérées dans ce chapitre sont appelées non-contextuelles:
+la partie gauche des règles est uniquement composée d'un seul non-terminal.
+Le symbole n'a pas de \textit{contexte}.
+On appelle les grammaires non-contextuelles des grammaires de \textbf{type 2}.
+Il existe cependant d'autres types de grammaires:
+\begin{itemize}
+\item Les grammaires de \textbf{type 0} n'ont pas de restriction sur les règles. La partie de gauche des règles peut comprendre des symboles arbitraires.
+\item Les grammaires de \textbf{type 1} ont pour restriction que la partie de gauche soit de taille plus petite ou égale à la partie de droite.
+On autorise cependant une règle à enfreindre cette contrainte: la règle $S \to \epsilon$ pour le symbole initial $S$, et ce à condition que $S$ n'apparaisse pas dans la partie droite d'une règle.
+\item Les grammaires de \textbf{type 2} sont traitées dans ce chapitre.
+\item les grammaires de \textbf{type 3} sont appelées \og \textit{grammaires régulières} \fg{}. Chaque règle d'une telle grammaire est de la forme $A \to wB$ ou $A \to w$ pour des non-terminaux $A$ et $B$, et un mot $w \in \Sigma^*$. Les grammaires régulières génèrent exactement les langages réguliers.
+\end{itemize}
