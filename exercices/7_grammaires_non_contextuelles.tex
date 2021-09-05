@@ -1,0 +1,143 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°7\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}28 août 2021}
+
+\maketitle
+
+\begin{question}
+
+Soit $G = (V, \Sigma, R, S)$ une grammaire contenant les règles suivantes:
+\begin{align*}
+S &\to E\\
+E &\to E \cdot O \cdot E\\
+E &\to \texttt{x}\\
+O &\to \texttt{+}\\
+O &\to \texttt{*}
+\end{align*}
+
+\paragraph{Partie 1}
+
+Identifiez les symboles terminaux et non-terminaux de la grammaire $G$.
+
+\paragraph{Partie 2}
+
+Donnez une dérivation des mots suivants:
+\begin{enumerate}
+\item $\texttt{x}$
+\item $\texttt{x*x}$
+\item $\texttt{x+x*x}$
+\end{enumerate}
+
+\paragraph{Partie 3}
+
+Donnez tous les arbres d'analyse pour les mots suivants:
+\begin{enumerate}
+\item $\texttt{x*x}$
+\item $\texttt{x+x+x}$
+\item $\texttt{x+x*x}$
+\end{enumerate}
+
+\paragraph{Partie 4}
+
+La grammaire $G$ est-elle ambiguë ? Si tel est le cas, construisez une grammaire non-contextuelle non-ambiguë $G'$ qui génère les mêmes mots.
+
+\paragraph{Indice} Intuitivement, il faut gérer la priorité et l'associativité des opérateurs \texttt{+} et \texttt{*}. 
+
+\paragraph{Partie 5}
+
+Est-ce que le langage de $G$ est régulier ? Si c'est le cas, construisez un automate fini (déterministe/non-déterministe) ou une expression régulière équivalente à $G$. Autrement, montrez que le langage n'est pas régulier en utilisant le théorème du gonflement (régulier).
+
+\end{question}
+
+\vspace{2cm}
+
+\begin{question}
+
+\paragraph{Partie 1}
+
+Construisez une grammaire non-contextuelle qui génèrent les mots sur l'alphabet $\{\ \texttt{a}, \texttt{(}, \texttt{)}\ \}$ faisant correctement usage des parenthèses: chaque parenthèse ouvrante doit être obligatoirement fermée par une unique parenthèse fermante dans la suite du mot, et de manière similaire, chaque parenthèse fermante doit être obligatoirement ouverte par une unique parenthèse ouvrante avant dans le mot. 
+
+\paragraph{Partie 2}
+
+Donnez une dérivation à gauche des mots suivants:
+\begin{itemize}
+\item $\texttt{(a)}$
+\item $\texttt{(())()}$
+\item $\texttt{aa(a(a))()}$
+\end{itemize}
+
+\paragraph{Partie 3}
+
+Est-ce que le langage de votre grammaire est régulier ?
+Si c'est le cas, construisez un automate fini ou une expression régulière équivalente à votre grammaire.
+Autrement, montrez que le langage n'est pas régulier en utilisant le théorème du gonflement (régulier).
+
+\end{question}
+
+\vspace{2cm}
+
+\begin{question}
+
+Considérez la grammaire $G = (V, \Sigma, R, S)$ avec les symboles non-terminaux et terminaux suivants:
+\begin{itemize}
+\item $V - \Sigma = \{\ S, E, B, X\ \}$,
+\item $\Sigma = \{\ \texttt{IF}, \texttt{THEN}, \texttt{ELSE}, \texttt{TRUE}, \texttt{FALSE}\ \}$
+\end{itemize}
+Ainsi que les règles suivantes:
+\begin{align*}
+S &\to E\\
+E &\to \texttt{IF} \cdot B \cdot \texttt{THEN} \cdot E \cdot X\\
+X &\to \texttt{ELSE} \cdot E\\
+X &\to \epsilon\\
+E &\to B\\
+B &\to \texttt{TRUE}\\
+B &\to \texttt{FALSE}
+\end{align*}
+
+\paragraph{Partie 1}
+
+Est-ce que la grammaire $G$ est ambiguë ?
+Si c'est le cas, donnez deux arbres d'analyse différents qui décrivent le même mot.
+
+\paragraph{Partie 2}
+
+Donnez une grammaire $G'$ \textit{sous forme normale de Chomsky} équivalente à $G$.
+
+\paragraph{Partie 3}
+
+Appliquez l'algorithme CYK sur la grammaire $G'$ et les mots suivants:
+\begin{enumerate}
+\item $\texttt{FALSE}$
+\item $\texttt{TRUE} \cdot \texttt{FALSE}$
+\item $\texttt{IF} \cdot \texttt{TRUE} \cdot \texttt{THEN} \cdot \texttt{FALSE} \cdot \texttt{ELSE} \cdot \texttt{TRUE}$
+\end{enumerate}
+
+% Chomsky, CYK, dangling else
+\end{question}
+\end{document}

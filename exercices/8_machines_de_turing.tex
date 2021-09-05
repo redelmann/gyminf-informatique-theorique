@@ -1,0 +1,65 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°8\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}11 septembre 2021}
+
+\maketitle
+
+\begin{question}
+Décrivez une machine de Turing déterministe qui décide le langage $\{\ \texttt{a}^n \cdot \texttt{b}^n \cdot \texttt{c}^n\ |\ n \in \mathbb{N}\ \}$.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Décrivez une machine de Turing déterministe qui calcule le double d'un nombre donné en représentation binaire, avec le bit de poids le plus faible en premier. On admettras la présence de $0$ superflus en fin de mot, aussi bien en entrée qu'en sortie.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Considérez une machine de Turing déterministe $M = (Q, \Gamma, \Sigma, \delta, B, s, F)$ qui ne peut que faire bouger sa tête de lecture sur la droite à chaque transition. Donnez un automate fini déterministe $A = (Q', \Sigma', \delta', s', F')$ qui admet le même langage.
+
+\paragraph{Indice} Faites attention au fait qu'une machine de Turing arrête son exécution dès qu'elle entre dans un état acceptant, alors qu'un automate fini arrête son exécution uniquement lorsque le mot d'entrée a entièrement été lu.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Décrivez une machine de Turing déterministe qui, étant donné en entrée la représentation binaire de deux nombres entiers séparé par le symbole $\texttt{+}$ calcul l'addition de ces deux nombres. Pour cet exercice, on part du principe que les bits de poids les plus faibles sont donnés en premier. De plus on admettra la présence de $0$ superflus en fin de mots, et ce à la fois pour les mots d'entrée et de sortie.
+
+Pour simplifier l'exercice, on admettra aussi que la représentation du premier nombre en entrée a exactement le même nombre de symboles que la représentation du deuxième nombre.
+Notez que, grâce à la présence de $0$ superflus, il est possible de représenter n'importe quelle paire de nombres de cette manière.
+
+\paragraph{Indice} Dans un premier temps, inscrivez sur le ruban l'addition des deux nombres à la suite des nombres donnés en entrées. Utilisez un symbole, par exemple $\texttt{=}$ pour marquer le début de la réponse. 
+Procédez à l'addition par pairs de bits, et gardez trace dans l'état courant de la valeur de la \textit{retenue}.
+Dans un deuxième temps, procédez à la copie du résultat au début du ruban, puis effacez le reste du ruban.
+Il existe évidemment d'autres façons de procéder.
+\end{question}
+
+\end{document}

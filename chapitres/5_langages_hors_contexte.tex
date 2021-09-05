@@ -74,6 +74,19 @@ On parle dans ce cas d'automate \og \textit{sur pile vide} \fg{}.
 \item $\forall i, x \cdot u^i \cdot y \cdot v^i \cdot z \in L$. 
 \end{enumerate}
 
+\subsection{Automates à pile déterministe}
+
+Les automates à pile tels que nous les avons décrit sont non-déterministes.
+Il existe cependant une version déterministe de ce formalisme.
+
+Pour définir la notion d'automate à pile déterministe, on introduit la notion de \og \textit{transitions compatibles} \fg{}.
+Étant donné deux transitions $t_1, t_2 \in \Delta$, on dit que les transitions sont compatibles si et seulement si il existe une configuration dans laquelle les deux transitions sont possibles.
+Quand un automate à pile n'a pas de transitions compatibles, alors on parle d'un automate à pile déterministe.
+
+À noter, et peut-être de façon surprenante, les automates à pile déterministes sont moins expressifs que les automates non-déterministes:
+il existe des langages décrits par des automates à pile non-déterministes qui ne
+sont pas descriptibles par un automate à pile déterministe.
+
 \section{Grammaires non-contextuelles}
 
 Une \og \textit{grammaire non-contextuelle} \fg{} $G$ est composée de:
@@ -124,12 +137,12 @@ On note $L(G)$ le langage d'une grammaire $G = (V, \Sigma, R, S)$.
 L(G) \eqdef \{\ w \in \Sigma^*\ |\ S \Rightarrow_G^* w\ \}
 \]
 
-\subsection{Équivalence grammaires non-contextuelle / automates à pile}
+\subsection{Équivalence grammaires non-contextuelles / automates à pile}
 
 Les grammaires non-contextuelles décrivent exactement les mêmes langages que les automates à pile:
 Pour chaque langage généré par une grammaire, il existe un automate à pile qui décrit le langage, et inversement.
 
-\subsection{Arbre d'analyse}
+\section{Arbres d'analyse}
 
 Un arbre d'analyse est un arbre où chaque noeud intérieur est annoté d'un symbole non-terminal et chaque feuille de l'arbre est annotée d'un symbole terminal ou de $\epsilon$.
 Pour chaque noeud intérieur annoté d'un symbole non-terminal $A$, les noeuds descendants directs sont chacun annoté d'un symbole $s_i \in V$ tels que la grammaire comprend la règle $A \to s_1 \cdot \ldots \cdot s_n$.
@@ -141,7 +154,7 @@ De plus, pour chaque mot généré par la grammaire, il existe au moins un arbre
 On dit qu'un mot $w$ est \og \textit{ambigu} \fg{} dans une grammaire s'il existe au moins deux arbres d'analyse distincts.
 Une grammaire $G$ est dite \og \textit{ambiguë} \fg{} si au moins un de ses mots est ambigu.
 
-\subsection{Forme normale de Chomsky}
+\section{Forme normale de Chomsky}
 
 Une grammaire $G = (V, \Sigma, R, S)$ est dite sous \og \textit{forme normale de Chomsky} \fg{} si et seulement si chaque règle de $R$ a la forme:
 \begin{itemize}
@@ -174,14 +187,14 @@ Toutes les autres règles de la forme $A \to \epsilon$ sont retirées.
 \item
 Finalement, dans un cinquième temps, les règles dont la partie de droite est un unique non-terminal sont supprimées.
 Ces règles sont appelées règles \og \textit{unitaires} \fg{}.
-Étant donné une règle unitaire $A \to B$, on ajoute pour chaque règles $B \to s$ une règle $A \to s$. Une fois effectué, on peut supprimer la règle $A \to B$. On n'ajoute cependant par une règle si elle a été préalablement supprimée dans le courant de l'exécution de cette étape, comme cela pourrait se produire en cas de cycles. 	 
+Étant donné une règle unitaire $A \to B$, on ajoute pour chaque règles $B \to s$ une règle $A \to s$. Une fois effectué, on peut supprimer la règle $A \to B$. On n'ajoute cependant pas une règle si elle a été préalablement supprimée dans le courant de l'exécution de cette étape, comme cela pourrait se produire en cas de cycles. 	 
 \end{enumerate}
 
-\subsection{Algorithme de Cocke-Younger-Kasami}
+\section{Algorithme de Cocke-Younger-Kasami}
 
 L'algorithme de Cocke-Younger-Kasami (CYK) est un algorithme d'analyse syntaxique opérant sur les grammaires non-contextuelles sous forme normale de Chomsky. L'algorithme fait usage d'une technique algorithmique appelée \textit{programmation dynamique}.
 
-\subsection{Types de grammaires}
+\section{Types de grammaires}
 
 Les grammaires que nous avons considérées dans ce chapitre sont appelées non-contextuelles:
 la partie gauche des règles est uniquement composée d'un seul non-terminal.
@@ -195,3 +208,8 @@ On autorise cependant une règle à enfreindre cette contrainte: la règle $S \t
 \item Les grammaires de \textbf{type 2} sont traitées dans ce chapitre.
 \item les grammaires de \textbf{type 3} sont appelées \og \textit{grammaires régulières} \fg{}. Chaque règle d'une telle grammaire est de la forme $A \to wB$ ou $A \to w$ pour des non-terminaux $A$ et $B$, et un mot $w \in \Sigma^*$. Les grammaires régulières génèrent exactement les langages réguliers.
 \end{itemize}
+L'expressivité des différents types de grammaires est strictement décroissante:
+il existe des langages qui sont décrit par des grammaires de type 0, mais pas de type 1, 2, ou 3.
+De même, il existe des langages décrits par des grammaires de type 1, mais pas de type 2 ou 3, et ainsi de suite.
+Par contre, pour les langages décrits par une grammaire de type $n > 0$, il existe forcément une grammaire de type $n - 1$ qui décrit ce langage.
+À noter qu'il s'agit parfois simplement de la même grammaire.

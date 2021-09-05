@@ -1,0 +1,224 @@
+% !TEX root = ../cours.tex
+\chapter{Langages récursifs}
+
+\section{Machines de Turing déterministes}
+
+Une \og \textit{machine de Turing déterministe} \fg{} est un automate fini avec un ruban de taille infinie que l'automate peut parcourir, lire et modifier.
+Le ruban contient initialement le mot d'entrée, suivit d'une infinité de \textit{symboles blancs} qui dénotent les cases vides du ruban.
+Une tête de lecture/écriture permet de lire et de modifier le contenu du ruban.
+Initialement, cette tête se situe sur le premier symbole du ruban, qui contient le premier symbole du mot d'entrée (si le mot n'est pas vide).
+À chaque transition, en fonction de l'état courant et du symbole pointé par la tête de lecture, l'automate détermine le nouveau état de la machine et remplace le symbole lu sur le ruban par un autre symbole.
+En plus de cela, l'automate bouge la tête de lecture d'une case, et ce soit à droite de la case courante, soit à gauche.
+
+Plus formellement, une machine de Turing déterministe est un élément un $7$-uplet $(Q, \Gamma, \Sigma, \delta, s, B, F)$ tel que:
+\begin{enumerate}
+\item
+$Q$ est un ensemble fini d'états,
+\item
+$\Gamma$ est l'alphabet de ruban,
+\item
+$\Sigma \subseteq \Gamma$ est l'alphabet d'entrée,
+\item
+$\delta : ((Q - F) \times \Gamma) \not\to (Q \times \Gamma \times \{L, R\})$ est la fonction de transition. Le symbole $R$ indique un déplacement de la tête de lecture/écriture sur la droite du ruban, et $L$ un déplacement sur la gauche.
+On admettra des fonctions de transition partielle, c'est-à-dire que la fonction de transition peut ne pas être définie sur certains éléments de son domaine. 
+\item
+$s \in Q$ est l'état initial de la machine,
+\item
+$B \in \Gamma - \Sigma$ est le \og \textit{symbole blanc} \fg{} qui occupe initialement toutes les cases vides du ruban.
+\item
+$F \subseteq Q$ est l'ensemble des états finaux de la machine.
+\end{enumerate}
+
+\section{Configuration}
+
+Une \og \textit{configuration} \fg{} d'une machine de Turing contient toute l'information nécessaire à la reprise de l'execution de la machine.
+Il s'agit d'un élément de:
+\[
+Q \times \Gamma^* \times (\{ \epsilon \} \cup \Gamma^* \cdot (\Gamma - \{ B \}))
+\]
+L'état dans $Q$ désigne l'état de la machine, et les deux autres éléments indiquent le contenu du ruban.
+Le premier, dans $\Gamma^*$, indique les symboles à gauche de la tête de lecture.
+Le second, dans $\{ \epsilon \} \cup \Gamma^* \cdot (\Gamma - \{ B \}$, indique le contenu dessous et à droite de la tête.
+Si ce contenu est uniquement composé de symboles blancs, alors on indique simplement $\epsilon$.
+Au cas où ce contenu contient au moins un symbole non-blanc, alors on décrit tous les symboles jusqu'au dernier symbole non-blanc.
+
+À noter que bien que le ruban soit infini, toute configuration ne permet que de décrire des contenus de ruban finis.
+Cette restriction au final n'en est pas une, car à tout moment une machine de Turing ne peut avoir consulté et modifié qu'une partie finie du ruban.
+
+\section{Dérivabilité}
+
+Considérons une machine de Turing déterministe $M = (Q, \Gamma, \Sigma, \delta, s, B, F)$ et une configuration $(q, w_L, w_R)$.
+Soit $x$ le symbole sous la tête de lecture et $w_R'$ le reste du ruban à droite:
+\begin{enumerate}
+\item Si $w_R = \epsilon$, dans ce cas $x = B$ et $w_R' = \epsilon$
+\item Autrement, $x$ est le premier symbole de $w_R$ et $w_R'$ est le reste.
+\end{enumerate}
+La fonction de transition $\delta$ retourne pour $(q, x)$ un triplet $(q', x', L)$ ou un triplet $(q', x', L)$:
+\begin{enumerate}
+\item
+Dans le cas $(q', x', L)$, avec comme condition que $w_L$ soit non vide, on obtient une nouvelle configuration $(q', w_L', y \cdot x' \cdot w_R')$, avec $w_L'$ les $|w_L| - 1$ premiers caractères de $w_L$ et $y$ le dernier caractère de $w_L$.
+Dans le cas où $w_L$ est vide la transition est impossible.
+
+De plus, pour être exact, nous devons éviter d'introduire des symboles $B$ en fin de mot dans $y \cdot x' \cdot w_R'$.
+Dans la configuration, on considérera que tous les $B$ qui apparaissent en fin de mot sont supprimés.
+
+Dans ce cas, on a que:
+\[
+(q, w_L, w_R) \vdash_M (q', w_L', y \cdot x' \cdot w_R')
+\]
+
+\item
+Dans le cas $(q', x', R)$, on obtient une configuration $(q', w_L' \cdot x', w_R')$.
+On note:
+\[
+(q, w_L, w_R) \vdash_M (q', w_L' \cdot x', w_R')
+\]
+
+\end{enumerate}
+On admettra aussi que la fonction de transition soit partielle, c'est-à-dire qu'elle ne retourne rien pour un état et un symbole de ruban donné.
+Dans un tel état, on considèrera que la machine ne peut pas entreprendre de transition.
+
+On note $c_1 \vdash_M^* c_2$ pour dénoter le fait qu'une configuration $c_2$ est \og \textit{dérivable} \fg{} d'une configuration $c_1$.
+Par définition, $c_1 \vdash_M^* c_2$ si et seulement si il existe un $n \geq 1$ et $n$ configurations $c'_1, \dots, c'_n$ telles que:
+\begin{enumerate}
+\item $c'_1 = c_1$,
+\item $c'_n = c_2$, et
+\item Pour tout $1 \geq i < n$, $c'_i \vdash_M c'_{i+1}$.
+\end{enumerate}
+
+\section{Langage d'une machine de Turing}
+
+Le langage d'une machine de Turing $M = (Q, \Gamma, \Sigma, \delta, s, B, F)$, noté $L(M)$, est l'ensemble des mots $w$ sur l'alphabet $\Sigma$ tels que:
+\[
+\exists f, w_1', w_2'.\ (s, \epsilon, w) \vdash_M^* (f, w_1', w_2') \wedge f \in F
+\]
+
+\section{Exécution}
+
+Étant donné un mot $w$, une \og \textit{exécution} \fg{} d'une machine de Turing $M = (Q, \Gamma, \Sigma, \delta, s, B, F)$ sur $w$ est une suite de configurations, potentiellement infinie, telle que:
+\begin{enumerate}
+\item La première configuration est la configuration initiale de la machine:
+\[
+(s, \epsilon, w)
+\]
+\item
+Chaque configuration $c_{i+1}$ est dérivable en une étape de la configuration précédente $c_i$:
+\[
+c_i \vdash_M c_{i+1}
+\]
+\item
+La suite est maximale: Il n'existe pas d'exécutions dont elle est strictement le préfixe.
+\end{enumerate}
+On distingue trois types d'exécution:
+\begin{enumerate}
+\item Les exécutions finies acceptantes. Dans ce cas, la suite de configurations est finie et la dernière configuration indique un état acceptant dans $F$.
+\item Les exécutions finies non-acceptantes. Dans cas, la suite de configurations est finie, et la dernière configuration indique un état non-acceptant. Comme les exécutions sont maximale, on a que la fonction de transition n'est pas définie dans cette dernière configuration.
+\item Les exécutions infinies.
+\end{enumerate}
+
+\section{Langage accepté}
+
+On dit qu'un langage $L$ est \og \textit{accepté} \fg{} par une machine de Turing $M$ si et seulement si $L(M) = L$.
+
+On parle de langage \og \textit{récursivement énumerable} \fg{} quand un langage est accepté par une machine de Turing.
+On note $RE$ l'ensemble des langages récursivement énumérables.
+
+\section{Langage décidé}
+
+On dit qu'un langage $L$ est \og \textit{décidé} \fg{} par une machine de Turing $M$ si et seulement si la machine $M$ accepte $L$ et $M$ n'admet pas pas d'exécutions infinies, peut importe le mot d'entrée.
+
+On parle de langage \og \textit{récursif} \fg{} quand un langage est décidé par une machine de Turing.
+On note $R$ l'ensemble des langages récursifs.
+
+\section{Thèse de Church-Turing}
+
+La thèse de Church-Turing énonce la correspondance entre problèmes résolubles à l'aide d'une procédure effective et langages décidés à l'aide d'une machine de Turing. Il existe une procédure effective pour résoudre un problème si et seulement si il existe une machine de Turing qui décide le langage des instances positives du problème. Les machines de Turing offrent donc une formalisation de la notion de procédure effective.
+
+Il ne sera cependant pas possible de prouver cette thèse.
+En effet, elle fait référence à une notion non formelle de \textit{procédure effective}.
+À la place d'une preuve formelle, nous allons argumenter la thèse en montrant que l'expressivité des machines de Turing ne peut pas être amélioré par toutes sortes d'extensions.
+De plus, nous explorerons plusieurs autres formalismes d'expressivité équivalente.
+
+\section{Extensions au machines de Turing}
+
+\subsection{Ruban infini des deux sens}
+
+\subsection{Rubans multiples}
+
+\subsection{Mémoire à accès direct}
+
+\subsection{Machine de Turing non-déterministes}
+
+Une \og \textit{machine de Turing non-déterministe} \fg{} est une machine de Turing dans laquelle la fonction (partielle) de transition est remplacée par une relation de transition:
+\[
+\Delta \subseteq ((Q - F) \times \Gamma) \times (Q \times \Gamma \times \{L, R\})
+\]
+
+Contrairement au machines de Turing déterministe, une machine de Turing non-déterministe admet de multiples exécutions pour chaque mots d'entrée.
+Une mot est accepté par une machine de Turing non-déterministe si et seulement si il existe une exécution finie acceptante.
+
+De manière peut-être contre-intuitive, le non-déterminisme n'augmente pas l'expressivité des machine de Turing.
+Étant donnée une machine de Turing non-déterministe $M$ et un mot d'entrée $w$, il est possible de simuler toutes les executions de la machine $M$ sur $w$ à l'aide d'une machine de Turing déterministe.
+Pour ce faire, il ne faut pas simuler les exécutions l'une après l'autre, ce qui serait problématique à cause des exécutions infinies, mais simuler les préfixes d'executions pour des tailles de plus en plus grande.
+De cette manière, s'il existe une exécution finie acceptante, la machine de Turing déterministe finira par la trouver.
+Dans ce cas, il suffit d'accepter le mot d'entrée.
+S'il n'existe aucune execution finie acceptante dans $M$, alors la machine de Turing déterministe admettra une execution infinie.
+
+\section{Formalismes équivalents}
+
+\subsection{Lambda calcul}
+
+Le \og \textit{lambda calcul} \fg{} est un langage de programmation fonctionnelle minimaliste.
+Le lambda calcul est basé sur la notion d'expression. Les expressions sont des formes suivantes:
+\begin{enumerate}
+\item Variables, notées $x, y, z$, pour des noms $x, y, z$,
+\item Abstractions, notées $\lambda x. \ e$, pour des noms $x$ et expressions $e$,
+\item Applications, notées $e_1\ e_2$, pour des expressions $e_1$ et $e_2$.
+\end{enumerate}
+Le formalisme défini la notion de variables libres et liées, ainsi que celle de substitution, comme nous avons pu les voir dans le contexte du calcul des prédicats.
+
+Une expression du lambda calcul peut être évaluée par un procédé appelé $\beta$-contraction:
+Pour toute expression de la forme $(\lambda x.\ e_1)\ e_2$, on peut évaluer l'expression en substituant $e_2$ à $x$ dans $e_1$, c'est-à-dire $e_1[e_2 / x]$, on note:
+\[
+(\lambda x.\ e_1)\ e_2 \to_\beta e_1[e_2 / x]
+\]
+En applicant la fermeture iterative de ${\to_\beta}$, on obtient la notion de \og \textit{réduction} \fg{}.
+Une expression $e_1$ se \og \textit{réduit} \fg{} à une autre expression $e_2$, noté $e_1 \to_\beta^* e_2$ s'il existe un nombre $n > 1$ et $n$ expressions $e'_1, \dots, e'_2$ tels que:
+\begin{enumerate}
+\item $e'_1 = e_1$,
+\item $e'_n = e_2$, et
+\item Pour tout $1 \leq i < n$, $e'_i \to_\beta e'_{i+1}$.
+\end{enumerate}
+
+Le lambda calcul est de même expressivité que les machines de Turing.
+On dit que le lambda-calcul est \og \textit{Turing-complet} \fg{}.
+
+Le processus d'encodage des instances est cependant différent entre les deux formalismes.
+Dans le cas du lambda calcul, l'entrée est encodée comme expression et ensuite passée en argument au programme, qui est lui aussi une expression.
+Les \og \textit{encodages de Church} \fg{} sont des techniques d'encodage de certaines valeurs sous forme d'expressions du lambda calcul.
+
+\subsection{Fonctions $\mu$-récursives}
+
+Le livre de référence présente aussi la notion de \og \textit{fonctions $\mu$-récursives} \fg{}, qui sont des fonctions d'entiers à entiers formées uniquement à l'aide de fonctions primitives simples, de composition de fonctions, d'une forme restreinte de récursion, ainsi que d'une opération de minimisation notée $\mu$.
+
+Tout comme le lambda-calcul, le formalisme est Turing-complet:
+Pour chaque fonction $\mu$-récursive, il existe une machine de Turing qui simule la fonction.
+De même, pour chaque machine de Turing, il existe une fonction $\mu$-récursive qui simule la machine.
+
+À la place d'encoder l'entrée sous forme de mots, une fonction $\mu$-récursive l'encode à l'aide d'un nombre.
+Comme l'ensemble des mots sur un alphabet est toujours dénombrable, les deux approches sont équivalentes.
+
+\section{Au delà des problèmes binaires}
+
+Jusqu'à présent, nous avons porté notre attention aux problèmes binaires, c'est-à-dire au problèmes où la réponse était soit \og \textit{oui} \fg{}, soit \og \textit{non} \fg{}.
+Les machines de Turing permettent aussi de modéliser des fonctions dont la réponse est plus riche.
+Pour ce faire, il suffit de considérer le contenu du ruban à la fin d'une execution comme la sortie de la machine de Turing.
+
+On dit qu'une fonction $f : \Sigma^* \to \Sigma^*$ est \og \textit{calculable} \fg{} par une machine de Turing $M$ si pour tout mot $w \in \Sigma^*$, la machine $M$ a une exécution finie sur $w$ qui termine dans une configuration où $f(w)$ est le contenu du ruban.
+Dans ce cas, on ne s'intéressera pas de savoir si l'état est acceptant ou non dans cette dernière configuration.
+
+La thèse de Church-Turing, adaptée à ce contexte, stipule que les fonctions calculables à l'aide d'une procédure effective sont exactement celle qui sont calculable à l'aide d'une machine de Turing.
+
+\section{Machine de Turing universelle}
+
+\section{Indécidabilité}
