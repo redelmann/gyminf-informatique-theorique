@@ -158,8 +158,8 @@ Une grammaire $G$ est dite \og \textit{ambiguë} \fg{} si au moins un de ses mot
 
 Une grammaire $G = (V, \Sigma, R, S)$ est dite sous \og \textit{forme normale de Chomsky} \fg{} si et seulement si chaque règle de $R$ a la forme:
 \begin{itemize}
-\item $A \to B \cdot C$ pour des terminaux $A$, $B$ et $C$,
-\item $A \to a$ pour un terminal $A$ et un non-terminal $a$, ou
+\item $A \to B \cdot C$ pour des non-terminaux $A$, $B$ et $C$,
+\item $A \to a$ pour un non-terminal $A$ et un terminal $a$, ou
 \item $S \to \epsilon$.
 \end{itemize}
 Si la grammaire a pour règle $S \to \epsilon$, alors $S$ ne peut pas apparaitre dans la partie droite d'une règle.
