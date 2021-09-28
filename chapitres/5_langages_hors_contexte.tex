@@ -158,13 +158,13 @@ Une grammaire $G$ est dite \og \textit{ambiguë} \fg{} si au moins un de ses mot
 
 Une grammaire $G = (V, \Sigma, R, S)$ est dite sous \og \textit{forme normale de Chomsky} \fg{} si et seulement si chaque règle de $R$ a la forme:
 \begin{itemize}
-\item $A \to B \cdot C$ pour des terminaux $A$, $B$ et $C$,
-\item $A \to a$ pour un terminal $A$ et un non-terminal $a$, ou
+\item $A \to B \cdot C$ pour des non-terminaux $A$, $B$ et $C$,
+\item $A \to a$ pour un non-terminal $A$ et un terminal $a$, ou
 \item $S \to \epsilon$.
 \end{itemize}
 Si la grammaire a pour règle $S \to \epsilon$, alors $S$ ne peut pas apparaitre dans la partie droite d'une règle.
 
-Chaque grammaire peut être convertie en une grammaire équivalente sous forme normale de Chomsky.
+Chaque grammaire non-contextuelle peut être convertie en une grammaire équivalente sous forme normale de Chomsky.
 Le processus de conversion opère en 5 étapes:
 \begin{enumerate}
 \item Lors de la première étape, un nouveau symbole initial $S_0$, est introduit, ainsi que la règle $S_0 \to S$.
@@ -182,12 +182,12 @@ Z_{n - 2} &\to B_{n - 1} \cdot B_n
 Pour ce faire, les non-terminaux \og \textit{annulables} \fg{} sont calculés: Un terminal est annulable s'il peut générer le mot vide $\epsilon$.
 Ensuite, pour chaque règle $A \to B \cdot C$ qui contient un symbole annulable $B$, une nouvelle règle $A \to C$ est ajoutée.
 De même dans le cas où $C$ serait annulable: dans ce cas, la règle $A \to B$ est ajoutée.
-Si le symbole $S_0$ initial est annulable, alors la règles $S_0 \to \epsilon$ est ajoutée.
+Si le symbole $S_0$ initial est annulable, alors la règle $S_0 \to \epsilon$ est ajoutée.
 Toutes les autres règles de la forme $A \to \epsilon$ sont retirées.
 \item
 Finalement, dans un cinquième temps, les règles dont la partie de droite est un unique non-terminal sont supprimées.
 Ces règles sont appelées règles \og \textit{unitaires} \fg{}.
-Étant donné une règle unitaire $A \to B$, on ajoute pour chaque règles $B \to s$ une règle $A \to s$. Une fois effectué, on peut supprimer la règle $A \to B$. On n'ajoute cependant pas une règle si elle a été préalablement supprimée dans le courant de l'exécution de cette étape, comme cela pourrait se produire en cas de cycles. 	 
+Étant donné une règle unitaire $A \to B$, on ajoute pour chaque règle $B \to s$ une règle $A \to s$. Une fois effectué, on peut supprimer la règle $A \to B$. On n'ajoute cependant pas une règle si elle a été préalablement supprimée dans le courant de l'exécution de cette étape, comme cela pourrait se produire en cas de cycles. 	 
 \end{enumerate}
 
 \section{Algorithme de Cocke-Younger-Kasami}
