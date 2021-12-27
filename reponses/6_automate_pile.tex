@@ -1,0 +1,116 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{dsfont}
+ \geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm,
+}
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+
+
+\begin{document}
+\title{\vspace{-2cm}Réponses à la série d'exercices n°6\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}26 décembre 2021}
+
+\maketitle
+
+%****************Exercice 1
+\begin{question}
+Les mots acceptés sont 1, 2, et 5.
+\end{question}
+\begin{question}
+Partie 1.
+
+Pour les 4 langages on a : $$\Sigma=\{a,b,c\}$$ $$\Gamma=\{A,B\}$$ $$P=(Q,\Sigma,\Gamma,\Delta,Z,s,F)$$ 
+\begin{enumerate}
+
+\item $L_1$
+$$Q=\{q_1,q_2,q_3\}$$
+$$s=q_1$$
+$$F=\{q_3\}$$
+$$\Delta=\{((q_1,a,\epsilon),(q_1,A)), ((q_1,\epsilon,\epsilon), (q_2,\epsilon)), ((q_2,b,A),(q_2,\epsilon)), ((q_2,\epsilon,Z),(q_3,Z))\}$$ 
+
+\item $L_2$
+$$Q=\{q_1,q_2,q_3,q_4\}$$
+$$s=q_1$$
+$$F=\{q_4\}$$
+$$\Delta=\{((q_1,a,\epsilon),(q_1,A)), ((q_1,\epsilon,\epsilon),(q_2,\epsilon)), ((q_2,b,\epsilon),(q_2,A)),$$
+$$((q_2,\epsilon,\epsilon),(q_3,\epsilon)), ((q_3,\epsilon,Z),(q_4,Z)), ((q_3,a,A)(q_3,\epsilon))\}$$ 
+
+\item $L_3$
+$$Q=\{q_1,q_2,q_3\}$$
+$$s=q_1$$
+$$F=\{q_3\}$$
+$$\Delta=\{((q_1,a,\epsilon),(q_1,A)), ((q_1,\epsilon,\epsilon),(q_2,\epsilon)), ((q_2,b,A),(q_2,\epsilon)), ((q_2,\epsilon,Z),(q_3,Z)), ((q_3,c,\epsilon),(q_3,\epsilon))\}$$ 
+
+\item $L_4$
+$$Q=\{q_1,q_2,q_3,q_4\}$$
+$$s=q_1$$
+$$F=\{q_4\}$$
+$$\Delta=\{((q_1,a,\epsilon),(q_1,\epsilon)), ((q_1,\epsilon,\epsilon),(q_2,\epsilon)), ((q_2,b,\epsilon),(q_2,B)),$$
+$$((q_2,\epsilon,\epsilon),(q_3,\epsilon)), ((q_3,c,B),(q_3,\epsilon)), ((q_3,\epsilon,Z)(q_4,Z))\}$$ 
+
+\end{enumerate}
+Partie 2.\\
+$$L_5 \eqdef \{a^n b^n c^n|n\in \mathds{N}\}$$ 
+Admettons que $L_5$ soit régulier.
+Il existe donc, d'après le théorème du gonflement hors-contexte, un entier $p$ tel que tout mot $w$ de $L_5$ de taille plus grande ou égale à $p$ peut être décomposé en 5 sous-parties $x, u, y, v, z$ telles que:
+\begin{enumerate}
+\item $w = x \cdot u \cdot y \cdot v \cdot z$,
+\item $|u \cdot v| > 0$
+\item $|u \cdot y \cdot v| \leq p$
+\item $\forall i, x \cdot u^i \cdot y \cdot v^i \cdot z \in L_5$. 
+\end{enumerate}
+Considérons le mot $w = a^p b^p c^p$. Clairement $|w| \geq p$ et $w \in L_5$, il existe donc une décomposition de $w$ en $x, u, y, v, z$ qui respecte les propriétés listées.
+Considérons deux cas de figures pour les valeurs de $u$ et $v$.
+\begin{enumerate}
+\item $u$ et $v$ sont chacun formés d'une seule lettre répétée. Il y a donc une lettre de $a, b, c$ qui n'est pas dans $u$ et pas dans $v$.
+On a donc que le mot $x \cdot u^2 \cdot y \cdot v^2 \cdot z \in L_5$ et qu'il ne contient pas le même nombre de chaque lettre, ce qui est une contradiction.
+\item $u$ ou $v$ est formé d'au moins deux lettres différentes. En répétant ce mot au moins deux fois, on se retrouve donc avec des lettres dans le désordre (un $b$ avant un $a$, ou un $c$ avant un $a$ ou un $b$).
+On a donc que le mot $x \cdot u^2 \cdot y \cdot v^2 \cdot z \in L_5$ et qu'il contient des lettres dans le désordre, ce qui est une contradiction.
+\end{enumerate}
+Comme nous obtenons de toutes manières une contradiction, notre hypothèse de départ est fausse, et donc le langage $L_5$ n'est pas régulier.
+
+\end{question}
+\begin{question}
+Partie 1.
+$$2P=(Q,\Sigma,\Gamma,\Delta,Z,s,F)$$
+avec $$\Delta \subseteq (Q\times \Sigma^* \times \Gamma^* \times \Gamma^*)\times(Q\times \Gamma^* \times \Gamma^*)$$
+en utilisant les mêmes définitions que dans la page 51 de la théorie.\\
+
+Partie 2.\\
+Les configurations de l'automate à deux piles sont des éléments de l'ensemble $Q\times \Sigma^* \times \Gamma^* \times \Gamma^*$\\
+Une configuration $(q',w_2,p_1'r_1,p_2'r_2)$ est dérivable en une étape de $(q,w_1 w_2,p_1 r_1,p_2 r_2)$ si et seulement si :
+$$(q,w1,p_1,p_2),(q',p_1',p_2')\in \Delta$$
+Un mot est accepté par un automate à deux piles si et seulement si il existe deux piles $p_1\in \Gamma^*$ et $p_2\in \Gamma^*$ et un état final $f$ tel que $(s,w,Z,Z)\vdash_P^*(f,\epsilon,p_1,p_2)$\\
+
+Partie 3.\\
+$$Q=\{q_1,q_2,q_3,q_4\}$$
+$$s=q_1$$
+$$F=\{q_4\}$$
+$$\Gamma=\{A\}$$
+$$\Sigma=\{a,b\}$$
+
+$$\Delta=\{((q_1,a,\epsilon,\epsilon),(q_1,A,A)), ((q_1,\epsilon,\epsilon,\epsilon),(q_2,\epsilon,\epsilon)), ((q_2,b,A,\epsilon),(q_2,\epsilon,\epsilon)),$$
+$$((q_2,\epsilon,Z,\epsilon),(q_3,\epsilon,\epsilon)), ((q_3,c,\epsilon,A),(q_3,\epsilon,\epsilon)), ((q_3,\epsilon,Z,Z),(q_4,\epsilon,\epsilon))\}$$ 
+
+\end{question}
+\end{document}
