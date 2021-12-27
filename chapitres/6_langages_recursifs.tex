@@ -121,14 +121,23 @@ On distingue trois types d'exécution:
 On dit qu'un langage $L$ est \og \textit{accepté} \fg{} par une machine de Turing $M$ si et seulement si $L(M) = L$.
 
 On parle de langage \og \textit{récursivement énumerable} \fg{} quand un langage est accepté par une machine de Turing.
-On note $RE$ l'ensemble des langages récursivement énumérables.
+On note \textit{RE} l'ensemble des langages récursivement énumérables.
+Pour chaque langage $L$ dans $RE$, il existe une machine de Turing qui termine et accepte pour chaque mot de $L$.
+Pour les mots hors de $L$, la machine est libre de soit terminer et rejeter, soit de boucler.
+
+On note \textit{co-RE} l'ensemble des langages dont le \textit{complément} est dans \textit{RE}.
+Pour chaque langage $L$ dans \textit{co-RE}, il existe une machine de Turing qui termine et accepte pour chaque mot qui n'est pas membre de $L$.
+Pour les mots de $L$, la machine est libre de soit terminer et rejeter, soit de boucler.
 
 \section{Langage décidé}
 
 On dit qu'un langage $L$ est \og \textit{décidé} \fg{} par une machine de Turing $M$ si et seulement si la machine $M$ accepte $L$ et $M$ n'admet pas pas d'exécutions infinies, peut importe le mot d'entrée.
 
 On parle de langage \og \textit{récursif} \fg{} quand un langage est décidé par une machine de Turing.
-On note $R$ l'ensemble des langages récursifs.
+On note \textit{R} l'ensemble des langages récursifs. On a que:
+\[
+R = RE \cap \textit{co-RE}
+\]
 
 \section{Thèse de Church-Turing}
 
@@ -141,11 +150,21 @@ De plus, nous explorerons plusieurs autres formalismes d'expressivité équivale
 
 \section{Extensions au machines de Turing}
 
+Les variantes suivantes sont des extensions aux machines de Turing.
+Étant donnée une machine exprimée à l'aides des extensions suivantes, il sera toujours possible de construire une machine de Turing équivalente mais qui ne fait pas usage de l'extension. 
+
 \subsection{Ruban infini des deux sens}
+
+Les machines de Turing déterministes traditionnelles sont dotées d'un ruban infinie dans une seule direction.
+Dans cette version, les cases du ruban sont indexées par les nombres naturels.
+Il est possible de lever cette restriction et d'avoir un ruban infini dans les deux sens.
+Dans cette version, les cases du ruban sont indexées par les nombres entiers.
+Certains cases sont donc d'index négatif.
 
 \subsection{Rubans multiples}
 
-\subsection{Mémoire à accès direct}
+Les machines de Turing déterministes sont dotées d'un seul ruban.
+Il est cependant possible d'incorporant de multiples rubans, et ce sans augmenter l'expressivité du formalisme. 
 
 \subsection{Machine de Turing non-déterministes}
 
@@ -221,4 +240,16 @@ La thèse de Church-Turing, adaptée à ce contexte, stipule que les fonctions c
 
 \section{Machine de Turing universelle}
 
-\section{Indécidabilité}
+Il existe une machine de Turing, appelée \og \textit{machine de Turing universelle} \fg{}, qui prend en entrée la représentation d'une machine de Turing quelconque $M$ et un mot d'entrée $w$ de cette machine sous la forme d'une paire $<M, w>$ et qui simule l'exécution de $M$ sur $w$.
+Le comportement de la machine de Turing universelle est le suivant:
+\begin{itemize}
+\item
+Si $M$ accepte $w$, alors la machine de Turing universelle accepte $<M, w>$,
+\item
+Si $M$ termine et rejette $w$, alors la machine de Turing universelle termine et rejette sur $<M, w>$,
+\item
+Si $M$ boucle sur $w$, alors la machine de Turing universelle boucle elle aussi sur $<M, w>$.
+\end{itemize}
+La machine de Turing universelle est une sorte d'\textit{interpréteur} de machine de Turing.
+
+

@@ -1,0 +1,95 @@
+% !TEX root = ../cours.tex
+\chapter{Indécidabilité}
+
+Dans ce chapitre, nous allons étudier certains problèmes qui sont \og \textit{indécidables} \fg{}, c'est-à-dire des problèmes qui ne sont pas décidés par une machine de Turing.
+Pour construire un premier problème indécidable, nous allons à nouveau recourir à la technique de la \textit{diagonalisation}.
+
+\section{Existence d'un langage hors de \textit{RE}}
+
+Rappelons nous que l'ensemble des mots dans $\Sigma^*$ est dénombrable: il existe une bijection $f$ entre $\mathbb{N}$ et $\Sigma^*$.
+Notons $f^{-1}$ l'inverse.
+De même, l'ensemble des machines de Turing sur un certain alphabet est aussi dénombrable.
+Notons $g$ la bijection entre $\mathbb{N}$ et l'ensemble des machines de Turing et $g^{-1}$ son inverse.
+Considérons le langage $L$ définit comme:
+\[
+L_0 \eqdef \{\ w \in \Sigma^*\ |\ g(f^{-1}(w))\text{ n'accepte pas }w\ \}
+\]
+
+Admettons, vers une contradiction, que $L_0$ soit dans la classe \textit{RE}.
+Il existe donc une machine de Turing $M$ telle que $L(M) = L_0$.
+Examinons maintenant l'index $i$ de la machine de Turing $M$ dans la bijection $g$:
+\[
+i \eqdef g^{-1}(M)
+\]
+Regardons si $f(i)$, un mot de $\Sigma^*$, appartient à $L_0$.
+Considérons les deux cas, soit $f(i) \in L_0$, soit $f(i) \not\in L_0$.
+\begin{enumerate}
+\item Dans la cas où $f(i) \in L_0$, alors par définition:
+\[
+g(f^{-1}(f(i))\text{ n'accepte pas }f(i)
+\]
+Or, $g(f^{-1}(f(i)) = g(i) = M$, et donc $M$ n'accepte pas $f(i)$. On a donc $f(i) \not\in L(M) = L_0$, et donc une contradiction.
+\item
+Dans le cas où $f(i) \not\in L_0$, alors on a que $f(i) \not\in L(M)$ et donc que $M$ n'accepte pas $f(i)$.
+De plus, observons que $M = g(i)$, et $i = f^{-1}(f(i))$. On a donc:
+\[
+g(f^{-1}(f(i))) \text{ n'accepte pas } f(i)
+\]
+Par définition, on a donc que:
+\[
+f(i) \in L_0
+\]
+Comme $L_0 = L(M)$, on arrive à une contradiction. 
+\end{enumerate}
+
+\section{Existence d'un langage dans \textit{RE} mais hors de \textit{co-RE}}
+
+Examinons le complément de $L_0$, noté $\overline{L_0}$:
+\[
+\overline{L_0} = \{\ w \in \Sigma^*\ |\ g(f^{-1}(w))\text{ accepte }w\ \}
+\]
+Ce langage fait partie de \textit{RE}: En effet, il est possible de concevoir une machine qui accepte ce langage.
+La façon de procédé est la suivante:
+\begin{itemize}
+\item Étant donné un mot d'entrée $w$, la machine énumère les mots de $\Sigma^*$ jusqu'à trouver l'index $i$ qui correspond à $w$.
+\item La machine énumère les machines de Turing jusqu'à la machine $M$ d'index $i$.
+\item La machine simule l'exécution de $M$ sur $w$.
+\end{itemize}
+Le langage $\overline{L_0}$ est donc dans \textit{RE}.
+Par contre, il n'est pas dans \textit{co-RE}.
+En effet, $L_0$ n'est pas dans \textit{RE}.
+On a donc un langage, $\overline{L_0}$, qui est dans \textit{RE} mais pas dans $\textit{R} = \textit{RE} \cap \textit{co-RE}$.
+Le langage est \textit{récursivement énumérable}, mais pas \textit{récursif}.
+Le problème est dit \textit{indécidable}: il n'existe pas de machine de Turing qui \textit{décide} le langage.
+
+\section{Problème de l'arrêt}
+
+Le problème de l'arrêt consiste à savoir si une machine de Turing s'arrête sur une entrée donnée ou boucle à l'infini. le langage correspond au problème est:
+\[
+L_\textsc{Halt} \eqdef \{\ <M, w>\ |\ M\text{ s'arrête sur }w\ \}
+\]
+Comme on va le montrer, le problème de l'arrêt est indécidable.
+Pour ce faire, on va procéder par \textit{réduction}: l'idée est de partir de l'hypothèse que le langage est décidable, et de montrer une contradiction en construisant une machine de Turing qui décide un problème indécidable.
+Dans le cas présent, on va montrer que s'il existe une machine de Turing $M_\textsc{Halt}$ qui décide de problème de l'arrêt, alors on peut construire une machine de Turing $M_0$ qui décide le langage (indécidable) $\overline{L_0}$.
+
+La construction de la machine de Turing $M_0$ est simple. Il s'agit simplement d'une adaptation de la machine précédemment introduite qui accepte $\overline{L_0}$:
+\begin{itemize}
+\item Étant donné un mot d'entrée $w$, la machine énumère les mots de $\Sigma^*$ jusqu'à trouver l'index $i$ qui correspond à $w$.
+\item La machine énumère les machines de Turing jusqu'à la machine $M$ d'index $i$.
+\item La machine utilise $M_\textsc{HALT}$ pour déterminer si $M$ s'arrête ou pas sur $w$. Dans le cas où $M$ bouclerait sur $w$, alors la machine s'arrête immédiatement et rejette le mot.
+\item La machine simule l'exécution de $M$ sur $w$. L'exécution est garantie à se point de terminer, car $M_\textsc{HALT}$ accepte $<M, w>$.
+\end{itemize}
+
+L'existence d'une telle machine $M_0$ est en contradiction avec le fait que $L_0$ est indécidable.
+On en conclut donc que l'hypothèse que le problème de l'arrêt est décidable est fausse.
+Le problème de l'arrêt est donc indécidable.
+
+\section{Langage universel}
+
+On appelle le langage universel $LU$ l'ensemble des paires $<M, w>$ telles que $M$ est une machine de Turing qui accepte $w$.
+\[
+LU \eqdef \{\ <M, w>\ |\ M \text{ accepte } w\ \}
+\]
+Le langage $LU$ est indécidable.
+Il n'existe pas de machine de Turing, qui, étant donné une machine $M$ est un mot $w$, décide si $M$ accepte $w$.
+L'indécidabilité de $LU$ peut être montrée simplement par réduction vers $\overline{L_0}$ ou vers le problème de l'arrêt, par exemple. 

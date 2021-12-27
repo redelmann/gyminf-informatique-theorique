@@ -1,0 +1,98 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°9\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}11 septembre 2021}
+
+\maketitle
+
+\begin{question}
+Montrez que l'intersection de deux langages récursivement énumérable est aussi un langage récursivement énumérable.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Montrez que l'union de deux langages récursivement énumérable est aussi un langage récursivement énumérable.
+\end{question}
+
+\vspace{1cm}
+
+\begin{question}
+Montrez que le complément d'un langage récursif est aussi récursif.
+\end{question}
+
+\vspace{1.5cm}
+
+\begin{question}
+Rappelez-vous la définition du langage universel $LU$:
+\[
+LU \eqdef  \{\ <M, w>\ |\ M\text{ accepte }w\ \}
+\]
+Nous avons montré en cours que $LU \in RE$ mais $LU \not\in R$, c'est-à-dire que le langage universel est récursivement énumérable, mais pas récursif.
+
+Qu'en est-il du complément de $LU$, noté $\overline{LU}$ ?
+Est-ce que $\overline{LU}$ est récursif ? Récursivement énumérable ?
+\end{question}
+
+\vspace{1.5cm}
+
+\begin{question}
+Montrez par \textit{réduction} que le problème d'équivalence entre machines de Turing est indécidable.
+C'est à dire qu'il n'existe pas de machine de Turing qui décide le langage suivant:
+\[
+L_{\equiv} \eqdef \{\ <M_1, M_2>\ |\ L(M_1) = L(M_2)\ \}
+\]
+
+\paragraph{Indice} Partez de l'hypothèse qu'il existe une telle machine, et montrez qu'il est possible, en s'aidant de machine, de construire une machine de Turing qui décide un problème indécidable connu (comme par exemple le problème d'appartenance au langage universel).
+\end{question}
+
+\begin{question}
+Montrez par \textit{réduction} que le problème de savoir si le langage d'une machine de Turing est vide est indécidable.
+C'est à dire qu'il n'existe pas de machine de Turing qui décide le langage suivant:
+\[
+L_{\textsc{Vide}} \eqdef \{\ <M>\ |\ L(M) = \emptyset\ \}
+\]
+\end{question}
+
+\vspace{2cm}
+
+\begin{question}
+Considérez le problème de \textit{satisfiabilité} du calcul des prédicats, dont le langage est le suivant:
+\[
+L_\textsc{Sat} \eqdef \{\ <F>\ |\ F\text{ est une formule satisfiable du calcul des prédicats}\ \}
+\]
+Le langage est-il dans $R$ ? Dans $RE$ ? Dans \textit{co-RE} ?
+
+En deuxième partie, posez-vous la même question pour le problème de la \textit{validité} des formules du calcul des prédicats.
+
+\paragraph{Indice} Souvenez-vous que nous avions montré une procédure pour énumérer tous les théorèmes du calcul des prédicats via la déduction naturelle. Nous avions aussi montré que toute formule valide (toute tautologie) avait un théorème (théorème de complétude de Gödel).
+
+\paragraph{Indice} Utilisez le fait qu'une formule est valide si et seulement si sa négation est insatisfiable.
+\end{question}
+
+\end{document}

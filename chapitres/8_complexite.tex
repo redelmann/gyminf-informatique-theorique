@@ -1,0 +1,85 @@
+% !TEX root = ../cours.tex
+\chapter{Complexité}
+
+Dans ce dernier chapitre, nous allons nous intéresser à la notion de \og \textit{complexité} \fg{}.
+L'étude de la complexité d'un algorithme cherche à calculer l'utilisation en ressources d'un algorithme ou d'une machine de Turing en fonction de son entrée.
+La ressource en question sera généralement le temps.
+Dans ce cas, on parle de \textit{complexité temporelle}.
+Il est aussi possible d'étudier d'autres métriques que le temps.
+Par exemple, la quantité de mémoire requise est souvent intéressante à analyser.
+On parle dans ce cas là de \textit{complexité en espace}.
+Dans ce chapitre, nous nous concentrerons sur la complexité temporelle.
+
+\section{Notation $O$}
+
+Pour parler de \textit{complexité}, nous allons utiliser la notation $O$ afin d'étudier le comportement asymptotique des fonctions. Comme on le vera par la suite, on modélisera la complexité d'un algorithme comme une fonction de la taille de l'entrée de l'algorithme.
+
+L'ensemble $O(g)$ d'une fonction $g: \mathbb{N} \to \mathbb{N}$ est l'ensemble de toutes les fonctions $f$ telles que $f$ est, à partir d'un certain point, bornée par un multiple de la fonction $g$.
+
+\[
+O(g) \eqdef \{\ f\ |\ \exists n_0. \exists c. \forall n.\ n > n_0 \implies f(n) \leq c \cdot g(n)\ \}
+\]
+
+Autrement dit, on a que:
+\[
+f \in O(g) \iff \exists n_0. \exists c. \forall n.\ n > n_0 \implies f(n) \leq c \cdot g(n)
+\]
+
+À partir d'un certain point, la fonction $f$ est bornée par la fonction $g$ (multipliée par une constante).
+
+\section{Complexité dans le pire des cas}
+
+La complexité d'une machine de Turing correspond au temps d'exécution de la machine, c'est-à-dire que la complexité correspond au nombre de transitions prises par la machine durant l'exécution.
+Évidement, ce nombre dépends généralement de l'entrée.
+
+Décrire exactement le temps d'exécution d'une machine en fonction de l'entrée s'avèrerait trop complexe.
+Par simplification, on calcul la complexité en fonction de la \emph{la taille} de l'entrée, et non du contenu exact de l'entrée.
+Comme plusieurs entrées partagent la même taille, on considèrera le \emph{pire des cas}.
+
+Au lieu de calculer la complexité de manière exact, on utilisera généralement la notation $O$.
+Cette notation permet de s'affranchir de détails d'implémentation.
+
+\section{Classe de complexité $P$}
+
+La classe de complexité $P$ est l'ensemble des langages qui sont décidés par une machine de Turing déterministe dont la complexité dans le pire des cas est bornée par un polynôme.
+
+Intuitivement, la classe $P$ correspond approximativement au problèmes qui sont décidables de façon \emph{efficace}.
+
+\section{Classe de complexité $NP$}
+
+La classe de complexité $NP$ est l'ensemble des langages qui sont décidés par une machine de Turing \textbf{non-déterministe} dont la complexité dans le pire des cas est bornée par un polynôme.
+
+C'est aussi la classe des problèmes où la \textbf{vérification} d'une solution (elle-même de taille polynomiale) au problème par une machine de Turing déterministe prend un temps polynomial.
+
+Déterminer si $P = NP$ est un problème ouvert.
+La plupart des chercheurs pensent que $P \neq NP$, mais aucune preuve à ce jour n'existe.
+
+\section{Problèmes $NP$-complets}
+
+Parmi les problèmes $NP$, on considère un sous-ensemble des problèmes \textit{les plus durs}, qu'on appelle problèmes $NP$-complets.
+Un problème est $NP$-complet si et seulement si:
+\begin{enumerate}
+\item Le problème est dans $NP$, et
+\item Il est possible de résoudre tout problème dans $NP$ en temps polynomial sur un machine de Turing déterministe étant donné un oracle pour le premier problème.
+\end{enumerate} 
+
+\subsection{Théorème de Cook}
+
+Le théorème de Cook énonce que le problème \texttt{SAT} est $NP$-complet.
+Le langage du problème \texttt{SAT} consiste en l'ensemble des formules propositionnelles satisfiables.
+En général, on restreint le domaine aux formules en forme normale conjonctive: La formules est une conjonctions de clauses, et chaque clause est une disjonctions de littéraux. Chaque littéral est soit une variable, soit la négation d'une variable.
+
+La preuve du théorème montre comment, étant donné une machine de Turing non-déterministe qui s'exécute en un temps polynomial, construire une formule propositionnelle (en temps polynomial) qui soit satisfiable si et seulement si la machine de Turing a une exécution acceptante.
+
+Le théorème de Cook établi l'existence d'un premier problème $NP$-complet.
+
+\subsection{Réduction polynomiales}
+
+Une fois qu'on a établi qu'un problème $A$ est dans NP, pour démontrer que $A$ est NP-complet l'on procède généralement par \og \textit{réduction polynomiale} \fg{}:
+On montre qu'il est possible, étant donné un oracle pour le problème $A$, de décider un problème $NP$-complet $B$ en temps polynomial déterministe.
+
+Pour ce faire, on décrit une procédure effective qui prend pour entrée une instance de $B$ et la transforme (en temps polynomial) en instance de $A$.
+À ce moment là, l'oracle pour $A$ est appelé et sa réponse est utilisée pour déterminer le résultat.
+
+On établi donc que si $A$ est dans $P$, alors le problème $B$ est lui aussi dans $P$, et par conséquent tous les problèmes dans $NP$ sont dans $P$, et donc $P = NP$. Il suffit donc de trouver un seul algorithme polynomial qui décide d'un seul problème NP-complet afin de montrer que $P = NP$.
+Le fait qu'un tel algorithme n'aie pas encore été trouvé fait lourdement penser que $P \neq NP$.

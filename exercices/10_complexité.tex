@@ -1,0 +1,54 @@
+\documentclass[12pt,french,a4paper]{article}
+
+\usepackage{ae,lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{exsheets}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{logicpuzzle}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Définition de la commande pour le signe = avec "déf" aussi dessus.
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily déf}}}{=}}}
+
+\begin{document}
+
+\title{\vspace{-2cm}Série d'exercices n°10\\\large{Fondamentaux formels / Informatique théorique\\GymInf}}
+\date{\vspace{-1cm}24 septembre 2021}
+
+\maketitle
+
+\begin{question}
+Prouvez les propositions suivantes ou leur négation:
+\begin{enumerate}
+\item $n \in O(1)$
+\item $n \in O(n)$
+\item $n \in O(n^2)$
+\item $n^2 \in O(n)$
+\item $n^2 \in O(2^n)$
+\item $2^n \in O(n^2)$
+\item $2^n \in O(n!)$
+\item $n! \in O(2^n)$
+\end{enumerate}
+\end{question}
+
+\vspace{4cm}
+
+\begin{question}
+Montrez que le problème \texttt{3-SAT}, dont le langage consiste en l'ensemble des formules propositionnelles en forme normale conjonctive avec \textit{au plus 3 littéraux par clause} qui sont satisfiables, est NP-complet. Pour cela, argumentez premièrement que le problème est dans NP.
+Dans un deuxième temps, montrez qu'il existe une transformation polynomiale d'un problème NP-complet (comme SAT) à 3-SAT.
+\end{question}
+
+\end{document}
